@@ -1,0 +1,431 @@
+/*Resolucao para tela de 1200*/
+@media only screen and (max-width: 1200px)
+{
+    .banner
+    {
+        background-position: 100% 5%;
+    }
+}
+
+/*Resolucao para tablet*/
+@media only screen and (max-width: 991px)
+{
+    .banner
+    {
+        background-position: 100% 5%;
+    }
+
+    .logo
+    {
+        left: 20px;
+    }
+
+    .cabecalho .menu ul
+    {
+        margin-right: 0;
+    }
+
+    /*Config do texto quem somos*/
+    .imagem_somos
+    {
+        margin-top: 10%;
+    }
+
+    /*Config das skill*/
+    .card_skill h1,
+    .card_skill p
+    {
+        font-size: 18px;
+        padding: 20px 20px;
+    }
+
+    .card_skill p
+    {
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 2;
+        padding: 0 20px;
+    }
+
+    /*Config do card planos
+    Config do card blog*/
+    .conter_img_card
+    {
+        height: 170px;
+    }
+
+    .conter_img_card img
+    {
+        height: 150px;
+    }
+
+    .conter_instrutor
+    {
+        margin-top: -50px;
+    }
+
+    #titulo_card h1
+    {
+        padding: 10px 20px;
+        padding-bottom: 60px;
+    }
+
+    .dados_diario
+    {
+        width: 100%;
+        height: 60px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+    }
+
+    .dados_diario i,
+    .dados_diario span
+    {
+        font-size: 10px;
+        position: relative;
+    }
+
+    .dados_diario span
+    {
+        font-size: 10px;
+        font-weight: 300;
+        padding: 0 0 0 5px;
+        font-family: Roboto;
+    }
+
+    .dados_diario .preco
+    {
+        position: absolute;
+        bottom: 10px;
+    }
+
+    .progressbar
+    {
+        display: none;
+    }
+
+    /*Config do card blog*/
+    .dados_blog
+    {
+        display: block;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .dados_blog i
+    {
+        display: block;
+        font-size: 10px;
+    }
+
+    .dados_blog span
+    {
+        font-size: 10px;
+    }
+
+    .titulo_blog h1
+    {
+        height: 80px;
+    }
+
+    .dados_blog
+    {
+        margin-bottom: 50px;
+    }
+
+    /*Config do rodape*/
+    .contato_footer,
+    .ultimas_noticias,
+    .horario
+    {
+        width: 30%;
+    }
+
+    .logo_footer
+    {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px)
+{
+    .banner
+    {
+        height: 400px;
+        background-image: url(../../imagens/banner-principal-responsivo.png);
+        background-position: center;
+        background-size: cover;
+    }
+
+    .logo,
+    .conter_item_cabecalho
+    {
+        display: none;
+    }
+
+    .botao_menu_mobile,
+    .menu_mobile
+    {
+        display: block;
+    }
+
+    .texto_banner
+    {
+        text-align: center;
+        padding: 200px 0;
+    }
+
+    .texto_banner a
+    {
+        margin: 20px auto;
+    }
+
+    /*Config do texto quem somos*/
+    .texto_somos,
+    .imagem_somos
+    {
+        width: 100%;
+        text-align: center;
+    }
+
+    .imagem_somos
+    {
+        width: 80%;
+        height: 300px;
+        margin-top: -10px;
+    }
+
+    /*Config das skill*/
+    .card_skill
+    {
+        width: 49.7%;
+        border: 1px solid #fff;
+    }
+
+    /*Config do card planos
+    Config do card blog*/
+    .card_plano,
+    .card_noticia
+    {
+        position: relative;
+        width: 48%;
+    }
+
+    .conter_img_card
+    {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .conter_img_card img
+    {
+        width: 100%;
+        height: 190px;
+        display: flex;
+    }
+
+    .conter_instrutor
+    {
+        margin-top: -40px;
+    }
+
+    #titulo_card h1
+    {
+        height: 20px;
+    }
+
+    .dados_diario,
+    .dados_blog
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 10px;
+    }
+
+    .dados_diario i,
+    .dados_diario span,
+    .dados_blog i,
+    .dados_blog span
+    {
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 1.5;
+        color: #000;
+    }
+
+    .dados_diario span,
+    .dados_blog span
+    {
+        font-size: 12px;
+        font-weight: 300;
+        padding: 0 0 0 5px;
+        font-family: Roboto;
+    }
+
+    /*Config do depoimento*/
+    .depoimento_cliente
+    {
+        padding: 0 20px;
+    }
+}
+
+/*Resolucao para celular*/
+@media only screen and (max-width: 480px)
+{
+    .banner
+    {
+        height: 400px;
+        background-position: center;
+        position: relative;
+    }
+
+    .texto_banner
+    {
+        text-align: center;
+        margin: 0 auto;
+        padding: 200px 0;
+    }
+
+    .texto_banner a
+    {
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+
+    /*Config conheca nos*/
+    .conheca_academia
+    {
+        display: block;
+    }
+
+    .venha_fazer_parte,
+    .venha_fazer_visita
+    {
+        width: 100%;
+        margin-top: -10px;
+    }
+
+    /*Config das skill*/
+    .card_skill
+    {
+        width: 100%;
+        border: none;
+        padding-top: 30px;
+    }
+
+    /*Config do card planos
+    Config do card blog*/
+    .card_plano,
+    .card_noticia
+    {
+        width: 100%;
+    }
+
+    .dados_diario,
+    .dados_blog
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 10px;
+    }
+
+    .dados_diario i,
+    .dados_diario span,
+    .dados_blog i,
+    .dados_blog span
+    {
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 1.5;
+        color: #000;
+    }
+
+    .dados_diario span,
+    .dados_blog span
+    {
+        font-size: 12px;
+        font-weight: 300;
+        padding: 0 0 0 5px;
+        font-family: Roboto;
+    }
+
+    .dados_diario .preco
+    {
+        position: static;
+    }
+
+    /*Config do depoimento*/
+    .depoimento_cliente
+    {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /*Config do card blog*/
+    .titulo_blog h1
+    {
+        height: auto;
+    }
+
+    /*Footer*/
+    .logo_footer,
+    .contato_footer,
+    .horario
+    {
+        width: 100%;
+    }
+
+    .contato_footer h1,
+    .ultimas_noticias h1,
+    .horario h1
+    {
+        text-align: left;
+    }
+
+    .dados_social
+    {
+        margin: 0 auto;
+    }
+
+    .ultimas_noticias
+    {
+        display: none;
+    }
+
+    .icone_horario
+    {
+        width: 95%;
+    }
+}
+
+@media only screen and (max-width: 380px)
+{
+    .texto_banner
+    {
+        font-size: 20px;
+        padding: 200px 0;
+    }
+
+    .formulario_login
+    {
+        width: 85%;
+        margin: 10% auto 0;
+    }
+
+    .titulo_login:before,
+    .titulo_login:after
+    {
+        display: none;
+    }
+
+    .base_rodape
+    {
+        font-size: 9px;
+    }
+}

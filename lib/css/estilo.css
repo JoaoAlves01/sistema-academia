@@ -1,0 +1,984 @@
+*
+{
+    margin: 0 auto;
+    padding: 0;
+}
+
+.botao_menu_mobile
+{
+    display: none;
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(255, 255, 255, .5);
+    border-radius: 50%;
+    background: #171717;
+    bottom: 25px;
+    right: 25px;
+    z-index: 99999;
+}
+
+.menu_mobile
+{
+    display: none;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 50px;
+    height: 50px;
+    background: rgba(23, 23, 23, .9);
+    border-radius: 50%;
+    transition: .3s ease-in-out;
+    overflow: hidden;
+    z-index: 99998;
+}
+
+.item_menu_responsivo
+{
+    position: relative;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100vh;
+}
+
+.item_menu_responsivo li
+{
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.item_menu_responsivo a
+{
+    text-decoration: none;
+    color: #fff;
+}
+
+.mostrar_menu_mobile
+{
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+}
+
+/*Simbolo do menu hamburguer*/
+.hamburguer_topo,
+.hamburguer_meio,
+.hamburguer_base
+{
+    position: relative;
+    display: block;
+    top: 25px;
+    width: 30px;
+    height: 2px;
+    background: #fff;
+    transition: .5s;
+}
+
+.hamburguer_topo,
+.hamburguer_base
+{
+    display: block;
+    position: absolute;
+    background: #fff;
+}
+
+.hamburguer_topo
+{
+    top: 15px;
+    left: 0;
+    right: 0;
+}
+
+.hamburguer_base
+{
+    top: 35px;
+    left: 0;
+    right: 0;
+}
+
+.rotacionar_topo
+{top: 25px; transform: rotate(45deg);}
+.rotacionar_meio
+{transform: rotate(45deg);}
+.rotacionar_base
+{top: 25px; transform: rotate(-45deg);}
+
+.cabecalho
+{
+    width: 100%;
+    position: absolute;
+    z-index: 99999;
+    font-family: Roboto;
+}
+
+.conter_item_cabecalho
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.logo
+{
+    width: 200px;
+    height: 85px;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background: red;
+}
+
+.logo img {width: 100%;}
+
+.cabecalho .menu
+{
+    width: 95%;
+    margin: 0 auto;
+    background: #171717;
+}
+
+.cabecalho .menu ul
+{
+    width: 480px;
+    margin: 0 auto;
+    margin-right: 100px;
+}
+
+.cabecalho .menu li
+{
+    display: inline-block;
+    padding: 30px 10px;
+}
+
+.cabecalho .menu li a
+{
+    padding: 0 0 5px 0;
+    text-decoration: none;
+    color:#fff;
+    font-size: 14px;
+    text-align: center;
+    transition: .3s;
+}
+
+.cabecalho .menu li a:hover
+{
+    color: #a2a2a2;
+    border-bottom: 1px solid #f53240;
+}
+
+.banner
+{
+    height: 700px;
+    background-image: url(../../imagens/banner-principal.png);
+	background-repeat: no-repeat;
+	background-position: 100% 25%;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: Roboto;
+    position: relative;
+    z-index: 99998;
+}
+
+.texto_banner
+{
+    color: #fff;
+    text-align: left;
+    margin: 0 auto;
+    margin-left: 80px;
+    font-size: 30px;
+    padding-top: 400px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+}
+
+.texto_banner small
+{
+    display: block;
+    font-size: 18px;
+}
+
+.texto_banner a
+{
+    width: 200px;
+    padding: 10px 0;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-left: 0;
+    display: block;
+    background: #f53240;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    text-shadow: none;
+    font-weight: bold;
+    border: none;
+    border-radius: 3px;
+    text-transform: uppercase;
+    transition: .3s;
+}
+
+.texto_banner a:hover {background: #c02733;}
+
+/*Config conheca nos*/
+.conheca_academia
+{
+    display: flex;
+}
+
+.venha_fazer_parte,
+.venha_fazer_visita
+{
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    height: 300px;
+    margin: 0 auto;
+    background-position: center;
+    background-size: cover;
+    cursor: pointer;
+}
+
+.venha_fazer_parte a,
+.venha_fazer_visita a
+{
+    text-decoration: none;
+    font-family: Roboto;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, .6); 
+    color: #fff;
+}
+
+.venha_fazer_parte
+{
+    background-image: url(../../imagens/faca_parte.png);
+}
+
+.venha_fazer_visita
+{
+    background-image: url(../../imagens/conheca_profissionais.png);
+}
+
+.venha_fazer_parte:hover a,
+.venha_fazer_visita:hover a
+{
+    transform: scale(1.1);
+}
+
+.layer
+{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 300px;
+    background: rgba(0, 0, 0, .4);
+}
+
+.layer small
+{
+    display: block;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/*Planos da academia
+  Quem somos
+  blog
+  contato*/
+.planos,
+.quem_somos,
+.blog,
+.contato
+{
+    padding: 80px 20px;
+    margin: 0 auto;
+    background: #f7f4f4;
+    font-family: Roboto;
+}
+
+.planos h1,
+.quem_somos h1,
+.blog h1,
+.contato h1
+{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: bold;
+    font-style: oblique;
+    letter-spacing: 8px;
+    color: #cfcfcf;
+}
+
+.linha
+{
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/*Config do card planos
+Config do card blog*/
+.card_plano,
+.card_noticia
+{
+    position: relative;
+    width: 22%;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding-bottom: 20px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+    border: 1px solid #dcdcdc;
+    border-right: none;
+    overflow: hidden;
+    transition: .3s;
+    cursor: default;
+}
+
+.card_plano:hover,
+.card_noticia:hover
+{
+    box-shadow: 10px 8px 16px 0 rgba(0, 0, 0, .5);
+}
+
+.card_plano:hover .carregar
+{
+    animation: progressbar 2s infinite;
+}
+
+.conter_img_card
+{
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.conter_img_card img
+{
+    width: 100%;
+    height: 190px;
+    display: flex;
+}
+
+.conter_instrutor
+{
+    margin-top: -40px;
+}
+
+.circulo_img_instrutor
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #dcdcdc;
+    overflow: hidden;
+}
+
+.circulo_img_instrutor img
+{
+    width: 100%;
+    display: flex;
+}
+
+.conter_instrutor span
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 5px 0;
+}
+
+#titulo_card h1
+{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    letter-spacing: 2px;
+    padding: 20px 20px;
+    color: #000;
+}
+
+.dados_diario,
+.dados_blog
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10px;
+}
+
+.dados_diario i,
+.dados_diario span,
+.dados_blog i,
+.dados_blog span
+{
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #000;
+}
+
+.dados_diario span,
+.dados_blog span
+{
+    font-size: 12px;
+    font-weight: 300;
+    padding: 0 0 0 5px;
+    font-family: Roboto;
+}
+
+.dados_diario .preco
+{
+    font-size: 15px;
+    font-weight: bold;
+    color: #f53240;
+}
+
+.progressbar
+{
+    position: relative;
+    width: 85%;
+    height: 6px;
+    background-image: url(../../imagens/progessbar.png);
+    background-position: center;
+    background-size: 3% 100%;
+    background-repeat: repeat-x;
+    border-radius: 3px;
+    border: 1px solid #dcdcdc;
+    overflow: hidden;
+}
+
+.carregar
+{
+    position: absolute;
+    width: 0;
+    height: 6px;
+    background: linear-gradient(to left, #f53240 , #ad232d);
+}
+
+/*Mexer no progras bar dos card*/
+@keyframes progressbar
+{
+    0% {width: 0;}
+    100% {width: 100%;}
+}
+
+/*Config das skill*/
+.card_skill
+{
+    width: 25%;
+    height: auto;
+    font-family: Roboto;
+    margin: 0 auto;
+    padding-top: 60px;
+    padding-bottom: 30px;
+}
+
+.card_skill:hover h1
+{
+    color: #f53240;
+}
+
+.card_skill h1,
+.card_skill p
+{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 0;
+    color: #fff;
+}
+
+.card_skill p
+{
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 2;
+    padding: 0 20px;
+}
+
+.cinza_claro 
+{
+    background: #1e1e1d;
+}
+
+.cinza_escuro
+{
+    background: #1a1a1a;
+}
+
+.icon_skill
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.icon_skill img
+{
+    width: 100%;
+    display: flex;
+}
+
+/*Config do texto quem somos*/
+.texto_somos,
+.imagem_somos
+{
+    width: 40%;
+    text-align: left;
+    font-weight: 300;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.imagem_somos
+{
+    height: 300px;
+    background-image: url(../../imagens/academia.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+/*Config do depoimento*/
+.depoimento
+{
+    position: relative;  
+    height: 400px;
+    background-image: url(../../imagens/nopain-nogain.png);
+    background-size: cover;
+    background-position: center; 
+}
+
+.layer_depoimento
+{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    top: 0;
+    width: 100%;
+    height: 400px;
+    background: rgba(0, 0, 0, .6);
+    overflow: hidden;
+}
+
+.depoimento_cliente
+{
+    display: none;
+    width: 100%;
+    text-align: center;
+    text-shadow: 2px 2px 2px rgba(0,0,0, .5);
+    font-size: 16px;
+    font-weight: 300;
+    font-family: Roboto;
+    line-height: 2;
+    margin: 0 auto;
+    padding: 0 15%;
+    color: rgba(255, 255, 255, .5);
+}
+
+.circulo_depoimento
+{
+    width: 100px;
+    height: 100px;
+    border: 1px solid #a2a2a2;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.circulo_depoimento img 
+{
+    width: 100%;
+    display: flex;
+}
+
+.depoimento_cliente span
+{
+    text-align: center;
+    padding: 20px 0;
+    color: #fff;
+}
+
+/*Config do card blog*/
+.blog_link
+{
+    text-decoration: none;
+}
+
+.titulo_blog h1
+{
+    font-size: 16px;
+    font-style: normal;
+    text-transform: none;
+    text-align: left;
+    letter-spacing: 0;
+    padding: 0 20px;
+    color: #000;
+}
+
+.dados_blog
+{
+    margin-bottom: 50px;
+}
+
+.mais_noticia
+{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 3px;
+    padding: 10px 20px;
+    color: #fff;
+    background: #f53240;
+}
+
+.mais_noticia:hover 
+{
+    background: #c02733;
+}
+
+/*Config contato*/
+.contato
+{
+    padding: 80px  0 0 0;
+}
+
+.mapa
+{
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+}
+
+.mapa_local
+{
+    width: 100%;
+    height: 400px;
+    border: 1px solid rgba(0, 0, 0, .1);
+}
+
+/*Config do footer*/
+.rodape
+{
+    font-family: Roboto;
+    padding: 40px 20px 20px 20px;
+    background: #171717;
+}
+
+.logo_footer,
+.contato_footer,
+.ultimas_noticias,
+.horario
+{
+    width: 25%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.logo_footer
+{
+    width: 15%;
+}
+
+.logo_footer img
+{
+    width: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*Config do contato footer*/
+.contato_footer h1,
+.ultimas_noticias h1,
+.horario h1
+{
+    text-align: left;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.5;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 5px;
+    color: #fff;
+}
+
+.contato_footer i
+{
+    display: block;
+    font-size: 16px;
+    padding-bottom: 10px;
+    color: rgba(255, 255, 255, .8);
+}
+
+.contato_footer span
+{
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.5;
+    padding-left: 10px;
+}
+
+.dados_contato
+{
+    margin-top: 20px;
+}
+
+.dados_social
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    margin: 0 auto;
+    margin-left: 0;
+    padding: 20px 0;
+}
+
+.icone_social
+{
+    position: relative;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    transition: .3s;
+}
+
+.icone_social i
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    transition: .3s;
+}
+
+.icone_social:hover
+{
+    border: 1px solid #f53240;
+    background: #f53240;
+    color: #fff;
+}
+
+/*Config do noticias footer*/
+.ultimas_noticias a
+{
+    display: block;
+    text-decoration: none;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.5;
+    border-bottom: 1px solid #fff;
+    padding: 10px 0;
+    color: #fff;
+}
+
+.ultimas_noticias a:first-child
+{
+    padding: 20px 0 10px 0;
+}
+
+.ultimas_noticias a:hover
+{
+    color: rgba(255, 255, 255, .5);
+    border-bottom: 1px solid rgba(255, 255, 255, .5);
+}
+
+/*Config do hotario footer*/
+.icone_horario
+{
+    position: relative;
+    width: 90%;
+    border-radius: 5px;
+    padding: 5px 0 5px 10px;
+    margin-top: 5px;
+    color: #fff;
+    background: #252525;
+}
+
+.icone_horario:first-child
+{
+    margin-top: 20px;
+}
+
+.icone_horario span
+{
+    position: absolute;
+    font-family: Roboto;
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+.dia_semana
+{
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hora_semana
+{
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.base_rodape
+{
+    text-align: center;
+    font-family: Roboto;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.5;
+    padding: 10px 20px;
+    background: #f7f4f4;
+}
+
+/*Config tela de login*/
+.formulario_login
+{
+    width: 350px;
+    height: auto;
+    margin: 0 auto;
+    margin: 5% auto 0;
+    font-family: Roboto;
+    position: relative;
+    padding: 20px 10px;
+    overflow: hidden;
+}
+
+.titulo_login
+{
+    width: 100%;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 300;
+    color: #73879c;
+    position: relative;
+}
+
+.titulo_login:before
+{
+    content: " ";
+    width: 30px;
+    height: 2px;
+    border-top: 2px solid #73879c;
+    position: absolute;
+    top: 20px;
+    left: -10px;
+}
+
+.titulo_login:after
+{
+    content: " ";
+    width: 30px;
+    height: 2px;
+    border-top: 2px solid #73879c;
+    position: absolute;
+    top: 20px;
+    right: -10px;
+}
+
+.botao_login,
+.botao_voltar
+{
+    width: 100%;
+    height: 40px;
+    font-size: 20px;
+    background: #6bc951;
+    box-shadow: 0 2px 0 #3F6F21;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.botao_voltar
+{
+    background: #c95151;
+    box-shadow: 0 2px 0 #6f2121;
+}
+
+.formulario_login hr
+{
+    background: #73879c;
+    margin-top: 20px;
+}
+
+.opcao_usuario,
+.opcao_usuario a
+{
+    font-size: 12px;
+    text-align: center;
+    color: #73879c;
+    text-decoration: none;
+    padding: 10px 0 0 0;
+}
+
+.botao_login:hover {background: #5AAC44;}
+
+.botao_voltar:hover {background: #ac4444;}
+
+.conter_campos_formulario
+{padding: 30px 0;}
+
+.label_sistema
+{
+    display: block;
+    color: #73879c;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 300;
+}
+
+.campo_sistema
+{
+    display: block;
+    width: 95%;
+    padding: .5rem;
+    border-radius: 3px;
+    line-height: 1.5;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,.08) inset;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-left: 0;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
