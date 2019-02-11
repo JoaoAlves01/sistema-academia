@@ -200,8 +200,7 @@
     /*Config das skill*/
     .card_skill
     {
-        width: 49.7%;
-        border: 1px solid #fff;
+        width: 50%;
     }
 
     /*Config do card planos
@@ -271,6 +270,12 @@
     .depoimento_cliente
     {
         padding: 0 20px;
+    }
+
+    .formulario_login
+    {
+        width: 45%;
+        margin: 10% auto 0;
     }
 }
 
@@ -401,6 +406,12 @@
     .icone_horario
     {
         width: 95%;
+    }
+
+    .formulario_login
+    {
+        width: 70%;
+        margin: 10% auto 0;
     }
 }
 
