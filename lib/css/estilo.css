@@ -868,6 +868,10 @@ Config do card blog*/
     background: #f7f4f4;
 }
 
+
+
+
+
 /*Config tela de login*/
 .formulario_login
 {
@@ -949,6 +953,7 @@ Config do card blog*/
     color: #73879c;
     text-decoration: none;
     padding: 10px 0 0 0;
+    outline: 0;
 }
 
 .botao_login:hover {background: #5AAC44;}
@@ -958,6 +963,193 @@ Config do card blog*/
 .conter_campos_formulario
 {padding: 30px 0;}
 
+
+
+
+
+
+
+/*Configuração do sistema*/
+/*Menu do sistema*/
+.menu_sistema
+{
+    width: 200px;
+    min-height: 1200px;
+    font-family: Roboto;
+    padding: 40px 0 10px 0;
+    float: left;
+    background: #2a3f54;
+}
+
+.img_usuario_sistema
+{
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    margin-left: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.img_usuario_sistema img
+{
+    width: 100%;
+    display: flex;
+}
+
+.nome_usuario
+{
+    font-size: 14px;
+    text-align: left;
+    padding: 20px;
+    color: #fff;
+}
+
+.nome_usuario small
+{
+    display: block;
+    font-size: 12px;
+    color: rgba(255, 255, 255, .5);
+}
+
+#menu_sistema
+{
+    padding: 10px 0 0 0;
+    border-left: 1px solid #1f2f3f;   
+}
+
+#menu_sistema li
+{
+    text-align: left;
+    padding: 10px 20px;
+    cursor: pointer
+}
+
+#menu_sistema i
+{
+    font-size: 18px;
+    color: #fff;
+}
+
+#menu_sistema a
+{
+    text-decoration: none;
+    font-size: 14px;
+    font-family: Roboto;
+    padding-left: 10px;
+    color: #fff;
+}
+
+#menu_sistema li:hover
+{
+    background: rgba(255, 255, 255, .1);
+}
+
+.barra_info
+{   
+    height: 60px;
+    border-bottom: 1px solid #b6b4b6;
+    background: #ededed;
+}
+
+.notificacao_usuario
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 60px;
+    margin: 0 auto;
+    margin-right: 40px;
+    cursor: pointer;
+}
+
+.notificacao_usuario:hover
+{
+    background: #d9dee4;
+}
+
+.notificacao_usuario i
+{
+    position: relative;
+    font-size: 20px;
+    color: #a29ca5;
+}
+
+.notificacao_usuario span
+{
+    position: absolute;
+    display: inline-block;
+    right: -10px;
+    top: -10px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 13px;
+    padding: 2px 6px;
+    background: #1ABB9C;
+    border: 1px solid #1ABB9C;
+    border-radius: 50%;
+    color: #fff;
+}
+
+.envelope
+{
+    height: auto;
+    font-family: Roboto;
+    margin-left: 200px;
+    padding: 20px;
+    background: #f7f7f7;
+}
+
+.envelope_formulario
+{
+    padding: 20px;
+    border: 1px solid #d4d4d4;
+    background: #fff;
+}
+
+.esquerda_update,
+.direita_update
+{
+    width: 48%;
+    margin-left: 0;
+}
+
+.direita_update
+{
+    margin-right: 0;
+}
+
+
+
+
+
+
+
+
+
+/*Config dos titulos*/
+.titulo_formulario,
+.titulo_sub_formulario
+{
+    text-align: left;
+    font-weight: 300;
+    line-height: 1.5;
+    padding-bottom: 20px;
+    color: #73879c;
+}
+
+.titulo_sub_formulario
+{
+    font-size: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #d4d4d4;
+}
+
+/*Config das label*/
 .label_sistema
 {
     display: block;
@@ -967,6 +1159,7 @@ Config do card blog*/
     font-weight: 300;
 }
 
+/*Config dos campos*/
 .campo_sistema
 {
     display: block;
@@ -981,4 +1174,73 @@ Config do card blog*/
     margin-left: 0;
     margin-bottom: 20px;
     font-size: 14px;
+    outline: 0;
+    transition: .3s;
+}
+
+.campo_sistema:focus,
+.update_arquivo:focus
+{
+    border: 1px solid #73879c;   
+}
+
+/*Campo para uplod*/
+.update_arquivo
+{
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border: 1px solid #d4d4d4;
+    margin-top: 20px;
+    color: transparent;
+    cursor: pointer;
+    outline: 0;
+}
+
+.update_arquivo::-webkit-file-upload-button
+{
+    visibility: hidden;
+}
+
+.update_arquivo::before
+{
+    content: '\f1c5';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: Fontawesome;
+    font-size: 60px;
+    padding: 5px 8px;
+    color: #73879c;
+}
+
+.update_arquivo::after
+{
+    content: 'Selecione a imagem';
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 14px;
+    padding: 5px 8px;
+    color: #73879c;
+}
+
+/*Config dos botões*/
+.botao
+{
+    width: 100px;
+    height: 28px;
+    text-align: center;
+    font-family: Roboto;
+    margin: 0 auto;
+    margin-right: 10px;
+    border: none;
+    border-radius: 3px;
+    background: #1ABB9C;
+    color: #fff;
+    cursor: pointer;
 }
