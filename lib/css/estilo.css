@@ -963,21 +963,22 @@ Config do card blog*/
 .conter_campos_formulario
 {padding: 30px 0;}
 
-
-
-
-
-
-
 /*Configuração do sistema*/
 /*Menu do sistema*/
+.envelope_body
+{
+    height: auto;
+    min-height: 300px;
+    display: flex;
+    overflow: hidden;
+}
+
 .menu_sistema
 {
     width: 200px;
-    min-height: 1200px;
+    height: 100%;
     font-family: Roboto;
     padding: 40px 0 10px 0;
-    float: left;
     background: #2a3f54;
 }
 
@@ -1095,22 +1096,6 @@ Config do card blog*/
     color: #fff;
 }
 
-.envelope
-{
-    height: auto;
-    font-family: Roboto;
-    margin-left: 200px;
-    padding: 20px;
-    background: #f7f7f7;
-}
-
-.envelope_formulario
-{
-    padding: 20px;
-    border: 1px solid #d4d4d4;
-    background: #fff;
-}
-
 .esquerda_update,
 .direita_update
 {
@@ -1123,6 +1108,41 @@ Config do card blog*/
     margin-right: 0;
 }
 
+.box_contato
+{
+    width: 30%;
+    margin: 0 auto;
+    margin-left: 0;
+    margin-top: 40px;
+    border-radius: 3px;
+    border: 1px solid #d4d4d4;
+}
+
+.box_contato h1
+{
+    text-align: left;
+    font-size: 16px;
+    color: #73879c;
+    line-height: 1.5;
+    font-weight: 300;
+    padding: 10px 20px;
+}
+
+.box_img_anuncio
+{
+    width: 100%;
+    height: 140px;
+    margin: 0 auto;
+    border-top: 1px solid #d4d4d4;
+    overflow: hidden;
+}
+
+.base_box_anuncio
+{
+    padding: 10px 20px;
+    background: #ededed;
+    border-top: 1px solid #d4d4d4;
+}
 
 
 
@@ -1130,6 +1150,20 @@ Config do card blog*/
 
 
 
+/*Config box dos campos*/
+.envelope
+{
+    font-family: Roboto;
+    padding: 20px;
+    background: #f7f7f7;
+}
+
+.envelope_formulario
+{
+    padding: 20px;
+    border: 1px solid #d4d4d4;
+    background: #fff;
+}
 
 /*Config dos titulos*/
 .titulo_formulario,
@@ -1150,7 +1184,8 @@ Config do card blog*/
 }
 
 /*Config das label*/
-.label_sistema
+.label_sistema,
+.span_sistema
 {
     display: block;
     color: #73879c;
@@ -1182,6 +1217,12 @@ Config do card blog*/
 .update_arquivo:focus
 {
     border: 1px solid #73879c;   
+}
+
+/*Centralizar imagem*/
+.centralizar_img
+{
+    width: 100%;
 }
 
 /*Campo para uplod*/
@@ -1243,4 +1284,22 @@ Config do card blog*/
     background: #1ABB9C;
     color: #fff;
     cursor: pointer;
+}
+
+.excluir_botao
+{
+    background-color: #c9302c;
+    border-color: #ac2925;
+    margin: 0 auto;
+}
+
+/*Efeito ao passar mouse*/
+.botao_azul:hover
+{
+    background: #17947c;
+}
+
+.botao_vermelho:hover
+{
+    background: #b02b27;
 }
