@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <script src="lib/js/jquery.js"></script>
-        <script src="lib/js/controle.js"></script>
+        <script src="lib/js/controle_interface.js"></script>
     </head>
     <body>
         <header>
