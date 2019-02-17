@@ -147,6 +147,86 @@
     {
         display: none;
     }
+
+    /*Configuração do sistema*/
+    /*Menu do sistema*/
+    .menu_sistema
+    {
+        display: none;
+    }
+
+    .img_usuario_sistema
+    {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        margin-left: 20px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .img_usuario_sistema img
+    {
+        width: 100%;
+        display: flex;
+    }
+
+    .nome_usuario
+    {
+        font-size: 14px;
+        text-align: left;
+        padding: 20px;
+        color: #fff;
+    }
+
+    .nome_usuario small
+    {
+        display: block;
+        font-size: 12px;
+        color: rgba(255, 255, 255, .5);
+    }
+
+    #menu_sistema
+    {
+        padding: 10px 0 0 0;
+        border-left: 1px solid #1f2f3f;   
+    }
+
+    #menu_sistema li
+    {
+        text-align: left;
+        padding: 10px 20px;
+        cursor: pointer
+    }
+
+    #menu_sistema i
+    {
+        font-size: 18px;
+        color: #fff;
+    }
+
+    #menu_sistema a
+    {
+        text-decoration: none;
+        font-size: 14px;
+        font-family: Roboto;
+        padding-left: 10px;
+        color: #fff;
+    }
+
+    .mini_foto_anuncio
+    {
+        top: 55%;
+        height: 200px;
+    }
+
+
+
+    /*Campo para uplod*/
+    .update_arquivo
+    {
+        height: 200px;
+    }
 }
 
 @media only screen and (max-width: 768px)
@@ -276,6 +356,22 @@
     {
         width: 45%;
         margin: 10% auto 0;
+    }
+
+    /*Config dos card de anuncio*/
+    .box_contato
+    {
+        width: 48%;
+    }
+
+    .box_img_anuncio
+    {
+        height: 180px;
+    }
+
+    .box_contato img
+    {
+        height: 180px;
     }
 }
 
@@ -412,6 +508,50 @@
     {
         width: 70%;
         margin: 10% auto 0;
+    }
+
+    /*Config do quiosque*/
+    .esquerda_update,
+    .direita_update
+    {
+        width: 100%;
+    }
+
+    .mini_foto_anuncio
+    {
+        height: 300px;
+    }
+
+    .box_contato
+    {
+        width: 100%;
+    }
+
+    .box_img_anuncio
+    {
+        height: 180px;
+    }
+
+    .box_contato img
+    {
+        height: 180px;
+    }
+
+
+
+
+    
+
+    /*Campo para uplod*/
+    .update_arquivo
+    {
+        height: 300px;
+    }
+
+    /*Config dos botões*/
+    .botao
+    {
+        margin: 0 auto;
     }
 }
 
