@@ -1,10 +1,6 @@
 <?php
-    session_start();
-    include_once 'conexao.php';
-    
-    $msg_sucesso = "sucesso";
-    $msg_atencao = "atencao";
-    $msg_erro = "erro";
+include_once 'conexao.php';
+session_start();
 
     if(isset($_GET['f']))
     {

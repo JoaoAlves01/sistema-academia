@@ -1,6 +1,5 @@
 <?php
     include('php/menu_sistema.php');
-    include('php/controle_sistema.php');
 ?>
                     <h1 class="titulo_formulario">Administrar Quiosque</h1>
                     

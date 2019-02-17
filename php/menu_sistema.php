@@ -1,3 +1,7 @@
+<?php
+include('php/controle_sistema.php');
+?>
+
 <!DOCTYPE html>
     <html>
     <head>
