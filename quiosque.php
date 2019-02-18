@@ -16,7 +16,7 @@
                                 <div class="direita_update">
                                     <div class="conter_campos_formulario">
                                         <label class="label_sistema" for="nome_img_update">Nome</label>
-                                        <input type="text" class="campo_sistema" id="nome_img_update" name="nome_img_update" maxlength="35" value="<?php echo $_SESSION['nome']; ?>" />
+                                        <input type="text" class="campo_sistema" id="nome_img_update" name="nome_img_update" maxlength="35" value="<?php echo $_SESSION['nome_img_upload']; ?>" />
 
                                         <div class="linha">
                                             <button type="button" class="botao botao_azul" name="upload_img" onclick="verificarUplod();">Enviar</button>

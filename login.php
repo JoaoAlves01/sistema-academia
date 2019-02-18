@@ -17,22 +17,24 @@
             <div class="linha">
                 <h1 class="titulo_login">Login no Sistema GYM</h1>
             </div>
-            <div class="conter_campos_formulario">
-                <label class="label_sistema" for="usuario">Usuário</label>
-                <input type="text" class="campo_sistema" id="usuario" placeholder="Informe seu usuário">
+            <form method="POST" action="php/controle_sistema.php?f=login">
+                <div class="conter_campos_formulario">
+                    <label class="label_sistema" for="usuario">Usuário</label>
+                    <input type="text" class="campo_sistema" id="usuario" name="usuario" placeholder="Informe seu usuário">
 
-                <label class="label_sistema" for="senha">Senha</label>
-                <input type="password" class="campo_sistema" id="senha" placeholder="Informe sua senha">
+                    <label class="label_sistema" for="senha">Senha</label>
+                    <input type="password" class="campo_sistema" id="senha" name="senha" placeholder="Informe sua senha">
 
-                <div class="linha">
-                    <button type="submit" class="botao_login" id="login">Fazer Login</button>
-                    <button type="submit" class="botao_voltar" id="voltar_index">Voltar</button>
+                    <div class="linha">
+                        <button type="submit" class="botao_login" id="login">Fazer Login</button>
+                        <button type="button" class="botao_voltar" id="voltar_index">Voltar</button>
+                    </div>
+                    <hr>
+                    <div class="linha">
+                        <span class="opcao_usuario">Novo no sistema? Faça seu cadastro e tenha suas series em mãos</span>
+                    </div>
                 </div>
-                <hr>
-                <div class="linha">
-                    <span class="opcao_usuario">Novo no sistema? Faça seu cadastro e tenha suas series em mãos</span>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </body>

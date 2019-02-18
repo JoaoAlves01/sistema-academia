@@ -30,7 +30,7 @@ include('php/controle_sistema.php');
                         <img src="imagens/0001.png" alt="usuario_sistema" />
                     </div>
                     <div class="linha">
-                        <span class="nome_usuario">Boa Tarde,<small>Joao Pedro Alves de Sousa</small></span>
+                        <span class="nome_usuario"><?php echo $_SESSION['horario_login']; ?><small><?php echo $_SESSION['nome']; ?></small></span>
                     </div>
 
                     <nav id="menu_sistema">
@@ -48,6 +48,12 @@ include('php/controle_sistema.php');
                 <div class="barra_info">
                     <div class="notificacao_usuario">
                         <i class="fa fa-envelope-o" aria-hidden="true"><span>6</span></i>
+                    </div>
+
+                    <div class="botao_hamburger">
+                        <span class="hamburguer_topo"></span>
+                        <span class="hamburguer_meio"></span>
+                        <span class="hamburguer_base"></span>
                     </div>
                 </div>
 

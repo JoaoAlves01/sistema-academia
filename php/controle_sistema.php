@@ -13,12 +13,63 @@ session_start();
         }
     }
 
+    function login()
+    {
+        $conexao = conexao();
+        extract($_POST);
+
+        if($usuario != "" || $senha != "")
+        {
+            $sql = "SELECT * FROM usuario WHERE usuario = '".$usuario."' AND senha = '".$senha."'";
+            $resultado = $conexao->query($sql);
+
+            if($resultado->num_rows)
+            {
+                $resultado_login = $resultado->fetch_array();
+                $_SESSION['id'] = $resultado_login['id'];
+                $_SESSION['nome'] = $resultado_login['nome'];
+                $_SESSION['usuario'] = $resultado_login['usuario'];
+                $_SESSION['senha'] = $resultado_login['senha'];
+
+                /*Pegar horário e informar periodo*/
+                date_default_timezone_set("America/Sao_Paulo");
+                $hora_atual = date("H");
+
+                if($hora_atual >= 5 && $hora_atual <= 11)
+                    $_SESSION['horario_login'] = "Bom dia,";
+
+                else if($hora_atual >= 12 && $hora_atual <= 17)
+                    $_SESSION['horario_login'] = "Boa tarde,";
+
+                else
+                    $_SESSION['horario_login'] = "Boa noite,";
+
+                $conexao = conexao();
+				$sql = "SELECT * FROM usuario WHERE id = '".$_SESSION['id']."'";
+
+				$resultado = $conexao->query($sql);
+				$resul = $resultado->fetch_array();
+
+				header("Location: ../tela_principal.php");
+            }
+        }
+
+        else
+            header("location: ../login.php?login=n");
+    }
+
+    function deslogar()
+    {
+        session_destroy();
+        header("location: ../index.php");
+    }
+
     function uploadImagem()
     {
         $conexao = conexao();
         extract($_POST);
 
-        $_SESSION['nome'] = "";
+        $_SESSION['nome_img_upload'] = "";
 
         if($nome_img_update != '' || $_FILES["anexar_arquivo"]["error"] == 0)
         {
@@ -60,7 +111,7 @@ session_start();
 
                         else
                         {
-                            $_SESSION['nome'] = $nome_img_update;
+                            $_SESSION['nome_img_upload'] = $nome_img_update;
                             header('location: ../tela_principal.php'); 
                         }
                     }

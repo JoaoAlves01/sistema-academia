@@ -76,9 +76,10 @@ section
 {
     position: relative;
     display: block;
-    top: 25px;
+    top: 23px;
     width: 30px;
-    height: 2px;
+    height: 4px;
+    border-radius: 3px;
     background: #fff;
     transition: .5s;
 }
@@ -93,24 +94,24 @@ section
 
 .hamburguer_topo
 {
-    top: 15px;
+    top: 13px;
     left: 0;
     right: 0;
 }
 
 .hamburguer_base
 {
-    top: 35px;
+    top: 33px;
     left: 0;
     right: 0;
 }
 
 .rotacionar_topo
-{top: 25px; transform: rotate(45deg);}
+{top: 23px; transform: rotate(45deg);}
 .rotacionar_meio
 {transform: rotate(45deg);}
 .rotacionar_base
-{top: 25px; transform: rotate(-45deg);}
+{top: 23px; transform: rotate(-45deg);}
 
 .cabecalho
 {
@@ -1055,6 +1056,31 @@ Config do card blog*/
     height: 60px;
     border-bottom: 1px solid #b6b4b6;
     background: #ededed;
+}
+
+.botao_hamburger
+{
+    display: none;
+    position: relative;
+    top: -55px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    margin: 0 auto;
+    margin-left: 10px;
+}
+
+.botao_hamburger .hamburguer_topo,
+.botao_hamburger .hamburguer_meio,
+.botao_hamburger .hamburguer_base
+{
+    background: #2A3F54;
+}
+
+.botao_hamburger .hamburguer_topo,
+.botao_hamburger .hamburguer_base
+{
+    background: #2A3F54;
 }
 
 .notificacao_usuario
