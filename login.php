@@ -1,3 +1,9 @@
+<?php
+    $f="";
+    if(isset($_GET['f']))
+        $f = $_GET['f'];
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +15,39 @@
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="lib/js/jquery.js"></script>
-    <script src="lib/js/controle.js"></script>
+    <script src="lib/js/controle_interface.js"></script>
+    <script src="lib/js/func_controle.js"></script>
 </head>
 <body>
+
+    <?php
+    if($f == 'ok'){ ?>
+        <div class='alerta_fundo'> 
+            <div class='mensagem sucesso'>
+                <span class='texto_msg'>Login realizado com sucesso</span>
+            </div>
+        </div>
+    <?php 
+    } 
+
+    else if($f == 'erro'){ ?>
+        <div class='alerta_fundo'> 
+            <div class='mensagem erro'>
+                <span class='texto_msg'>Usuário ou senha inválido!</span>
+            </div>
+        </div>
+    <?php
+    } 
+    
+    else if($f == 'aten'){?>
+        <div class='alerta_fundo'> 
+            <div class='mensagem atencao'>
+                <span class='texto_msg'>Preencha todos os campos!</span>
+            </div>
+        </div>
+    <?php
+    } ?>
+
     <div class="formulario_login">
         <div class="conter_formulario">
             <div class="linha">

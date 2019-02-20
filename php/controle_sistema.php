@@ -48,14 +48,17 @@ session_start();
 				$sql = "SELECT * FROM usuario WHERE id = '".$_SESSION['id']."'";
 
 				$resultado = $conexao->query($sql);
-				$resul = $resultado->fetch_array();
-
-				header("Location: ../tela_principal.php");
+                $resul = $resultado->fetch_array();
+                
+                header("location: ../tela_principal.php");
             }
+
+            else
+                header("location: ../login.php?f=erro");
         }
 
         else
-            header("location: ../login.php?login=n");
+            header("location: ../login.php?f=aten");
     }
 
     function deslogar()
@@ -68,8 +71,6 @@ session_start();
     {
         $conexao = conexao();
         extract($_POST);
-
-        $_SESSION['nome_img_upload'] = "";
 
         if($nome_img_update != '' || $_FILES["anexar_arquivo"]["error"] == 0)
         {
@@ -106,7 +107,7 @@ session_start();
 
                         if($resultado)
                         {
-                            header('location: ../quiosque.php');
+                            header('location: ../quiosque.php?f=ok');
                         }
 
                         else

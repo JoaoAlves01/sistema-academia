@@ -1,5 +1,10 @@
 <?php
 include('php/controle_sistema.php');
+
+$f="";
+if(isset($_GET['f']))
+    $f = $_GET['f'];
+
 ?>
 
 <!DOCTYPE html>
@@ -17,12 +22,36 @@ include('php/controle_sistema.php');
         <script src="lib/js/func_controle.js"></script>
     </head>
     <body>
-        <div class='alerta_fundo'> 
-            <div class='mensagem'>
-                <span class='texto_msg'></span>
-            </div>
-        </div>
 
+        <?php
+        if($f == 'ok'){ ?>
+            <div class='alerta_fundo'> 
+                <div class='mensagem sucesso'>
+                    <span class='texto_msg'>Cadastrado com sucesso!</span>
+                </div>
+            </div>
+        <?php 
+        } 
+
+        else if($f == 'erro'){?>
+            <div class='alerta_fundo'> 
+                <div class='mensagem erro'>
+                    <span class='texto_msg'>Erro ao conectar no banco!</span>
+                </div>
+            </div>
+        <?php
+        } 
+        
+        else if($f == 'aten'){?>
+            <div class='alerta_fundo'> 
+                <div class='mensagem atencao'>
+                    <span class='texto_msg'>Preencha todos os campos!</span>
+                </div>
+            </div>
+        <?php
+        }
+        ?>
+        
         <div class="envelope_body">
             <header>
                 <div class="menu_sistema">
@@ -36,7 +65,7 @@ include('php/controle_sistema.php');
                     <nav id="menu_sistema">
                         <ul>
                             <li><i class="fa fa-desktop" aria-hidden="true"><a href="quiosque.php">Quiosque</a></i></li>
-                            <li><i class="fa fa-clone" aria-hidden="true"><a href="#">Planos</a></i></li>
+                            <li><i class="fa fa-clone" aria-hidden="true"><a href="plano.php">Planos</a></i></li>
                             <li><i class="fa fa-quote-right" aria-hidden="true"><a href="#">Depoimentos</a></i></li>
                             <li><i class="fa fa-home" aria-hidden="true"><a href="#">Blog</a></i></li>
                         </ul>

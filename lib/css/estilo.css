@@ -1150,6 +1150,7 @@ Config do card blog*/
     object-fit: cover;
 }
 
+/*Config adm quiosque*/
 .box_contato
 {
     width: 30%;
@@ -1194,6 +1195,24 @@ Config do card blog*/
     border-top: 1px solid #d4d4d4;
 }
 
+/*Config adm planos*/
+.campos_tres
+{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.divisao_campo
+{
+    width: 100%;
+}
+
+.divisao_campo input
+{
+    width: 85%;
+}
+
 
 
 
@@ -1219,8 +1238,9 @@ Config do card blog*/
 /*Config do modal*/
 .alerta_fundo
 {
-    display: none;
+    display: block;
     position: fixed;
+    top: 0;
     width: 100%;
     height: 100vh;
     background: rgba(236, 240, 241, .9);
