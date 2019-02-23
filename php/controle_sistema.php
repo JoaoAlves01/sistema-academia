@@ -193,69 +193,82 @@ session_start();
         extract($_POST);
 
         if($nome_aula != "" && $inicio_dia_semana != "" && $ligacao_dia_semana != "" && $termino_dia_semana
-            && $horario_inicio != "" && $horario_ligacao != "" && $horario_termino != "" && $preco != "")
+            && $horario_inicio != "" && $horario_ligacao != "" && $horario_termino != "" && $preco != "" && (isset($_FILES['anexar_arquivo']['name']) && $_FILES["anexar_arquivo"]["error"] == 0))
+        {
+            if(isset($_FILES['anexar_arquivo']['name']) && $_FILES["anexar_arquivo"]["error"] == 0)
             {
-                if(isset($_FILES['anexar_arquivo']['name']) && $_FILES["anexar_arquivo"]["error"] == 0)
+                $arquivo_tmp = $_FILES['anexar_arquivo']['tmp_name'];
+                $nome = $_FILES['anexar_arquivo']['name'];
+                $extensao = strrchr($nome, '.');
+                $extensao = strtolower($extensao);
+
+                if(strstr('.jpg;.jpeg;.gif;.png', $extensao))
                 {
-                    $arquivo_tmp = $_FILES['anexar_arquivo']['tmp_name'];
-                    $nome = $_FILES['anexar_arquivo']['name'];
-                    $extensao = strrchr($nome, '.');
-                    $extensao = strtolower($extensao);
+                    $novoNome = md5(microtime()) . '.' . $extensao;
+                    $destino = '../img_planos/' . $novoNome;
 
-                    if(strstr('.jpg;.jpeg;.gif;.png', $extensao))
+                    if(move_uploaded_file( $arquivo_tmp, $destino))
                     {
-                        $novoNome = md5(microtime()) . '.' . $extensao;
-                        $destino = '../img_planos/' . $novoNome;
+                        $sql = "SELECT * FROM planos WHERE tipo_plano = '".$nome_aula."'";
+                        $resultado = $conexao->query($sql);
 
-                        if(move_uploaded_file( $arquivo_tmp, $destino))
+                        if($resultado->num_rows)
                         {
-                            $sql = "SELECT * FROM planos WHERE tipo_plano = '".$nome_aula."'";
-                            $resultado = $conexao->query($sql);
+                            $_SESSION['nome_aula'] = $nome_aula;
+                            $_SESSION['inicio_dia_semana'] = $inicio_dia_semana;
+                            $_SESSION['ligacao_dia_semana'] = $ligacao_dia_semana;
+                            $_SESSION['termino_dia_semana'] = $termino_dia_semana;
+                            $_SESSION['horario_inicio'] = $horario_inicio;
+                            $_SESSION['horario_ligacao'] = $horario_ligacao;
+                            $_SESSION['horario_termino'] = $horario_termino;
+                            $_SESSION['preco'] = $preco;
 
-                            if($resultado->num_rows)
+                            header("location: ../plano.php?f=dup");
+                        }
+
+                        else
+                        {
+                            $conexao = conexao();
+                            extract($_POST);
+
+                            $sql_cadastro = "INSERT INTO planos (img_plano, tipo_plano, semana, horario, preco) VALUES('".$novoNome."', '".$nome_aula."', 
+                                            '".$inicio_dia_semana." ".$ligacao_dia_semana." ".$termino_dia_semana."', '".$horario_inicio." ".$horario_ligacao." ".$horario_termino."',
+                                            '".$preco."')";
+                            $resultado_cadastro = $conexao->query($sql_cadastro);
+
+                            if($resultado_cadastro)
                             {
-                                $_SESSION['nome_aula'] = $nome_aula;
-                                $_SESSION['inicio_dia_semana'] = $inicio_dia_semana;
-                                $_SESSION['ligacao_dia_semana'] = $ligacao_dia_semana;
-                                $_SESSION['termino_dia_semana'] = $termino_dia_semana;
-                                $_SESSION['horario_inicio'] = $horario_inicio;
-                                $_SESSION['horario_ligacao'] = $horario_ligacao;
-                                $_SESSION['horario_termino'] = $horario_termino;
-                                $_SESSION['preco'] = $preco;
-                                $_SESSION['img_mini'] = $mini_foto_anuncio;
+                                $_SESSION['nome_aula'] = "";
+                                $_SESSION['inicio_dia_semana'] = "";
+                                $_SESSION['ligacao_dia_semana'] = "";
+                                $_SESSION['termino_dia_semana'] = "";
+                                $_SESSION['horario_inicio'] = "";
+                                $_SESSION['horario_ligacao'] = "";
+                                $_SESSION['horario_termino'] = "";
+                                $_SESSION['preco'] = "";
+                                $_SESSION['img_mini'] = "mini_img_anuncio.jpg";
 
-                                header("location: ../plano.php?f=dup");
-                            }
-
-                            else
-                            {
-                                $conexao = conexao();
-                                extract($_POST);
-
-                                $sql_cadastro = "INSERT INTO planos (img_plano, tipo_plano, semana, horario, preco) VALUES('".$novoNome."', '".$nome_aula."', 
-                                                '".$inicio_dia_semana." ".$ligacao_dia_semana." ".$termino_dia_semana."', '".$horario_inicio." ".$horario_ligacao." ".$horario_termino."',
-                                                '".$preco."')";
-                                $resultado_cadastro = $conexao->query($sql_cadastro);
-
-                                if($resultado_cadastro)
-                                {
-                                    $_SESSION['nome_aula'] = "";
-                                    $_SESSION['inicio_dia_semana'] = "";
-                                    $_SESSION['ligacao_dia_semana'] = "";
-                                    $_SESSION['termino_dia_semana'] = "";
-                                    $_SESSION['horario_inicio'] = "";
-                                    $_SESSION['horario_ligacao'] = "";
-                                    $_SESSION['horario_termino'] = "";
-                                    $_SESSION['preco'] = "";
-                                    $_SESSION['img_mini'] = "mini_img_anuncio.jpg";
-
-                                    header("location: ../plano.php?f=ok");
-                                }
+                                header("location: ../plano.php?f=ok");
                             }
                         }
                     }
                 }
             }
+        }
+
+        else
+        {
+            $_SESSION['nome_aula'] = $nome_aula;
+            $_SESSION['inicio_dia_semana'] = $inicio_dia_semana;
+            $_SESSION['ligacao_dia_semana'] = $ligacao_dia_semana;
+            $_SESSION['termino_dia_semana'] = $termino_dia_semana;
+            $_SESSION['horario_inicio'] = $horario_inicio;
+            $_SESSION['horario_ligacao'] = $horario_ligacao;
+            $_SESSION['horario_termino'] = $horario_termino;
+            $_SESSION['preco'] = $preco;
+
+            header("location: ../plano.php?f=aten");
+        }
     }
 
     function listarPlanos()

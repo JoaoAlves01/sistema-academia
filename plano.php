@@ -1,19 +1,14 @@
 <?php
     include('php/menu_sistema.php');
 
-    if(empty($_SESSION['nome_aula']))
-    {
-        $_SESSION['nome_aula'] = "";
-        $_SESSION['inicio_dia_semana'] = "---";
-        $_SESSION['ligacao_dia_semana'] = "---";
-        $_SESSION['termino_dia_semana'] = "---";
-        $_SESSION['horario_inicio'] = "";
-        $_SESSION['horario_ligacao'] = "---";
-        $_SESSION['horario_termino'] = "";
-        $_SESSION['preco'] = "";
-    }
-
-    $_SESSION['img_mini'] = "mini_img_anuncio.jpg";
+    $_SESSION['nome_aula'];
+    $_SESSION['inicio_dia_semana'];
+    $_SESSION['ligacao_dia_semana'];
+    $_SESSION['termino_dia_semana'];
+    $_SESSION['horario_inicio'];
+    $_SESSION['horario_ligacao'];
+    $_SESSION['horario_termino'];
+    $_SESSION['preco'];
 ?>
                     <h1 class="titulo_formulario">Administrar Planos</h1>
                     
@@ -24,7 +19,7 @@
                             <div class="linha">
                                 <div class="esquerda_update">
                                     <div class="conter_campos_formulario">
-                                        <img src="imagens/<?php echo $_SESSION['img_mini']; ?>" alt= "mini_img_plano" class="mini_foto_anuncio" id="mini_foto_anuncio" name="mini_foto_anuncio" />
+                                        <img src="imagens/mini_img_anuncio.jpg" alt= "mini_img_plano" class="mini_foto_anuncio" id="mini_foto_anuncio" name="mini_foto_anuncio" />
                                         <input type="file" class="update_arquivo" id="anexar_arquivo"  name="anexar_arquivo" onchange="visualizar_img(this,'mini_foto_anuncio');" />
                                     </div>
                                 </div>
@@ -38,7 +33,6 @@
                                         <div class="campos_tres">
                                             <div class="divisao_campo">
                                                 <select class="campo_sistema" name="inicio_dia_semana">
-                                                    <option value="---"><?php echo $_SESSION['inicio_dia_semana']; ?></option>
                                                     <option value="Dom.">Domingo</option>
                                                     <option value="Seg.">Segunda</option>
                                                     <option value="Ter.">Terça</option>
@@ -51,7 +45,6 @@
 
                                             <div class="divisao_campo">
                                                 <select class="campo_sistema" name="ligacao_dia_semana">
-                                                    <option value="---"><?php echo $_SESSION['ligacao_dia_semana']; ?></option>
                                                     <option value="a">a</option>
                                                     <option value="e">e</option>
                                                 </select>
@@ -59,7 +52,6 @@
 
                                             <div class="divisao_campo">
                                                 <select class="campo_sistema" name="termino_dia_semana">
-                                                    <option value="---"><?php echo $_SESSION['termino_dia_semana']; ?></option>
                                                     <option value="Dom.">Domingo</option>
                                                     <option value="Seg.">Segunda</option>
                                                     <option value="Ter.">Terça</option>
@@ -74,12 +66,11 @@
                                         <label class="label_sistema">Horário</label>
                                         <div class="campos_tres">
                                             <div class="divisao_campo">
-                                                <input type="text" class="campo_sistema" id="horario_inicio" name="horario_inicio" maxlength="5" value="<?php echo $_SESSION['horario_inicio']; ?>" />
+                                                <input type="text" class="campo_sistema" id="horario_inicio" name="horario_inicio" maxlength="5" value="<?php echo $_SESSION['horario_inicio']; ?>" onkeypress="mascaraHora(this.value, this.id); return somenteNumero(event);" />
                                             </div>
 
                                             <div class="divisao_campo">
                                                 <select class="campo_sistema" name="horario_ligacao">
-                                                    <option value="---"><?php echo $_SESSION['horario_ligacao']; ?></option>
                                                     <option value="as">as</option>
                                                     <option value="até">até</option>
                                                     <option value="e">e</option>
@@ -87,12 +78,12 @@
                                             </div>
 
                                             <div class="divisao_campo">
-                                                <input type="text" class="campo_sistema" id="horario_termino" name="horario_termino" maxlength="5" value="<?php echo $_SESSION['horario_termino']; ?>" />
+                                                <input type="text" class="campo_sistema" id="horario_termino" name="horario_termino" maxlength="5" value="<?php echo $_SESSION['horario_termino']; ?> " onkeypress="mascaraHora(this.value, this.id); return somenteNumero(event);" />
                                             </div>
                                         </div>
 
                                         <label class="label_sistema" for="preco">Preço</label>
-                                        <input type="text" class="campo_sistema" id="preco" name="preco" maxlength="10" value="<?php echo $_SESSION['preco']; ?>" />
+                                        <input type="text" class="campo_sistema" id="preco" name="preco" maxlength="10" value="<?php echo $_SESSION['preco']; ?>" onkeyup="mascaraDinheiro(this.value, this.id);" onkeypress="return somenteNumero(event);" />
 
                                         <div class="linha">
                                             <button type="submit" class="botao botao_azul" name="cadastrar">Cadastrar</button>
