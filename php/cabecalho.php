@@ -23,7 +23,6 @@
                             <li><a href="index.php">Home</a></li>
                             <li><a href="#quem_somos" class="scroll">Quem somos</a></li>
                             <li><a href="#planos" class="scroll">Serviços</a></li>
-                            <li><a href="#blog" class="scroll">Blog</a></li>
                             <li><a href="#contato" class="scroll">Contato</a></li>
                             <li><a href="login.php">Acessar</a></li>
                         </ul>
@@ -42,7 +41,6 @@
                             <li><a href="index.php">Home</a></li>
                             <li><a href="#quem_somos" class="scroll">Quem somos</a></li>
                             <li><a href="#planos" class="scroll">Serviços</a></li>
-                            <li><a href="#blog" class="scroll">Blog</a></li>
                             <li><a href="#contato" class="scroll">Contato</a></li>
                             <li><a href="login.php">Acessar</a></li>
                         </ul>

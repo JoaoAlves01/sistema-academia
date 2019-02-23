@@ -47,27 +47,20 @@
         padding: 0 20px;
     }
 
-    /*Config do card planos
-    Config do card blog*/
+    /*Config do card planos*/
     .conter_img_card
-    {
-        height: 170px;
-    }
-
-    .conter_img_card img
     {
         height: 150px;
     }
 
-    .conter_instrutor
+    .conter_img_card img
     {
-        margin-top: -50px;
+        height: 130px;
     }
 
     #titulo_card h1
     {
-        padding: 10px 20px;
-        padding-bottom: 60px;
+        padding-bottom: 40px;
     }
 
     .dados_diario
@@ -104,35 +97,6 @@
     .progressbar
     {
         display: none;
-    }
-
-    /*Config do card blog*/
-    .dados_blog
-    {
-        display: block;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .dados_blog i
-    {
-        display: block;
-        font-size: 10px;
-    }
-
-    .dados_blog span
-    {
-        font-size: 10px;
-    }
-
-    .titulo_blog h1
-    {
-        height: 80px;
-    }
-
-    .dados_blog
-    {
-        margin-bottom: 50px;
     }
 
     /*Config do rodape*/
@@ -235,19 +199,18 @@
         width: 50%;
     }
 
-    /*Config do card planos
-    Config do card blog*/
+    /*Config do card planos*/
     .card_plano,
     .card_noticia
     {
         position: relative;
-        width: 48%;
+        width: 40%;
     }
 
     .conter_img_card
     {
         width: 100%;
-        height: 200px;
+        height: 150px;
         overflow: hidden;
         padding: 0;
     }
@@ -259,18 +222,13 @@
         display: flex;
     }
 
-    .conter_instrutor
-    {
-        margin-top: -40px;
-    }
-
     #titulo_card h1
     {
-        height: 20px;
+        min-height: 40px;
+        padding-top: 20px;
     }
 
-    .dados_diario,
-    .dados_blog
+    .dados_diario
     {
         display: flex;
         align-items: center;
@@ -279,9 +237,7 @@
     }
 
     .dados_diario i,
-    .dados_diario span,
-    .dados_blog i,
-    .dados_blog span
+    .dados_diario span
     {
         font-size: 12px;
         font-weight: 300;
@@ -289,8 +245,7 @@
         color: #000;
     }
 
-    .dados_diario span,
-    .dados_blog span
+    .dados_diario span
     {
         font-size: 12px;
         font-weight: 300;
@@ -371,16 +326,14 @@
         padding-top: 30px;
     }
 
-    /*Config do card planos
-    Config do card blog*/
+    /*Config do card planos*/
     .card_plano,
     .card_noticia
     {
-        width: 100%;
+        width: 70%;
     }
 
-    .dados_diario,
-    .dados_blog
+    .dados_diario
     {
         display: flex;
         align-items: center;
@@ -389,9 +342,7 @@
     }
 
     .dados_diario i,
-    .dados_diario span,
-    .dados_blog i,
-    .dados_blog span
+    .dados_diario span
     {
         font-size: 12px;
         font-weight: 300;
@@ -399,8 +350,7 @@
         color: #000;
     }
 
-    .dados_diario span,
-    .dados_blog span
+    .dados_diario span
     {
         font-size: 12px;
         font-weight: 300;
@@ -418,12 +368,6 @@
     {
         font-size: 14px;
         line-height: 1.5;
-    }
-
-    /*Config do card blog*/
-    .titulo_blog h1
-    {
-        height: auto;
     }
 
     /*Footer*/

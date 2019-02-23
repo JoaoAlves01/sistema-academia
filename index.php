@@ -91,13 +91,6 @@
                         <img src="imagens/musculacao.png" alt="plano_musculacao">
                     </div>
 
-                    <div class="conter_instrutor">
-                        <div class="circulo_img_instrutor">
-                            <img src="imagens/0001.png" alt="instrutor_1">
-                        </div>
-                        <span>Vinicius Vieira</span>
-                    </div>
-
                     <div class="linha" id="titulo_card">
                         <h1>Musculação</h1>
                     </div>
@@ -116,13 +109,6 @@
                 <div class="card_plano">
                     <div class="conter_img_card">
                         <img src="imagens/personal_trainer.png" alt="plano_trainer">
-                    </div>
-
-                    <div class="conter_instrutor">
-                        <div class="circulo_img_instrutor">
-                            <img src="imagens/0004.png" alt="instrutor_3">
-                        </div>
-                        <span>Carla Sousa</span>
                     </div>
 
                     <div class="linha" id="titulo_card">
@@ -145,13 +131,6 @@
                         <img src="imagens/danca.png" alt="plano_danca">
                     </div>
 
-                    <div class="conter_instrutor">
-                        <div class="circulo_img_instrutor">
-                            <img src="imagens/0003.png" alt="instrutor_2">
-                        </div>
-                        <span>Marcos Rocha</span>
-                    </div>
-
                     <div class="linha" id="titulo_card">
                         <h1>Aulas de Dança</h1>
                     </div>
@@ -170,13 +149,6 @@
                 <div class="card_plano">
                     <div class="conter_img_card">
                         <img src="imagens/treinamento_funcional.png" alt="plano_treinamento_funcional">
-                    </div>
-
-                    <div class="conter_instrutor">
-                        <div class="circulo_img_instrutor">
-                            <img src="imagens/0002.png" alt="instrutor_4">
-                        </div>
-                        <span>Megan Silva</span>
                     </div>
 
                     <div class="linha" id="titulo_card">
@@ -224,97 +196,6 @@
                     </div>
                 </div>
             <div>
-        </div>
-    </section>
-
-    <section>
-        <div class="blog" id="blog">
-            <h1>Blog e Notícias</h1>
-            <div class="linha">
-                <a href="#" class="blog_link">
-                    <div class="card_noticia">
-                        <div class="conter_img_card">
-                            <img src="imagens/noticia_1.png" alt="noticia_1">
-                        </div>
-
-                        <div class="titulo_blog">
-                            <h1>Por que a prática de exercícios é tão benéfica na terceira idade</h1>
-                        </div>
-
-                        <div class="dados_blog">
-                            <i class="fa fa-calendar" aria-hidden="true"><span>Segunda, as 14:00 h</span></i>
-                            <i class="fa fa-user-o" aria-hidden="true"><span>Eduardo Muniz</span></i>
-                        </div>
-
-                        <div class="linha">
-                            <a href="#" class="mais_noticia">Saiba mais</a>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="blog_link">
-                    <div class="card_noticia">
-                        <div class="conter_img_card">
-                            <img src="imagens/noticia_2.png" alt="noticia_2">
-                        </div>
-
-                        <div class="titulo_blog">
-                            <h1>Proteínas: saiba qual é a quantidade ideal de consumo</h1>
-                        </div>
-
-                        <div class="dados_blog">
-                            <i class="fa fa-calendar" aria-hidden="true"><span>Sab, as 06:00 h</span></i>
-                            <i class="fa fa-user-o" aria-hidden="true"><span>Maria Eduarda</span></i>
-                        </div>
-
-                        <div class="linha">
-                            <a href="#" class="mais_noticia">Saiba mais</a>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="blog_link">
-                    <div class="card_noticia">
-                        <div class="conter_img_card">
-                            <img src="imagens/noticia_3.png" alt="noticia_3">
-                        </div>
-
-                        <div class="titulo_blog">
-                            <h1>Saiba qual é o melhor exercício para ficar em forma em 2018</h1>
-                        </div>
-
-                        <div class="dados_blog">
-                            <i class="fa fa-calendar" aria-hidden="true"><span>Ter, as 10:00 h</span></i>
-                            <i class="fa fa-user-o" aria-hidden="true"><span>Carlos Alves</span></i>
-                        </div>
-
-                        <div class="linha">
-                            <a href="#" class="mais_noticia">Saiba mais</a>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="blog_link">
-                    <div class="card_noticia">
-                        <div class="conter_img_card">
-                            <img src="imagens/noticia_4.png" alt="noticia_4">
-                        </div>
-
-                        <div class="titulo_blog">
-                            <h1>Choque de realidade</h1>
-                        </div>
-
-                        <div class="dados_blog">
-                            <i class="fa fa-calendar" aria-hidden="true"><span>Ter, as 05:00 h</span></i>
-                            <i class="fa fa-user-o" aria-hidden="true"><span>João Alves</span></i>
-                        </div>
-
-                        <div class="linha">
-                            <a href="#" class="mais_noticia">Saiba mais</a>
-                        </div>
-                    </div>
-                </a>
-            </div>
         </div>
     </section>
 

@@ -67,12 +67,13 @@ session_start();
         header("location: ../index.php");
     }
 
+    /*Funcoes do quiosque*/
     function uploadImagem()
     {
         $conexao = conexao();
         extract($_POST);
 
-        if($nome_img_update != '' || $_FILES["anexar_arquivo"]["error"] == 0)
+        if($nome_img_update != '' && $_FILES["anexar_arquivo"]["error"] == 0)
         {
             if(isset($_FILES['anexar_arquivo']['name']) && $_FILES["anexar_arquivo"]["error"] == 0)
             {
@@ -102,18 +103,32 @@ session_start();
                     
                     if(move_uploaded_file( $arquivo_tmp, $destino))
                     {
-                        $sql = "INSERT INTO anuncio (nome_img, nome) VALUES ('".$novoNome."', '".$nome_img_update."')";
-                        $resultado = $conexao->query($sql); 
+                        $sql_repeteco = "SELECT * FROM anuncio WHERE nome = '".$nome_img_update."'";
+                        $resultado_repeteco = $conexao->query($sql_repeteco);
 
-                        if($resultado)
+                        if($resultado_repeteco->num_rows)
                         {
-                            header('location: ../quiosque.php?f=ok');
+                            $_SESSION['nome_img_update'] = $nome_img_update;
+                            header('location: ../quiosque.php?f=dup');
                         }
 
                         else
                         {
-                            $_SESSION['nome_img_upload'] = $nome_img_update;
-                            header('location: ../tela_principal.php'); 
+                            $sql_insert = "INSERT INTO anuncio (nome_img, nome) VALUES ('".$novoNome."', '".$nome_img_update."')";
+                            $resultado = $conexao->query($sql_insert); 
+
+                            if($resultado)
+                            {
+                                $_SESSION['nome_img_update'] = "";  
+                                header('location: ../quiosque.php?f=ok');
+                            }
+
+                            else
+                            {
+                                $_SESSION['img_anuncio'] = $destino;
+                                $_SESSION['nome_img_update'] = $nome_img_update;
+                                header('location: ../tela_principal.php'); 
+                            }
                         }
                     }
 
@@ -124,6 +139,12 @@ session_start();
                 else
                     echo "Você poderá enviar apenas arquivos \"*.jpg;*.jpeg;*.gif;*.png\"<br />";
             }
+        }
+
+        else
+        {
+            $_SESSION['nome_img_update'] = $nome_img_update;
+            header("location: ../quiosque.php?f=aten");
         }
     }
 
@@ -145,7 +166,7 @@ session_start();
                                     <img class='centralizar_img' src='img_anuncio/".$obj['nome_img']."' />
                                 </div>
                                 <div class='linha base_box_anuncio'>
-                                    <button type='button' class='botao excluir_botao botao_vermelho' value=".$obj['id']." onclick='deletar(this.value)'>Excluir</button>
+                                    <button type='submit' class='botao excluir_botao botao_vermelho' value=".$obj['id'].">Excluir</button>
                                 </div>
                             </form>
                         </div>";
@@ -162,8 +183,129 @@ session_start();
         $resultado = $conexao->query($sql);
 
         if($resultado)
+            header('location: ../quiosque.php?f=exc');
+    }
+
+    /*Funcoes do plano*/
+    function cadastrarPlano()
+    {
+        $conexao = conexao();
+        extract($_POST);
+
+        if($nome_aula != "" && $inicio_dia_semana != "" && $ligacao_dia_semana != "" && $termino_dia_semana
+            && $horario_inicio != "" && $horario_ligacao != "" && $horario_termino != "" && $preco != "")
+            {
+                if(isset($_FILES['anexar_arquivo']['name']) && $_FILES["anexar_arquivo"]["error"] == 0)
+                {
+                    $arquivo_tmp = $_FILES['anexar_arquivo']['tmp_name'];
+                    $nome = $_FILES['anexar_arquivo']['name'];
+                    $extensao = strrchr($nome, '.');
+                    $extensao = strtolower($extensao);
+
+                    if(strstr('.jpg;.jpeg;.gif;.png', $extensao))
+                    {
+                        $novoNome = md5(microtime()) . '.' . $extensao;
+                        $destino = '../img_planos/' . $novoNome;
+
+                        if(move_uploaded_file( $arquivo_tmp, $destino))
+                        {
+                            $sql = "SELECT * FROM planos WHERE tipo_plano = '".$nome_aula."'";
+                            $resultado = $conexao->query($sql);
+
+                            if($resultado->num_rows)
+                            {
+                                $_SESSION['nome_aula'] = $nome_aula;
+                                $_SESSION['inicio_dia_semana'] = $inicio_dia_semana;
+                                $_SESSION['ligacao_dia_semana'] = $ligacao_dia_semana;
+                                $_SESSION['termino_dia_semana'] = $termino_dia_semana;
+                                $_SESSION['horario_inicio'] = $horario_inicio;
+                                $_SESSION['horario_ligacao'] = $horario_ligacao;
+                                $_SESSION['horario_termino'] = $horario_termino;
+                                $_SESSION['preco'] = $preco;
+                                $_SESSION['img_mini'] = $mini_foto_anuncio;
+
+                                header("location: ../plano.php?f=dup");
+                            }
+
+                            else
+                            {
+                                $conexao = conexao();
+                                extract($_POST);
+
+                                $sql_cadastro = "INSERT INTO planos (img_plano, tipo_plano, semana, horario, preco) VALUES('".$novoNome."', '".$nome_aula."', 
+                                                '".$inicio_dia_semana." ".$ligacao_dia_semana." ".$termino_dia_semana."', '".$horario_inicio." ".$horario_ligacao." ".$horario_termino."',
+                                                '".$preco."')";
+                                $resultado_cadastro = $conexao->query($sql_cadastro);
+
+                                if($resultado_cadastro)
+                                {
+                                    $_SESSION['nome_aula'] = "";
+                                    $_SESSION['inicio_dia_semana'] = "";
+                                    $_SESSION['ligacao_dia_semana'] = "";
+                                    $_SESSION['termino_dia_semana'] = "";
+                                    $_SESSION['horario_inicio'] = "";
+                                    $_SESSION['horario_ligacao'] = "";
+                                    $_SESSION['horario_termino'] = "";
+                                    $_SESSION['preco'] = "";
+                                    $_SESSION['img_mini'] = "mini_img_anuncio.jpg";
+
+                                    header("location: ../plano.php?f=ok");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+    }
+
+    function listarPlanos()
+    {
+        $conexao = conexao();
+        extract($_POST);
+
+        $sql = "SELECT * FROM planos ORDER BY tipo_plano ASC";
+        $resultado = $conexao->query($sql);
+
+        if($resultado)
         {
-            header('location: ../quiosque.php');
+            while($obj = mysqli_fetch_assoc($resultado))
+            {
+                echo    "<div class='box_contato'>
+                            <form method='POST' action='php/controle_sistema.php?f=configPlano'>
+                                <input type='hidden' name='id_card' value='".$obj['id']."'/>
+                                <h1>".$obj['tipo_plano']."</h1>
+                                <div class='box_img_anuncio'>
+                                    <img class='centralizar_img' src='img_planos/".$obj['img_plano']."' />
+                                </div>
+                                <div class='linha base_box_anuncio'>
+                                    <button type='submit' class='botao editar_botao botao_amarelo' name='editar' value=".$obj['id'].">Editar</button>
+                                    <button type='submit' class='botao excluir_botao botao_vermelho' name='excluir' value=".$obj['id'].">Excluir</button>
+                                </div>
+                            </form>
+                        </div>";
+            }
+        }
+    }
+
+    function configPlano()
+    {
+        extract($_POST);
+        $conexao = conexao();
+
+        if(isset($_POST["editar"]))
+        {
+            
+        }
+
+        else if(isset($_POST["excluir"]))
+        {
+            $sql_excluir = "DELETE FROM planos WHERE id = '".$excluir."'";
+            $resultado_excluir = $conexao->query($sql_excluir);
+            
+            if($resultado_excluir)
+            {
+                header("location: ../plano.php?f=exc");
+            }
         }
     }
 ?>

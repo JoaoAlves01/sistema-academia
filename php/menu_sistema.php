@@ -50,6 +50,33 @@ if(isset($_GET['f']))
             </div>
         <?php
         }
+
+        else if($f == 'dup'){?>
+            <div class='alerta_fundo'> 
+                <div class='mensagem atencao'>
+                    <span class='texto_msg'>Item já cadastrado!</span>
+                </div>
+            </div>
+        <?php
+        }
+
+        else if($f == 'exc'){?>
+            <div class='alerta_fundo'> 
+                <div class='mensagem sucesso'>
+                    <span class='texto_msg'>Item deletado com sucesso!</span>
+                </div>
+            </div>
+        <?php
+        }
+
+        else if($f == 'alt'){?>
+            <div class='alerta_fundo'> 
+                <div class='mensagem atencao'>
+                    <span class='texto_msg'>Item alterado com sucesso!</span>
+                </div>
+            </div>
+        <?php
+        }
         ?>
         
         <div class="envelope_body">
@@ -67,7 +94,6 @@ if(isset($_GET['f']))
                             <li><i class="fa fa-desktop" aria-hidden="true"><a href="quiosque.php">Quiosque</a></i></li>
                             <li><i class="fa fa-clone" aria-hidden="true"><a href="plano.php">Planos</a></i></li>
                             <li><i class="fa fa-quote-right" aria-hidden="true"><a href="#">Depoimentos</a></i></li>
-                            <li><i class="fa fa-home" aria-hidden="true"><a href="#">Blog</a></i></li>
                         </ul>
                     </nav>
                 </div>

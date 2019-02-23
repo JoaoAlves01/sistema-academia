@@ -299,11 +299,9 @@ section
 
 /*Planos da academia
   Quem somos
-  blog
   contato*/
 .planos,
 .quem_somos,
-.blog,
 .contato
 {
     padding: 80px 20px;
@@ -314,7 +312,6 @@ section
 
 .planos h1,
 .quem_somos h1,
-.blog h1,
 .contato h1
 {
     text-align: center;
@@ -335,8 +332,7 @@ section
     align-items: flex-start;
 }
 
-/*Config do card planos
-Config do card blog*/
+/*Config do card planos*/
 .card_plano,
 .card_noticia
 {
@@ -380,50 +376,19 @@ Config do card blog*/
     display: flex;
 }
 
-.conter_instrutor
-{
-    margin-top: -40px;
-}
-
-.circulo_img_instrutor
-{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid #dcdcdc;
-    overflow: hidden;
-}
-
-.circulo_img_instrutor img
-{
-    width: 100%;
-    display: flex;
-}
-
-.conter_instrutor span
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.5;
-    padding: 5px 0;
-}
-
 #titulo_card h1
 {
+    min-height: 50px;
     text-align: center;
     font-size: 16px;
     font-weight: bold;
     font-style: normal;
     letter-spacing: 2px;
-    padding: 20px 20px;
+    padding: 5px 20px;
     color: #000;
 }
 
-.dados_diario,
-.dados_blog
+.dados_diario
 {
     display: flex;
     align-items: center;
@@ -432,9 +397,7 @@ Config do card blog*/
 }
 
 .dados_diario i,
-.dados_diario span,
-.dados_blog i,
-.dados_blog span
+.dados_diario span
 {
     font-size: 12px;
     font-weight: 300;
@@ -442,8 +405,7 @@ Config do card blog*/
     color: #000;
 }
 
-.dados_diario span,
-.dados_blog span
+.dados_diario span
 {
     font-size: 12px;
     font-weight: 300;
@@ -627,53 +589,10 @@ Config do card blog*/
     color: #fff;
 }
 
-/*Config do card blog*/
-.blog_link
-{
-    text-decoration: none;
-}
-
-.titulo_blog h1
-{
-    font-size: 16px;
-    font-style: normal;
-    text-transform: none;
-    text-align: left;
-    letter-spacing: 0;
-    padding: 0 20px;
-    color: #000;
-}
-
-.dados_blog
-{
-    margin-bottom: 50px;
-}
-
-.mais_noticia
-{
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    border-radius: 3px;
-    padding: 10px 20px;
-    color: #fff;
-    background: #f53240;
-}
-
-.mais_noticia:hover 
-{
-    background: #c02733;
-}
-
 /*Config contato*/
 .contato
 {
-    padding: 80px  0 0 0;
+    padding: 0;
 }
 
 .mapa
@@ -1410,6 +1329,13 @@ Config do card blog*/
     margin: 0 auto;
 }
 
+.editar_botao
+{
+    background-color: #F39C12;
+    border-color: #c88111;
+    margin: 0 auto;
+}
+
 /*Efeito ao passar mouse*/
 .botao_azul:hover
 {
@@ -1419,4 +1345,9 @@ Config do card blog*/
 .botao_vermelho:hover
 {
     background: #b02b27;
+}
+
+.botao_amarelo:hover
+{
+    background: #bf7b10;
 }
