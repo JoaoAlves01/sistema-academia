@@ -1268,7 +1268,8 @@ section
 }
 
 /*Campo para uplod*/
-.update_arquivo
+.update_arquivo,
+.editar_update_arquivo
 {
     position: relative;
     width: 100%;
@@ -1280,7 +1281,8 @@ section
     outline: 0;
 }
 
-.update_arquivo::-webkit-file-upload-button
+.update_arquivo::-webkit-file-upload-button,
+.editar_update_arquivo::-webkit-file-upload-button
 {
     visibility: hidden;
 }
@@ -1312,6 +1314,12 @@ section
     color: #73879c;
 }
 
+.editar_update_arquivo:before,
+.editar_update_arquivo:after
+{
+    display: none;
+}
+
 /*Config dos botões*/
 .botao
 {
@@ -1326,6 +1334,8 @@ section
     background: #1ABB9C;
     color: #fff;
     cursor: pointer;
+    outline: 0;
+    outline-offset: 0;
 }
 
 .excluir_botao

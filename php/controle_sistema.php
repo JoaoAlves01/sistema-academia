@@ -322,6 +322,7 @@ session_start();
                 $semana_quebrando = explode(" ", $semana);
                 $hora_quebrando = explode(" ", $horario);
                 
+                $_SESSION['editar_id'] = $resultado['id'];
                 $_SESSION['editar_img_mini_plano'] = $resultado['img_plano'];
                 $_SESSION['editar_nome_aula'] = $resultado['tipo_plano'];
                 $_SESSION['editar_preco'] = $resultado['preco'];
@@ -329,10 +330,10 @@ session_start();
                 $_SESSION['editar_ligacao_dia_semana'] = $semana_quebrando[1];
                 $_SESSION['editar_termino_dia_semana'] = $semana_quebrando[2];
                 $_SESSION['editar_horario_inicio'] = $hora_quebrando[0];
-                $_SESSION['editar_horario_ligacao'] = $resultado = [1];
-                $_SESSION['editar_horario_termino'] = $resultado = [2];
+                $_SESSION['editar_horario_ligacao'] = $hora_quebrando[1];
+                $_SESSION['editar_horario_termino'] = $hora_quebrando[2];
 
-                //header("location: ../editar_plano.php");
+                header("location: ../editar_plano.php");
             }
         }
 
@@ -344,6 +345,65 @@ session_start();
             if($resultado_excluir)
             {
                 header("location: ../plano.php?f=exc");
+            }
+        }
+
+        else if(isset($_POST["salvar"]))
+        {
+            if(isset($_FILES['anexar_arquivo']['name']) && $_FILES["anexar_arquivo"]["error"] == 0)
+            {
+                $arquivo_tmp = $_FILES['anexar_arquivo']['tmp_name'];
+                $nome = $_FILES['anexar_arquivo']['name'];
+                $extensao = strrchr($nome, '.');
+                $extensao = strtolower($extensao);
+
+                if(strstr('.jpg;.jpeg;.gif;.png', $extensao))
+                {
+                    $novoNome = md5(microtime()) . '.' . $extensao;
+                    $destino = '../img_planos/' . $novoNome;
+
+                    if(move_uploaded_file( $arquivo_tmp, $destino))
+                    {
+                        $sql_existe = "SELECT * FROM planos WHERE tipo_plano = '".$nome_aula."'";
+                        $resultado_existe = $conexao->query($sql_existe);
+
+                        if($resultado_existe->num_rows)
+                            header("location: ../editar_plano.php?f=dup");
+
+                        else
+                        {
+                            $sql_editar = "UPDATE planos SET img_plano = '".$novoNome."', tipo_plano = '".$nome_aula."', semana = '".$inicio_dia_semana. " " .$ligacao_dia_semana. " " .$termino_dia_semana. "', horario = '".$horario_inicio. " " .$horario_ligacao. " " .$horario_termino."', preco = '".$preco."' WHERE id = '".$salvar."'";
+                            $resultado_editar = $conexao->query($sql_editar);
+
+                            if($resultado_editar)
+                                header("location: ../plano.php?f=alt");
+
+                            else
+                            header("location: ../plano.php?f=erro");
+                        }
+                    }
+                }
+            }
+
+            else
+            {
+                $sql_existe = "SELECT * FROM planos WHERE tipo_plano = '".$nome_aula."'";
+                $resultado_existe = $conexao->query($sql_existe);
+
+                if($resultado_existe->num_rows)
+                    header("location: ../editar_plano.php?f=dup");
+
+                else
+                {
+                    $sql_editar = "UPDATE planos SET tipo_plano = '".$nome_aula."', semana = '".$inicio_dia_semana. " " .$ligacao_dia_semana. " " .$termino_dia_semana. "', horario = '".$horario_inicio. " " .$horario_ligacao. " " .$horario_termino."', preco = '".$preco."' WHERE id = '".$salvar."'";
+                    $resultado_editar = $conexao->query($sql_editar);
+
+                    if($resultado_editar)
+                        header("location: ../plano.php?f=alt");
+
+                    else
+                    header("location: ../plano.php?f=erro");
+                }
             }
         }
     }
