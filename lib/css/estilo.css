@@ -1050,34 +1050,12 @@ select
     color: #fff;
 }
 
-.esquerda_update,
-.direita_update
-{
-    position: relative;
-    width: 48%;
-    margin-left: 0;
-}
-
-.direita_update
-{
-    margin-right: 0;
-}
-
-.mini_foto_anuncio
-{
-    position: absolute;
-    top: 53%;
-    left: 50%;
-    width: 100%;
-    height: 300px;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-}
-
 /*Config adm quiosque*/
 .box_contato
 {
     width: 30%;
+    display: inline-block;
+    margin-right: 3%;
     /* margin: 0 auto;
     margin-left: 0; */
     margin-top: 40px;
@@ -1117,24 +1095,6 @@ select
     padding: 10px 20px;
     background: #ededed;
     border-top: 1px solid #d4d4d4;
-}
-
-/*Config adm planos*/
-.campos_tres
-{
-    display: flex;
-    align-content: center;
-    justify-content: center;
-}
-
-.divisao_campo
-{
-    width: 100%;
-}
-
-.divisao_campo input
-{
-    width: 85%;
 }
 
 
@@ -1252,9 +1212,8 @@ select
     border: 1px solid #dcdcdc;
     box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,.08) inset;
     margin: 0 auto;
-    margin-top: 5px;
     margin-left: 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 14px;
     outline: 0;
     transition: .3s;
@@ -1266,18 +1225,66 @@ select
     border: 1px solid #73879c;   
 }
 
+/*Config adm planos*/
+.campos_tres
+{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.divisao_campo
+{
+    width: 100%;
+    padding-right: 5px;
+}
+
+.divisao_campo:last-child
+{
+    padding-right: 0;
+}
+
+.divisao_campo input
+{
+    width: 85%;
+}
+
 /*Centralizar imagem*/
 .centralizar_img
 {
     width: 100%;
 }
 
+/*Campos lado a lado*/
+.esquerda_update,
+.direita_update
+{
+    position: relative;
+    width: 50%;
+    margin-left: 0;
+}
+
+.direita_update
+{
+    width: 48%;
+    margin-right: 0;
+}
+
 /*Campo para uplod*/
+.mini_foto_anuncio
+{
+    position: absolute;
+    width: 99.3%;
+    height: 300px;
+    margin-top: 21px;
+    object-fit: cover;
+}
+
 .update_arquivo,
 .editar_update_arquivo
 {
     position: relative;
-    width: 100%;
+    width: 99%;
     height: 300px;
     border: 1px solid #d4d4d4;
     margin-top: 20px;
@@ -1333,7 +1340,7 @@ select
     text-align: center;
     font-family: Roboto;
     margin: 0 auto;
-    margin-right: 10px;
+    margin-right: 7px;
     border: none;
     border-radius: 3px;
     background: #1ABB9C;

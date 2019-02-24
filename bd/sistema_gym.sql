@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 17-Fev-2019 às 00:49
+-- Generation Time: 24-Fev-2019 às 05:03
 -- Versão do servidor: 10.1.36-MariaDB
 -- versão do PHP: 5.6.38
 
@@ -37,6 +37,21 @@ CREATE TABLE `anuncio` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `planos`
+--
+
+CREATE TABLE `planos` (
+  `id` int(11) NOT NULL,
+  `img_plano` text COLLATE utf8_unicode_ci NOT NULL,
+  `tipo_plano` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
+  `semana` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
+  `horario` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `preco` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `usuario`
 --
 
@@ -52,7 +67,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `usuario`, `senha`) VALUES
-(1, 'Usuário Administrador', 'admi', 'admi');
+(1, 'Usuário Administrador', 'admin', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -62,6 +77,12 @@ INSERT INTO `usuario` (`id`, `nome`, `usuario`, `senha`) VALUES
 -- Indexes for table `anuncio`
 --
 ALTER TABLE `anuncio`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `planos`
+--
+ALTER TABLE `planos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -78,6 +99,12 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `anuncio`
 --
 ALTER TABLE `anuncio`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `planos`
+--
+ALTER TABLE `planos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

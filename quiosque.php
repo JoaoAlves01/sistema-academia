@@ -2,7 +2,7 @@
     include('php/menu_sistema.php');
 
     if(empty($_SESSION['nome_img_update']))
-        $_SESSION['nome_img_update'];    
+        $_SESSION['nome_img_update'] = "";    
 ?>
                     <h1 class="titulo_formulario">Administrar Quiosque</h1>
                     
@@ -32,8 +32,7 @@
                     <br>
                     <div class="envelope_formulario">
                         <h2 class="titulo_sub_formulario">Anúncios em destaque</h2>
-                        <div class="linha">
-                            <input type="hidden" id="anuncio" />
+                        <div class="linha_card">
                             <?php
                                 listarAnuncio();
                             ?>

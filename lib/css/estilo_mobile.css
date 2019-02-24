@@ -5,6 +5,19 @@
     {
         background-position: 100% 5%;
     }
+
+    /*Config adm planos*/
+    .campos_tres
+    {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+
+    .divisao_campo input
+    {
+        width: 83%;
+    }
 }
 
 /*Resolucao para tablet*/
@@ -130,16 +143,14 @@
         transition: .1s;
     }
 
-    .mini_foto_anuncio
+    /*Campo para uplod*/
+    .update_arquivo,
+    .editar_update_arquivo
     {
-        top: 55%;
         height: 200px;
     }
 
-
-
-    /*Campo para uplod*/
-    .update_arquivo
+    .mini_foto_anuncio
     {
         height: 200px;
     }
@@ -268,7 +279,8 @@
     /*Config dos card de anuncio*/
     .box_contato
     {
-        width: 48%;
+        width: 45%;
+        margin-right: 4%;
     }
 
     .box_img_anuncio
@@ -279,6 +291,33 @@
     .box_contato img
     {
         height: 180px;
+    }
+
+    .box_contato .botao
+    {
+        margin: 0 auto;
+    }
+
+    .esquerda_update,
+    .direita_update
+    {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .divisao_campo input
+    {
+        width: 87%;
+    }
+
+    .divisao_campo:last-child {
+        padding-right: 5px;
+    }
+
+    /*config botoes*/
+    .botao
+    {
+        margin: 0 auto;
     }
 }
 
@@ -474,22 +513,24 @@
         height: 180px;
     }
 
-
-
-
     
 
     /*Campo para uplod*/
-    .update_arquivo
+    .update_arquivo,
+    .editar_update_arquivo
     {
         height: 300px;
     }
 
-    /*Config dos botões*/
-    .botao
+    /*Config div lado a lado*/
+    .campos_tres
     {
-        margin: 0 auto;
+        display: block;
+        padding: 0;
     }
+
+    .divisao_campo select {width: 100%;}
+    .divisao_campo input {width: 95.5%;}
 }
 
 @media only screen and (max-width: 380px)
@@ -523,4 +564,31 @@
         width: 200px;
         transition: .1s;
     }
+
+    /*Config dos cards*/
+    .box_contato h1
+    {
+        text-align: center;
+    }
+
+    .box_contato .linha,
+    .box_contato .botao
+    {
+        display: block;
+    }
+
+    .box_contato .botao:last-child
+    {
+        margin-top: 10px;
+    }
+
+    /*Config div lado a lado*/
+    .esquerda_update.banner,
+    .mini_foto_anuncio
+    {
+        width: 100%;
+    }
+
+    /*Config div lado a lado*/
+    .divisao_campo input {width: 93%;}
 }

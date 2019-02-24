@@ -9,10 +9,8 @@
                         <form method='POST' action='php/controle_sistema.php?f=configPlano' enctype="multipart/form-data">
                             <div class="linha">
                                 <div class="esquerda_update">
-                                    <div class="conter_campos_formulario">
-                                        <img src="img_planos/<?php echo $_SESSION['editar_img_mini_plano']; ?>" alt= "<?php echo $_SESSION['editar_img_mini_plano'] ?>" class="mini_foto_anuncio" id="mini_foto_anuncio" name="mini_foto_anuncio" />
-                                        <input type="file" class="editar_update_arquivo" id="anexar_arquivo"  name="anexar_arquivo" onchange="visualizar_img(this,'mini_foto_anuncio');" />
-                                    </div>
+                                    <img src="img_planos/<?php echo $_SESSION['editar_img_mini_plano']; ?>" alt= "<?php echo $_SESSION['editar_img_mini_plano'] ?>" class="mini_foto_anuncio" id="mini_foto_anuncio" name="mini_foto_anuncio" />
+                                    <input type="file" class="editar_update_arquivo" id="anexar_arquivo"  name="anexar_arquivo" onchange="visualizar_img(this,'mini_foto_anuncio');" />
                                 </div>
 
                                 <div class="direita_update">
@@ -69,7 +67,7 @@
                                             </div>
 
                                             <div class="divisao_campo">
-                                                <input type="text" class="campo_sistema" id="horario_termino" name="horario_termino" maxlength="5" value="<?php echo $_SESSION['editar_horario_termino']; ?> " onkeypress="mascaraHora(this.value, this.id); return somenteNumero(event);" />
+                                                <input type="text" class="campo_sistema" id="horario_termino" name="horario_termino" maxlength="5" value="<?php echo $_SESSION['editar_horario_termino']; ?>" onkeypress="mascaraHora(this.value, this.id); return somenteNumero(event);" />
                                             </div>
                                         </div>
 
