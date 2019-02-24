@@ -9,6 +9,11 @@ section
     width: 100%;
 }
 
+select
+{
+    height: 39px;
+}
+
 .botao_menu_mobile
 {
     display: none;
