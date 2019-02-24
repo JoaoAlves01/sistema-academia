@@ -1155,6 +1155,7 @@ section
 }
 
 /*Config do modal*/
+.alerta_verificacao,
 .alerta_fundo
 {
     display: block;
@@ -1164,6 +1165,11 @@ section
     height: 100vh;
     background: rgba(236, 240, 241, .9);
     z-index: 99999;
+}
+
+.alerta_verificacao
+{
+    display: none;
 }
 
 .mensagem

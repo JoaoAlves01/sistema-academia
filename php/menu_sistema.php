@@ -79,6 +79,8 @@ if(isset($_GET['f']))
         }
         ?>
         
+        <div class="alerta_verificacao"></div>
+
         <div class="envelope_body">
             <header>
                 <div class="menu_sistema">

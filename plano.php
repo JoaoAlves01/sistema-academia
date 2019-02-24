@@ -1,21 +1,24 @@
 <?php
     include('php/menu_sistema.php');
 
-    $_SESSION['nome_aula'];
-    $_SESSION['inicio_dia_semana'];
-    $_SESSION['ligacao_dia_semana'];
-    $_SESSION['termino_dia_semana'];
-    $_SESSION['horario_inicio'];
-    $_SESSION['horario_ligacao'];
-    $_SESSION['horario_termino'];
-    $_SESSION['preco'];
+    if(empty($_SESSION['nome_aula']))
+    {
+        $_SESSION['nome_aula'] = "";
+        $_SESSION['inicio_dia_semana'] = "";
+        $_SESSION['ligacao_dia_semana'] = "";
+        $_SESSION['termino_dia_semana'] = "";
+        $_SESSION['horario_inicio'] = "";
+        $_SESSION['horario_ligacao'] = "";
+        $_SESSION['horario_termino'] = "";
+        $_SESSION['preco'] = "";
+    }
 ?>
                     <h1 class="titulo_formulario">Administrar Planos</h1>
                     
                     <div class="envelope_formulario">
                         <h2 class="titulo_sub_formulario">Cadastrar um novo plano</h2>
 
-                        <form method="POST" action="php/controle_sistema.php?f=cadastrarPlano" enctype="multipart/form-data">
+                        <form method="POST" action="php/controle_sistema.php?f=cadastrarPlano" id="formulario" enctype="multipart/form-data">
                             <div class="linha">
                                 <div class="esquerda_update">
                                     <div class="conter_campos_formulario">
@@ -33,13 +36,13 @@
                                         <div class="campos_tres">
                                             <div class="divisao_campo">
                                                 <select class="campo_sistema" name="inicio_dia_semana">
-                                                    <option value="Dom.">Domingo</option>
-                                                    <option value="Seg.">Segunda</option>
-                                                    <option value="Ter.">Terça</option>
-                                                    <option value="Qua.">Quarta</option>
-                                                    <option value="Qui.">Quinta</option>
-                                                    <option value="Sex.">Sexta</option>
-                                                    <option value="Sab.">Sábado</option>  
+                                                    <option value="Domingo">Domingo</option>
+                                                    <option value="Segunda">Segunda</option>
+                                                    <option value="Terça">Terça</option>
+                                                    <option value="Quarta">Quarta</option>
+                                                    <option value="Quinta">Quinta</option>
+                                                    <option value="Sexta">Sexta</option>
+                                                    <option value="Sábado">Sábado</option>  
                                                 </select>
                                             </div>
 
@@ -52,13 +55,13 @@
 
                                             <div class="divisao_campo">
                                                 <select class="campo_sistema" name="termino_dia_semana">
-                                                    <option value="Dom.">Domingo</option>
-                                                    <option value="Seg.">Segunda</option>
-                                                    <option value="Ter.">Terça</option>
-                                                    <option value="Qua.">Quarta</option>
-                                                    <option value="Qui.">Quinta</option>
-                                                    <option value="Sex.">Sexta</option>
-                                                    <option value="Sab.">Sábado</option>  
+                                                    <option value="Domingo">Domingo</option>
+                                                    <option value="Segunda">Segunda</option>
+                                                    <option value="Terça">Terça</option>
+                                                    <option value="Quarta">Quarta</option>
+                                                    <option value="Quinta">Quinta</option>
+                                                    <option value="Sexta">Sexta</option>
+                                                    <option value="Sábado">Sábado</option>  
                                                 </select>
                                             </div>
                                         </div>
@@ -86,7 +89,7 @@
                                         <input type="text" class="campo_sistema" id="preco" name="preco" maxlength="10" value="<?php echo $_SESSION['preco']; ?>" onkeyup="mascaraDinheiro(this.value, this.id);" onkeypress="return somenteNumero(event);" />
 
                                         <div class="linha">
-                                            <button type="submit" class="botao botao_azul" name="cadastrar">Cadastrar</button>
+                                            <button type="button" class="botao botao_azul" name="cadastrar" onclick="verificarCadastroPlano();">Cadastrar</button>
                                         </div>
                                     </div>
                                 </div>

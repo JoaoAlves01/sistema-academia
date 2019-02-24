@@ -307,7 +307,33 @@ session_start();
 
         if(isset($_POST["editar"]))
         {
-            
+            $sql_puxar_dados = "SELECT * FROM planos WHERE id = '".$editar."'";
+            $resultado_puxar_dados = $conexao->query($sql_puxar_dados);
+
+            if($resultado_puxar_dados->num_rows)
+            {
+                $resultado = $resultado_puxar_dados->fetch_array();
+
+                //Dados vindo do banco
+                $semana = $resultado['semana'];
+                $horario = $resultado['horario'];
+
+                //Quebrando dados para adicionar nos campos
+                $semana_quebrando = explode(" ", $semana);
+                $hora_quebrando = explode(" ", $horario);
+                
+                $_SESSION['editar_img_mini_plano'] = $resultado['img_plano'];
+                $_SESSION['editar_nome_aula'] = $resultado['tipo_plano'];
+                $_SESSION['editar_preco'] = $resultado['preco'];
+                $_SESSION['editar_inicio_dia_semana'] = $semana_quebrando[0];
+                $_SESSION['editar_ligacao_dia_semana'] = $semana_quebrando[1];
+                $_SESSION['editar_termino_dia_semana'] = $semana_quebrando[2];
+                $_SESSION['editar_horario_inicio'] = $hora_quebrando[0];
+                $_SESSION['editar_horario_ligacao'] = $resultado = [1];
+                $_SESSION['editar_horario_termino'] = $resultado = [2];
+
+                //header("location: ../editar_plano.php");
+            }
         }
 
         else if(isset($_POST["excluir"]))

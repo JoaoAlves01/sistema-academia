@@ -1,7 +1,8 @@
 <?php
     include('php/menu_sistema.php');
 
-    $_SESSION['nome_img_update'];    
+    if(empty($_SESSION['nome_img_update']))
+        $_SESSION['nome_img_update'];    
 ?>
                     <h1 class="titulo_formulario">Administrar Quiosque</h1>
                     
