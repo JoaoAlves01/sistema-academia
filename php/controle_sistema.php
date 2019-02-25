@@ -160,7 +160,6 @@ session_start();
             {
                 echo    "<div class='box_contato'>
                             <form method='POST' id='form".$obj['id']."' action='php/controle_sistema.php?f=deletarAnuncio'>
-                                <input type='hidden' name='id_card' value='".$obj['id']."'/>
                                 <h1>".$obj['nome']."</h1>
                                 <div class='box_img_anuncio'>
                                     <img class='centralizar_img' src='img_anuncio/".$obj['nome_img']."' />
@@ -274,7 +273,6 @@ session_start();
     function listarPlanos()
     {
         $conexao = conexao();
-        extract($_POST);
 
         $sql = "SELECT * FROM planos ORDER BY tipo_plano ASC";
         $resultado = $conexao->query($sql);
@@ -285,7 +283,6 @@ session_start();
             {
                 echo    "<div class='box_contato'>
                             <form method='POST' action='php/controle_sistema.php?f=configPlano'>
-                                <input type='hidden' name='id_card' value='".$obj['id']."'/>
                                 <h1>".$obj['tipo_plano']."</h1>
                                 <div class='box_img_anuncio'>
                                     <img class='centralizar_img' src='img_planos/".$obj['img_plano']."' />
@@ -406,5 +403,94 @@ session_start();
                 }
             }
         }
+    }
+
+    /*Funcoes do depoimento*/
+    function cadastrarDepoimento()
+    {
+        $conexao = conexao();
+        extract($_POST);
+
+        if($nome_depoimento != "" || $depoimento != "")
+        {
+            if(isset($_FILES['anexar_arquivo']['name']) && $_FILES['anexar_arquivo']['error'] == 0)
+            {
+                $arquivo_tmp = $_FILES['anexar_arquivo']['tmp_name'];
+                $nome = $_FILES['anexar_arquivo']['name'];
+                $extensao = strrchr($nome, '.');
+                $extensao = strtolower($extensao);
+
+                if(strstr('.jpg;.jpeg;.gif;.png', $extensao))
+                {
+                    $novoNome = md5(microtime()) . '.' . $extensao;
+                    $destino = '../img_depoimento/'.$novoNome;
+
+                    if(move_uploaded_file($arquivo_tmp, $destino))
+                    {
+                        $sql_insert = "INSERT INTO depoimento (img_nome, nome, depoimento) VALUES ('".$novoNome."', '".$nome_depoimento."', '".$depoimento."')";
+                        $resultado_insert = $conexao->query($sql_insert);
+
+                        if($resultado_insert)
+                        {
+                            $_SESSION['img_mini'] = "mini_img_anuncio.jpg";
+                            $_SESSION['nome_depoimento'] = "";
+                            $_SESSION['depoimento'] = "";
+
+                            header("location: ../depoimento.php?f=ok");
+                        }
+
+                        else
+                        {
+                            $_SESSION['nome_depoimento'] = $nome_depoimento;
+                            $_SESSION['depoimento'] = $depoimento;
+
+                            header("location: ../depoimento.php?f=erro");
+                        }
+                    }
+                }
+            }
+        }
+
+        else
+        {
+            $_SESSION['nome_depoimento'] = $nome_depoimento;
+            $_SESSION['depoimento'] = $depoimento;
+            header("location: ../depoimento.php?f=aten");
+        }
+    }
+
+    function listarDepoimento()
+    {
+        $conexao = conexao();
+        $sql_listar = "SELECT * FROM depoimento";
+        $resultado_lista = $conexao->query($sql_listar);
+
+        if($resultado_lista)
+        {
+            while($obj = mysqli_fetch_assoc($resultado_lista))
+            {
+                echo "<div class='box_depoimento'>
+                        <form method='POST' action='php/controle_sistema.php?f=configDepoimento'>
+                            <div class='linha_vertical'>
+                                <div class='box_img_depoimento'>
+                                    <img class='centralizar_img' src='img_depoimento/".$obj['img_nome']."' />
+                                </div>
+                                <div class='box_texto_depoimento'>
+                                    <span>Depoimento - ".$obj['nome']."<small>".$obj['depoimento']."</small></span>
+                                </div>
+                                <div class=' linha_vertical base_box_depoimento'>
+                                    <button type='submit' class='botao editar_botao botao_amarelo' name='editar' value='".$obj['id']."'>Editar</button>
+                                    <button type='submit' class='botao excluir_botao botao_vermelho' name='excluir' value='".$obj['id']."'>Excluir</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>";
+            }
+        }
+    }
+
+    function configDepoimento()
+    {
+
     }
 ?>

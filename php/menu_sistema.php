@@ -95,7 +95,7 @@ if(isset($_GET['f']))
                         <ul>
                             <li><i class="fa fa-desktop" aria-hidden="true"><a href="quiosque.php">Quiosque</a></i></li>
                             <li><i class="fa fa-clone" aria-hidden="true"><a href="plano.php">Planos</a></i></li>
-                            <li><i class="fa fa-quote-right" aria-hidden="true"><a href="#">Depoimentos</a></i></li>
+                            <li><i class="fa fa-quote-right" aria-hidden="true"><a href="depoimento.php">Depoimentos</a></i></li>
                         </ul>
                     </nav>
                 </div>

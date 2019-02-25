@@ -12,6 +12,7 @@ section
 select
 {
     height: 39px;
+    background: #fff;
 }
 
 .botao_menu_mobile
@@ -328,7 +329,8 @@ select
     color: #cfcfcf;
 }
 
-.linha
+.linha,
+.linha_vertical
 {
     max-width: 100%;
     display: flex;
@@ -336,6 +338,9 @@ select
     justify-content: center;
     align-items: flex-start;
 }
+
+.linha_vertical
+{align-items: center;}
 
 /*Config do card planos*/
 .card_plano,
@@ -1083,7 +1088,8 @@ select
     object-fit: cover;
 }
 
-.box_contato img
+.box_contato img,
+.box_depoimento img
 {
     width: 100%;
     height: 140px;
@@ -1097,6 +1103,65 @@ select
     border-top: 1px solid #d4d4d4;
 }
 
+/*Config adm depoimento*/
+.box_depoimento
+{
+    width: 100%;
+    height: auto;
+    min-height: 140px;
+    margin: 0 auto;
+    margin-top: 40px;
+    border-radius: 3px;
+    border: 1px solid #d4d4d4;
+    box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,.08) inset;
+    overflow: hidden;
+    background: #f7f7f7;
+}
+
+.box_img_depoimento
+{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 120px;
+    height: 120px;
+    border: 1px solid #d4d4d4;
+    margin-left: 10px;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.box_texto_depoimento
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    text-align: left;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: Roboto;
+    line-height: 1.5;
+    padding: 5px 0;
+    margin-left: 0;
+    color: #73879c;
+}
+
+.box_texto_depoimento small
+{
+    display: block;
+    font-weight: 300;
+}
+
+.base_box_depoimento
+{
+    width: 10%;
+    min-height: 120px;
+    margin-right: 0;
+    border-left: 1px solid #d4d4d4;
+    padding: 10px 20px;
+    background: #ededed;
+}
 
 
 
