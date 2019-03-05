@@ -200,6 +200,51 @@
     </section>
 
     <section>
+        <div class="evento" id="evento">
+            <h1>Eventos</h1>
+
+            <div class="linha_card">
+                <div class="card_evento">
+                    <div class="img_evento">
+                        <img class="centralizar_img" src="img_evento/evento.png" alt="evento" />
+                    </div>
+                    <div class="dados_evento">
+                        <div class="linha">
+                            <div class="titulo_evento">
+                                <h2>Ladies day in the gym</h2>
+                            </div>
+                            <span class="data_evento">
+                                <span>20<small>Dez</small></span>
+                            </span>
+                        </div>
+                        <i class="fa fa-map-marker" aria-hidden="true"><span class="texto_card">Rua Expedicionário Aquiles Brasil</span></i>
+                        <i class="fa fa-clock-o" aria-hidden="true"><span class="texto_card">15:00 AM</span></i>
+                        <i class="fa fa-usd preco_evento" aria-hidden="true"><span class="texto_card">FREE</span></i>
+                    </div>
+                </div>
+                <div class="card_evento">
+                    <div class="img_evento">
+                        <img class="centralizar_img" src="img_evento/evento.png" alt="evento" />
+                    </div>
+                    <div class="dados_evento">
+                        <div class="linha">
+                            <div class="titulo_evento">
+                                <h2>Ladies day in the gym</h2>
+                            </div>
+                            <span class="data_evento">
+                                <span>20<small>Dez</small></span>
+                            </span>
+                        </div>
+                        <i class="fa fa-map-marker" aria-hidden="true"><span class="texto_card">Rua Expedicionário Aquiles Brasil</span></i>
+                        <i class="fa fa-clock-o" aria-hidden="true"><span class="texto_card">15:00 AM</span></i>
+                        <i class="fa fa-usd preco_evento" aria-hidden="true"><span class="texto_card">FREE</span></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
         <div class="contato" id="contato">
             <div class="linha">
                 <div class="mapa">

@@ -159,30 +159,16 @@ session_start();
             while($obj = mysqli_fetch_assoc($resultado))
             {
                 echo    "<div class='box_contato'>
-                            <form method='POST' id='form".$obj['id']."' action='php/controle_sistema.php?f=deletarAnuncio'>
-                                <h1>".$obj['nome']."</h1>
-                                <div class='box_img_anuncio'>
-                                    <img class='centralizar_img' src='img_anuncio/".$obj['nome_img']."' />
-                                </div>
-                                <div class='linha base_box_anuncio'>
-                                    <button type='submit' class='botao excluir_botao botao_vermelho' value=".$obj['id'].">Excluir</button>
-                                </div>
-                            </form>
+                            <h1>".$obj['nome']."</h1>
+                            <div class='box_img_anuncio'>
+                                <img class='centralizar_img' src='img_anuncio/".$obj['nome_img']."' />
+                            </div>
+                            <div class='linha base_box_anuncio'>
+                                <button type='button' class='botao excluir_botao botao_vermelho' value='anuncio_".$obj['id']."'>Excluir</button>
+                            </div>
                         </div>";
             }
         }
-    }
-
-    function deletarAnuncio()
-    {
-        $conexao = conexao();
-        extract($_POST);
-
-        $sql = "DELETE FROM anuncio WHERE id = '".$id_card."'";
-        $resultado = $conexao->query($sql);
-
-        if($resultado)
-            header('location: ../quiosque.php?f=exc');
     }
 
     /*Funcoes do plano*/
@@ -289,7 +275,7 @@ session_start();
                                 </div>
                                 <div class='linha base_box_anuncio'>
                                     <button type='submit' class='botao editar_botao botao_amarelo' name='editar' value=".$obj['id'].">Editar</button>
-                                    <button type='submit' class='botao excluir_botao botao_vermelho' name='excluir' value=".$obj['id'].">Excluir</button>
+                                    <button type='button' class='botao excluir_botao botao_vermelho' name='excluir' value='planos_".$obj['id']."'>Excluir</button>
                                 </div>
                             </form>
                         </div>";
@@ -331,17 +317,6 @@ session_start();
                 $_SESSION['editar_horario_termino'] = $hora_quebrando[2];
 
                 header("location: ../editar_plano.php");
-            }
-        }
-
-        else if(isset($_POST["excluir"]))
-        {
-            $sql_excluir = "DELETE FROM planos WHERE id = '".$excluir."'";
-            $resultado_excluir = $conexao->query($sql_excluir);
-            
-            if($resultado_excluir)
-            {
-                header("location: ../plano.php?f=exc");
             }
         }
 
@@ -476,11 +451,11 @@ session_start();
                                     <img class='centralizar_img' src='img_depoimento/".$obj['img_nome']."' />
                                 </div>
                                 <div class='box_texto_depoimento'>
-                                    <span>Depoimento - ".$obj['nome']."<small>".$obj['depoimento']."</small></span>
+                                    <span class='texto_depoimento'>Depoimento - ".$obj['nome']."<small>".$obj['depoimento']."</small></span>
                                 </div>
                                 <div class=' linha_vertical base_box_depoimento'>
                                     <button type='submit' class='botao editar_botao botao_amarelo' name='editar' value='".$obj['id']."'>Editar</button>
-                                    <button type='submit' class='botao excluir_botao botao_vermelho' name='excluir' value='".$obj['id']."'>Excluir</button>
+                                    <button type='button' class='botao excluir_botao botao_vermelho' name='excluir' value='depoimento_".$obj['id']."'>Excluir</button>
                                 </div>
                             </div>
                         </form>
@@ -491,6 +466,106 @@ session_start();
 
     function configDepoimento()
     {
+        extract($_POST);
+        $conexao = conexao();
 
+        if(isset($_POST["editar"]))
+        {
+            $sql_puxar = "SELECT * FROM depoimento WHERE id = '".$editar."'";
+            $resultado_puxar = $conexao->query($sql_puxar);
+
+            if($resultado_puxar->num_rows)
+            {
+                $resultado = $resultado_puxar->fetch_array();
+
+                $_SESSION['editar_nome_depoimento'] = $resultado['nome'];
+                $_SESSION['editar_depoimento'] = $resultado['depoimento'];
+                $_SESSION['editar_img_mini_depoimento'] = $resultado['img_nome'];
+                $_SESSION['editar_id_depoimento'] = $resultado['id'];
+
+                header("location: ../editar_depoimento.php");
+            }
+        }
+
+        else if(isset($_POST["salvar"]))
+        {
+            if(isset($_FILES['anexar_arquivo']['name']) && $_FILES["anexar_arquivo"]["error"] == 0)
+            {
+                $arquivo_tmp = $_FILES['anexar_arquivo']['tmp_name'];
+                $nome = $_FILES['anexar_arquivo']['name'];
+                $extensao = strrchr($nome, '.');
+                $extensao = strtolower($extensao);
+
+                if(strstr('.jpg;.jpeg;.gif;.png', $extensao))
+                {
+                    $novoNome = md5(microtime()) . '.' . $extensao;
+                    $destino = '../img_depoimento/' . $novoNome;
+
+                    if(move_uploaded_file( $arquivo_tmp, $destino))
+                    {
+                        $sql_editar = "UPDATE depoimento SET img_nome = '".$novoNome."', nome = '".$nome_depoimento."', depoimento = '".$depoimento. "' WHERE id = '".$salvar."'";
+                        $resultado_editar = $conexao->query($sql_editar);
+
+                        if($resultado_editar)
+                            header("location: ../depoimento.php?f=alt");
+
+                        else
+                            header("location: ../depoimento.php?f=erro");
+                    }
+                }
+            }
+
+            else
+            {
+                $sql_editar = "UPDATE depoimento SET nome = '".$nome_depoimento."', depoimento = '".$depoimento. "' WHERE id = '".$salvar."'";
+                $resultado_editar = $conexao->query($sql_editar);
+
+                if($resultado_editar)
+                    header("location: ../depoimento.php?f=alt");
+
+                else
+                    header("location: ../depoimento.php?f=erro");
+            }
+        }
+
+        else
+        {
+            $sql_excluir = "DELETE FROM depoimento WHERE id = '".$excluir."'";
+            $resultado_excluir = $conexao->query($sql_excluir);
+            
+            if($resultado_excluir)
+            {
+                header("location: ../depoimento.php?f=exc");
+            }
+        }
     }
+
+    /*Funcao Deletar*/
+    function deletar(){
+
+        extract($_POST);
+        $conexao = conexao();
+
+        $quebrando = explode("_", $confirma_delete);
+        $tabela = $quebrando[0];
+        $id = $quebrando[1];
+        
+        $sql_excluir = "DELETE FROM ".$tabela." WHERE id = '".$id."'";
+        $resultado_excluir = $conexao->query($sql_excluir);
+            
+        if($resultado_excluir)
+        {
+            if($tabela == "anuncio")
+                header("location: ../quiosque.php?f=exc");
+
+            else if($tabela == "planos")
+                header("location: ../plano.php?f=exc");
+
+            else if($tabela == "depoimento")
+                header("location: ../depoimento.php?f=exc");
+        }
+    }
+
+    /*Funcoes dos eventos*/
+    
 ?>

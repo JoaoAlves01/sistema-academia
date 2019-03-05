@@ -12,7 +12,7 @@
                         <form method="POST" action="php/controle_sistema.php?f=uploadImagem" enctype="multipart/form-data" id="form_upload">
                             <div class="linha">
                                 <div class="esquerda_update">
-                                    <img src="imagens/mini_img_anuncio.jpg" alt= "mini_img_anuncio" class="mini_foto_anuncio" id="mini_foto_anuncio" name="mini_foto_anuncio" />
+                                    <img src="imagens/mini_img_anuncio.jpg" alt= "mini_img_anuncio" class="mini_foto_anuncio centralizar_img" id="mini_foto_anuncio" name="mini_foto_anuncio" />
                                     <input type="file" class="update_arquivo" id="anexar_arquivo"  name="anexar_arquivo" onchange="visualizar_img(this,'mini_foto_anuncio');" />
                                 </div>
 
