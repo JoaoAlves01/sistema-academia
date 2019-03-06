@@ -17,9 +17,12 @@ if(isset($_GET['f']))
         <link rel="stylesheet" type="text/css" media="screen" href="lib/css/estilo_mobile.css" />
         <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link rel="stylesheet" href="lib/js/jqueryui/jquery-ui.css">
         <script src="lib/js/jquery.js"></script>
+        <script src="lib/js/jqueryui/jquery-ui.js"></script>
         <script src="lib/js/controle_interface.js"></script>
         <script src="lib/js/func_controle.js"></script>
+
     </head>
     <body>
 
@@ -106,15 +109,15 @@ if(isset($_GET['f']))
                         <img src="imagens/perfil.png" alt="usuario_sistema" />
                     </div>
                     <div class="linha">
-                        <span class="nome_usuario"><?php echo $_SESSION['horario_login']; ?><small><?php echo $_SESSION['nome']; ?></small></span>
+                        <span class="nome_usuario"><?php echo $_SESSION['horario_login']; ?><small><?php echo $_SESSION['primeiro_nome']; ?></small></span>
                     </div>
 
                     <nav id="menu_sistema">
                         <ul>
                             <li><i class="fa fa-eye" aria-hidden="true"><a href="serie.php">Visualizar Serie</a></i></li>
                             <li><i class="fa fa-book" aria-hidden="true"><a href="historico.php">Histórico</a></i></li>
-                            <li><i class="fa fa-user-plus" aria-hidden="true"><a href="cadastrarAluno.php">Cadastrar Aluno</a></i></li>
-                            <li><i class="fa fa-pencil-square-o" aria-hidden="true"><a href="cadastrarSerie.php">Cadastrar Serie</a></i></li>
+                            <li><i class="fa fa-user-plus" aria-hidden="true"><a href="cadastrarAluno.php">Cadastrar Cliente</a></i></li>
+                            <li><i class="fa fa-pencil-square-o" aria-hidden="true"><a href="criarFicha.php">Criar Ficha</a></i></li>
                             <li><i class="fa fa-desktop" aria-hidden="true"><a href="quiosque.php">Quiosque</a></i></li>
                             <li><i class="fa fa-clone" aria-hidden="true"><a href="plano.php">Planos</a></i></li>
                             <li><i class="fa fa-calendar" aria-hidden="true"><a href="evento.php">Eventos</a></i></li>

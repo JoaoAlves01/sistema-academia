@@ -25,11 +25,11 @@ session_start();
 
             if($resultado->num_rows)
             {
-                $resultado_login = $resultado->fetch_array();
-                $_SESSION['id'] = $resultado_login['id'];
-                $_SESSION['nome'] = $resultado_login['nome'];
-                $_SESSION['usuario'] = $resultado_login['usuario'];
-                $_SESSION['senha'] = $resultado_login['senha'];
+                $resultado_login = $resultado->fetch_array(MYSQLI_NUM);
+                $_SESSION['id'] = $resultado_login[0];
+                $_SESSION['primeiro_nome'] = $resultado_login[1];
+                $_SESSION['usuario'] = $resultado_login[3];
+                $_SESSION['senha'] = $resultado_login[4];
 
                 /*Pegar horário e informar periodo*/
                 date_default_timezone_set("America/Sao_Paulo");
