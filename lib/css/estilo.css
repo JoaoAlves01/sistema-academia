@@ -1960,16 +1960,6 @@ select
     color: #234356;
 }
 
-.titulo_sub_sub_formulario:after{
-    position: absolute;
-    content: "";
-    top: 0;
-    right: 0;
-    width: 1px;
-    height: 50px;
-    background: red;
-}
-
 #dados_ficha .titulo_sub_sub_formulario small{
     display: block;
     font-weight: 300;

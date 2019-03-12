@@ -13,6 +13,17 @@ session_start();
         }
     }
 
+    function dataBd($data){
+        $data = explode("/", $data);
+        $data = $data[2]."-".$data[1]."-".$data[0];
+        return $data;
+    }
+
+    function dataBr(){
+        $dataBrazuca = data("d/m/Y");
+        return $dataBrazuca;
+    }
+
     function login()
     {
         $conexao = conexao();
@@ -566,6 +577,122 @@ session_start();
         }
     }
 
-    /*Funcoes dos eventos*/
+    /*Cadastrar clienter*/
+    function cadastrarCliente(){
+
+        extract($_POST);
+        $conexao = conexao();
+
+        $_SESSION['primeiro_nome_cadastro'] = $primeiro_nome_cadastrado;
+        $_SESSION['sobrenome_cadastrado'] = $sobrenome_cadastrado;
+        $_SESSION['usuario_cadastrado'] = $usuario_cadastrado;
+        $_SESSION['senha_cadastrado'] = $senha_cadastrado;
+        $_SESSION['email_cadastrado'] = $email_cadastrado;
+        $_SESSION['cpf_cadastrado'] = $cpf_cadastrado;
+        $_SESSION['rg_cadastrado'] = $rg_cadastrado;
+        $_SESSION['sexo_cadastrado'] = $sexo_cadastrado;
+        $_SESSION['nascimento_cadastrado'] = $nascimento_cadastrado;
+        $_SESSION['situacao_cadastrado'] = $situacao_cadastrado;
+        $_SESSION['permissao_cadastrado'] = $permissao_cadastrado;
+
+        //Verificar se os campos estao preenchidos
+        if($primeiro_nome_cadastrado != "" && $sobrenome_cadastrado != "" && $usuario_cadastrado != "" && $senha_cadastrado != "" && $email_cadastrado != "")
+        {
+            $sql_usuario_repetido = "SELECT * FROM usuario WHERE usuario = '".$usuario_cadastrado."'";
+            $resultado_usuario_repetido = $conexao->query($sql_usuario_repetido);
+
+            //Existe? Sim
+            if($resultado_usuario_repetido->num_rows)
+            {
+                $_SESSION['mensagem_alerta'] = "usuário já cadastrado!";
+                header("location: ../cadastrarAluno.php?f=aten");
+            }
+
+            //Existe? Nao
+            else
+            {
+                $arquivo_tmp = $_FILES['anexar_arquivo'] ['tmp_name'];
+                $nome = $_FILES['anexar_arquivo'] ['name'];
+                $extensao = strrchr($nome, '.');
+                $extensao = strtolower($extensao);
+
+                //Verificar extensao do foto - jpg, jpeg, git, png
+                if($nome == "" || strstr('.jpg;.jpeg;.gif;.png', $extensao))
+                {
+                    //Caso não seja escolhido nenhuma foto, ira colocar uma foto padrao do sistema
+                    if($nome == "")
+                        $novo_nome = "perfil.png";
+
+                    else
+                        $novo_nome = md5(microtime()) . '.' . $extensao;
+
+                    
+                    $destino = '../img_perfil/'.$novo_nome;
+
+                    //Verificar se moveu o arquivo
+                    if(move_uploaded_file($arquivo_tmp, $destino) || $novo_nome == "perfil.png")
+                    {
+                        $pegando_telefone = array($_POST['numero_cadastrado'], $_POST['tipo_cadastrado']);
+                        $pegando_endereco = $_POST['endereco_cadastrado'];
+                        
+                        //Criando serialize
+                        foreach ($pegando_telefone as $key => $value_telefone) 
+                            serialize($value_telefone);
+
+                        foreach ($pegando_endereco as $key => $value_endereco) 
+                            $value_endereco;
+
+                        //Convertendo data
+                        $data = dataBd($nascimento_cadastrado);
+
+                        $sql_cadastrar = "INSERT INTO usuario (primeiro_nome, sobrenome, usuario, senha, email, cpf, rg, sexo, nascimento, telefone)
+                        VALUE('".$primeiro_nome_cadastrado."', '".$sobrenome_cadastrado."', '".$usuario_cadastrado."', '".$senha_cadastrado."', 
+                        '".$email_cadastrado."', '".$cpf_cadastrado."', '".$rg_cadastrado."', '".$sexo_cadastrado."', '".$data."', '".$value_telefone."')";
+                        $resultado_cadastrar = $conexao->query($sql_cadastrar);
+
+                        //Adicionou no bd
+                        if($resultado_cadastrar)
+                        {
+                            $_SESSION['primeiro_nome_cadastro'] = "";
+                            $_SESSION['sobrenome_cadastrado'] = "";
+                            $_SESSION['usuario_cadastrado'] = "";
+                            $_SESSION['senha_cadastrado'] = "";
+                            $_SESSION['email_cadastrado'] = "";
+                            $_SESSION['cpf_cadastrado'] = "";
+                            $_SESSION['rg_cadastrado'] = "";
+                            $_SESSION['sexo_cadastrado'] = "";
+                            $_SESSION['nascimento_cadastrado'] = "";
+                            $_SESSION['situacao_cadastrado'] = "";
+                            $_SESSION['permissao_cadastrado'] = "";
+
+                            $_SESSION['mensagem_alerta'] = "Cliente cadastrado com sucesso!";
+                            header("location: ../cadastrarAluno.php?f=ok");
+                        }
+                    }
+
+                    else
+                    {
+                        $_SESSION['mensagem_alerta'] = "Ocorreu algum erro ao salvar sua foto, tente novamente!";
+                        header("location: ../cadastrarAluno.php?f=erro");
+                    }
+                }
+
+                //Caso o formado da imagem seja invalido
+                else
+                {
+                    $_SESSION['mensagem_alerta'] = "Você poderá enviar apenas arquivos em \"*.jpg;*.jpeg;*.gif;*.png\"";
+                    header("location: ../cadastrarAluno.php?f=erro");
+                }
+
+            }
+        }
+
+        //Caso tenha campo em branco
+        else
+        {
+            $_SESSION['mensagem_alerta'] = "Preencha todos os campos!";
+            header("location: ../cadastrarAluno.php?f=aten");
+        }
+    }
     
 ?>

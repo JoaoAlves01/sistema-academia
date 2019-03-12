@@ -3,15 +3,14 @@
 
     if(empty($_SESSION['nome_depoimento']))
     {
-        $_SESSION['nome_depoimento'] = "";
-        $_SESSION['depoimento'] = "";
+        $_SESSION['primeiro_nome_cadastro'] = "";
     }
 ?>
 
                     <h1 class="titulo_formulario">Administrar Clientes</h1>
                     
                     <div class="envelope_formulario">
-                        <form method="POST" action="php/controle_sistema.php?f=cadastrarEvento" id="formulario" enctype="multipart/form-data">
+                        <form method="POST" action="php/controle_sistema.php?f=cadastrarCliente" id="formulario" enctype="multipart/form-data">
                             <div class="linha">
                                 <div class="esquerda_update">
                                     <h3 class="titulo_sub_sub_formulario">Foto do perfil</h3>
@@ -27,7 +26,7 @@
                                         <div class="campos_tres">
                                             <div class="divisao_campo">
                                                 <label class="label_sistema" for="primeiro_nome_cadastrado">Primeiro nome</label>
-                                                <input type="text" class="campo_sistema" id="primeiro_nome_cadastrado" name="primeiro_nome_cadastrado" maxlength="70" value="" />
+                                                <input type="text" class="campo_sistema" id="primeiro_nome_cadastrado" name="primeiro_nome_cadastrado" maxlength="70" value="<?php echo $_SESSION['primeiro_nome_cadastro']; ?>" />
                                             </div>
 
                                             <div class="divisao_campo">
@@ -124,7 +123,7 @@
                                         </div>
 
                                         <div class="linha">
-                                            <button type="button" class="botao botao_azul" name="cadastrar" onclick="verificarCadastroPlano();">Cadastrar</button>
+                                            <button type="submit" class="botao botao_azul" name="cadastrar">Cadastrar</button>
                                         </div>
                                     </div>
                                 </div>

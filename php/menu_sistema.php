@@ -5,6 +5,10 @@ $f="";
 if(isset($_GET['f']))
     $f = $_GET['f'];
 
+if(empty($_SESSION['mensagem_alerta'])){
+    $_SESSION['mensagem_alerta'] = "";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +34,7 @@ if(isset($_GET['f']))
         if($f == 'ok'){ ?>
             <div class='alerta_fundo'> 
                 <div class='mensagem sucesso'>
-                    <span class='texto_msg'>Cadastrado com sucesso!</span>
+                    <span class='texto_msg'><?php echo $_SESSION['mensagem_alerta']; ?></span>
                 </div>
             </div>
         <?php 
@@ -39,7 +43,7 @@ if(isset($_GET['f']))
         else if($f == 'erro'){?>
             <div class='alerta_fundo'> 
                 <div class='mensagem erro'>
-                    <span class='texto_msg'>Erro ao conectar no banco!</span>
+                    <span class='texto_msg'><?php echo $_SESSION['mensagem_alerta']; ?></span>
                 </div>
             </div>
         <?php
@@ -48,38 +52,12 @@ if(isset($_GET['f']))
         else if($f == 'aten'){?>
             <div class='alerta_fundo'> 
                 <div class='mensagem atencao'>
-                    <span class='texto_msg'>Preencha todos os campos!</span>
+                    <span class='texto_msg'><?php echo $_SESSION['mensagem_alerta']; ?></span>
                 </div>
             </div>
         <?php
         }
 
-        else if($f == 'dup'){?>
-            <div class='alerta_fundo'> 
-                <div class='mensagem atencao'>
-                    <span class='texto_msg'>Item já cadastrado!</span>
-                </div>
-            </div>
-        <?php
-        }
-
-        else if($f == 'exc'){?>
-            <div class='alerta_fundo'> 
-                <div class='mensagem sucesso'>
-                    <span class='texto_msg'>Item deletado com sucesso!</span>
-                </div>
-            </div>
-        <?php
-        }
-
-        else if($f == 'alt'){?>
-            <div class='alerta_fundo'> 
-                <div class='mensagem atencao'>
-                    <span class='texto_msg'>Item alterado com sucesso!</span>
-                </div>
-            </div>
-        <?php
-        }
         ?>
         
         <div class="alerta_verificacao"></div>
