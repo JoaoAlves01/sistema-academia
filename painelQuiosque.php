@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="lib/js/jquery.js"></script>
-    <script src="lib/js/controle_interface.js"></script>
 </head>
 <body>
     <section id="container_painel">
@@ -31,11 +30,69 @@
 
         <div class="container_painel">
             <div id="sidebar_esquerda">
-
+                <img src="imagens/anuncio_dentista.jpg" alt="img_anuncio" class="centralizar_img" />
             </div>
 
             <div id="sidebar_direita">
+                <div class="cartao_evento">
+                    <div class="linha_vertical">
+                        <span class="titulo_container_evento">Feira de esporte & fitness</span>
+                    </div>
+
+                    <div class="container_img_evento">
+                        <img src="imagens/anuncio_fitness.jpg" alt="painel_img" class="centralizar_img" />
+                    </div>
                 
+                    <div class="container_txt_evento">
+                        <label class="txt_container_evento"><i class="fa fa-map-marker" aria-hidden="true"></i>Rua Qualquer por ai</label>
+                        <label class="txt_container_evento"><i class="fa fa-clock-o" aria-hidden="true"></i>15:00 AM</label>
+                    </div>
+                </div>
+
+                <div class="cartao_evento">
+                    <div class="linha_vertical">
+                        <span class="titulo_container_evento">Feira de esporte & fitness</span>
+                    </div>
+
+                    <div class="container_img_evento">
+                        <img src="imagens/anuncio_fitness.jpg" alt="painel_img" class="centralizar_img" />
+                    </div>
+                
+                    <div class="container_txt_evento">
+                        <label class="txt_container_evento"><i class="fa fa-map-marker" aria-hidden="true"></i>Rua Qualquer por ai</label>
+                        <label class="txt_container_evento"><i class="fa fa-clock-o" aria-hidden="true"></i>15:00 AM</label>
+                    </div>
+                </div>
+
+                <div class="cartao_evento">
+                    <div class="linha_vertical">
+                        <span class="titulo_container_evento">Feira de esporte & fitness</span>
+                    </div>
+
+                    <div class="container_img_evento">
+                        <img src="imagens/anuncio_fitness.jpg" alt="painel_img" class="centralizar_img" />
+                    </div>
+                
+                    <div class="container_txt_evento">
+                        <label class="txt_container_evento"><i class="fa fa-map-marker" aria-hidden="true"></i>Rua Qualquer por ai</label>
+                        <label class="txt_container_evento"><i class="fa fa-clock-o" aria-hidden="true"></i>15:00 AM</label>
+                    </div>
+                </div>
+
+                <div class="cartao_evento">
+                    <div class="linha_vertical">
+                        <span class="titulo_container_evento">Feira de esporte & fitness</span>
+                    </div>
+
+                    <div class="container_img_evento">
+                        <img src="imagens/anuncio_fitness.jpg" alt="painel_img" class="centralizar_img" />
+                    </div>
+                
+                    <div class="container_txt_evento">
+                        <label class="txt_container_evento"><i class="fa fa-map-marker" aria-hidden="true"></i>Rua Qualquer por ai</label>
+                        <label class="txt_container_evento"><i class="fa fa-clock-o" aria-hidden="true"></i>15:00 AM</label>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
