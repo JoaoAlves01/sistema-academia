@@ -19,9 +19,87 @@ session_start();
         return $data;
     }
 
-    function dataBr(){
-        $dataBrazuca = data("d/m/Y");
-        return $dataBrazuca;
+    function dataBr($data){
+        $data = explode("-", $data);
+        $data = $data[2]."/".$data[1]."/".$data[0];
+        return $data;
+    }
+
+    /*Funcao mascara de cpf*/
+    function removerMascaraCPF($cpf) {
+       
+        $cpf = explode(".", $cpf);
+        $cpf = $cpf[0] . $cpf[1] . $cpf[2];
+
+        $cpf = explode("-", $cpf);
+        $cpf = $cpf[0] . $cpf[1];
+        return $cpf;
+    }
+
+    /*Funcao mascara de rg*/
+    function removerMascaraRG($rg) {
+       
+        $rg = explode(".", $rg);
+        $rg = $rg[0] . $rg[1] . $rg[2];
+
+        $rg = explode("-", $rg);
+        $rg = $rg[0] . $rg[1];
+        return $rg;
+    }
+
+    //Validar email
+    function validarEmail($email){
+
+        if(!ereg('^([a-zA-Z0-9.-_])*([@])([a-z0-9]).([a-z]{2,3})',$email)){
+
+            $mensagem = false;
+            return $mensagem;   
+        }
+
+        else{
+
+            $dominio = explode('@',$email);
+
+            if(!checkdnsrr($dominio[1],'A'))
+            {
+                $mensagem = false;
+                return $mensagem;
+            }
+
+            else
+                return true;
+        }
+    }
+
+    //Validar itens iguais
+    function validarSenhaIgual($senha, $repetida){
+
+        if($senha == $repetida)
+        {
+            $acao = true;
+            return $acao;
+        }
+
+        else
+        {
+            $acao = false;
+            return $acao;
+        }
+
+    }
+
+    //Retornar idade
+    function idadeUsuario($nascimento){
+
+        $nascimento = dataBr($nascimento);
+
+        list($dia, $mes, $ano) = explode("/", $nascimento);
+
+        $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $nascimento = mktime( 0, 0, 0, $mes, $dia, $ano);
+        $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
+
+        return $idade;
     }
 
     function login()
@@ -76,6 +154,30 @@ session_start();
     {
         session_destroy();
         header("location: ../index.php");
+    }
+
+    //Listar planos
+    function listarNomePlanos(){
+        $conexao = conexao();
+        $sql = "SELECT * FROM planos WHERE acao = 'ativo' ORDER BY tipo_plano ASC";
+        $resultado = $conexao->query($sql);
+
+        if($resultado)
+            return $resultado;
+
+        else
+            return "Nenhum plano cadastrado...";
+    }
+
+    //Listar dias da semana
+    function listarDiasSemana(){
+
+        $conexao = conexao();
+        $sql = "SELECT * FROM dias_semana ORDER BY semana ASC";
+        $resultado = $conexao->query($sql);
+
+        if($resultado)
+            return $resultado;
     }
 
     /*Funcoes do quiosque*/
@@ -227,9 +329,9 @@ session_start();
                             $conexao = conexao();
                             extract($_POST);
 
-                            $sql_cadastro = "INSERT INTO planos (img_plano, tipo_plano, semana, horario, preco) VALUES('".$novoNome."', '".$nome_aula."', 
+                            $sql_cadastro = "INSERT INTO planos (img_plano, tipo_plano, semana, horario, preco, acao) VALUES('".$novoNome."', '".$nome_aula."', 
                                             '".$inicio_dia_semana." ".$ligacao_dia_semana." ".$termino_dia_semana."', '".$horario_inicio." ".$horario_ligacao." ".$horario_termino."',
-                                            '".$preco."')";
+                                            '".$preco."', 'ativo')";
                             $resultado_cadastro = $conexao->query($sql_cadastro);
 
                             if($resultado_cadastro)
@@ -587,16 +689,18 @@ session_start();
         $_SESSION['sobrenome_cadastrado'] = $sobrenome_cadastrado;
         $_SESSION['usuario_cadastrado'] = $usuario_cadastrado;
         $_SESSION['senha_cadastrado'] = $senha_cadastrado;
+        $_SESSION['senha_repetir_cadastrado'] = $senha_repetir_cadastrado;
         $_SESSION['email_cadastrado'] = $email_cadastrado;
         $_SESSION['cpf_cadastrado'] = $cpf_cadastrado;
         $_SESSION['rg_cadastrado'] = $rg_cadastrado;
         $_SESSION['sexo_cadastrado'] = $sexo_cadastrado;
         $_SESSION['nascimento_cadastrado'] = $nascimento_cadastrado;
+        $_SESSION['tipo_aula_cadastrado'] = $tipo_aula_cadastrado;
         $_SESSION['situacao_cadastrado'] = $situacao_cadastrado;
         $_SESSION['permissao_cadastrado'] = $permissao_cadastrado;
 
         //Verificar se os campos estao preenchidos
-        if($primeiro_nome_cadastrado != "" && $sobrenome_cadastrado != "" && $usuario_cadastrado != "" && $senha_cadastrado != "" && $email_cadastrado != "")
+        if($primeiro_nome_cadastrado != "" && $sobrenome_cadastrado != "" && $usuario_cadastrado != "" && $email_cadastrado != "")
         {
             $sql_usuario_repetido = "SELECT * FROM usuario WHERE usuario = '".$usuario_cadastrado."'";
             $resultado_usuario_repetido = $conexao->query($sql_usuario_repetido);
@@ -632,41 +736,93 @@ session_start();
                     //Verificar se moveu o arquivo
                     if(move_uploaded_file($arquivo_tmp, $destino) || $novo_nome == "perfil.png")
                     {
-                        $pegando_telefone = array($_POST['numero_cadastrado'], $_POST['tipo_cadastrado']);
-                        $pegando_endereco = $_POST['endereco_cadastrado'];
-                        
-                        //Criando serialize
-                        foreach ($pegando_telefone as $key => $value_telefone) 
-                            serialize($value_telefone);
-
-                        foreach ($pegando_endereco as $key => $value_endereco) 
-                            $value_endereco;
-
-                        //Convertendo data
-                        $data = dataBd($nascimento_cadastrado);
-
-                        $sql_cadastrar = "INSERT INTO usuario (primeiro_nome, sobrenome, usuario, senha, email, cpf, rg, sexo, nascimento, telefone)
-                        VALUE('".$primeiro_nome_cadastrado."', '".$sobrenome_cadastrado."', '".$usuario_cadastrado."', '".$senha_cadastrado."', 
-                        '".$email_cadastrado."', '".$cpf_cadastrado."', '".$rg_cadastrado."', '".$sexo_cadastrado."', '".$data."', '".$value_telefone."')";
-                        $resultado_cadastrar = $conexao->query($sql_cadastrar);
-
-                        //Adicionou no bd
-                        if($resultado_cadastrar)
+                        //Validar senha
+                        if(validarSenhaIgual($senha_cadastrado, $senha_repetir_cadastrado) == true)
                         {
-                            $_SESSION['primeiro_nome_cadastro'] = "";
-                            $_SESSION['sobrenome_cadastrado'] = "";
-                            $_SESSION['usuario_cadastrado'] = "";
-                            $_SESSION['senha_cadastrado'] = "";
-                            $_SESSION['email_cadastrado'] = "";
-                            $_SESSION['cpf_cadastrado'] = "";
-                            $_SESSION['rg_cadastrado'] = "";
-                            $_SESSION['sexo_cadastrado'] = "";
-                            $_SESSION['nascimento_cadastrado'] = "";
-                            $_SESSION['situacao_cadastrado'] = "";
-                            $_SESSION['permissao_cadastrado'] = "";
+                            //Verificar tamanho de cpf e rg
+                            if(strlen($cpf_cadastrado) == 14 && strlen($rg_cadastrado) == 12)
+                            {
+                                //Validar email
+                                if(validarEmail($email_cadastrado))
+                                {
+                                    $telefone_numero = $_POST['numero_cadastrado'];
+                                    $telefone_tipo = $_POST['tipo_cadastrado'];
+                                    $telefone_completo = array();
 
-                            $_SESSION['mensagem_alerta'] = "Cliente cadastrado com sucesso!";
-                            header("location: ../cadastrarAluno.php?f=ok");
+                                    $endereco_cep = $_POST['cep_cadastrado'];
+                                    $endereco_endereco = $_POST['endereco_cadastrado'];
+                                    $endereco_complemento = $_POST['complemento_cadastrado'];
+                                    $endereco_bairro = $_POST['bairro_cadastrado'];
+                                    $endereco_cidade = $_POST['cidade_cadastrado'];
+                                    $endereco_estado = $_POST['estado_cadastrado'];
+                                    $endereco_completo = array();
+
+                                    for($i = 1; $i <= count($telefone_numero); $i++)
+                                    {
+                                        $unindo_telefone = $telefone_numero[$i]. "-" .$telefone_tipo[$i];
+                                        array_push($telefone_completo, $unindo_telefone);
+                                    }
+
+                                    for($i = 1; $i <= count($endereco_cep); $i++)
+                                    {
+                                        $unindo_endereco = $endereco_cep[$i]. "-" . $endereco_endereco[$i]. "-" . $endereco_complemento[$i]. "-" . $endereco_bairro[$i]. "-" . $endereco_cidade[$i]. "-" . $endereco_bairro[$i];
+                                        array_push($endereco_completo, $unindo_endereco);
+                                    }
+
+                                    //Convertendo data
+                                    $data = dataBd($nascimento_cadastrado);
+                                    $telefone_bd = serialize($telefone_completo);
+                                    $endereco_bd = serialize($endereco_completo);
+                                    $cpf_bd = removerMascaraCPF($cpf_cadastrado);
+                                    $rg_bd = removerMascaraRG($rg_cadastrado);
+
+                                    $sql_cadastrar = "INSERT INTO usuario (primeiro_nome, sobrenome, usuario, senha, email, cpf, rg, sexo, nascimento, tipo_aula, 
+                                    telefone, endereco, situacao, tipo_usuario, img_usuario, id_crip) VALUE('".$primeiro_nome_cadastrado."', '".$sobrenome_cadastrado."', 
+                                    '".$usuario_cadastrado."', '".$senha_cadastrado."', '".$email_cadastrado."', '".$cpf_bd."', '".$rg_bd."', '".$sexo_cadastrado."', 
+                                    '".$data."', ".$tipo_aula_cadastrado.", '".$telefone_bd."', '".$endereco_bd."', '".$situacao_cadastrado."', '".$permissao_cadastrado."', 
+                                    '".$novo_nome."', '".md5($usuario_cadastrado)."')";
+                                    $resultado_cadastrar = $conexao->query($sql_cadastrar);
+
+                                    //Adicionou no bd
+                                    if($resultado_cadastrar)
+                                    {
+                                        $_SESSION['primeiro_nome_cadastro'] = "";
+                                        $_SESSION['sobrenome_cadastrado'] = "";
+                                        $_SESSION['usuario_cadastrado'] = "";
+                                        $_SESSION['senha_cadastrado'] = "";
+                                        $_SESSION['senha_repetir_cadastrado'] = "";
+                                        $_SESSION['email_cadastrado'] = "";
+                                        $_SESSION['cpf_cadastrado'] = "";
+                                        $_SESSION['rg_cadastrado'] = "";
+                                        $_SESSION['sexo_cadastrado'] = "";
+                                        $_SESSION['nascimento_cadastrado'] = "";
+                                        $_SESSION['situacao_cadastrado'] = "";
+                                        $_SESSION['permissao_cadastrado'] = "";
+                                        $_SESSION['tipo_aula_cadastrado'] = "";
+
+                                        $_SESSION['mensagem_alerta'] = "Cliente cadastrado com sucesso!";
+                                        header("location: ../cadastrarAluno.php?f=ok");
+                                    }
+                                }
+
+                                else
+                                {
+                                    $_SESSION['mensagem_alerta'] = "E-mail inválido!";
+                                    header("location: ../cadastrarAluno.php?f=aten");
+                                }
+                            }
+
+                            else
+                            {
+                                $_SESSION['mensagem_alerta'] = "CPF ou RG inválido!";
+                                header("location: ../cadastrarAluno.php?f=aten");
+                            }
+                        }
+
+                        else
+                        {
+                            $_SESSION['mensagem_alerta'] = "A senha não está correspondendo a primeira!";
+                            header("location: ../cadastrarAluno.php?f=aten");
                         }
                     }
 
@@ -693,6 +849,27 @@ session_start();
             $_SESSION['mensagem_alerta'] = "Preencha todos os campos!";
             header("location: ../cadastrarAluno.php?f=aten");
         }
+    }
+
+    //Listar clientes
+    function listarClientes(){
+
+        $conexao = conexao();
+        $sql = "SELECT usuario.*, plano.* FROM usuario AS usuario INNER JOIN planos AS plano ON plano.id = usuario.tipo_aula 
+                ORDER BY usuario.primeiro_nome ASC";
+        $resultado = $conexao->query($sql);
+        return $resultado;
+    }
+
+    //Buscar perfil
+    function buscarPerfil($id){
+        
+        $conexao = conexao();
+        $sql = "SELECT * FROM usuario WHERE id_crip = '".$id."'";
+        $resultado = $conexao->query($sql);
+        $resultado_busca = $resultado->fetch_array(MYSQLI_NUM);
+
+        return $resultado_busca;
     }
     
 ?>

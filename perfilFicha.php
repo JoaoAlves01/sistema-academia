@@ -5,24 +5,37 @@
     {
         $_SESSION['nome_aula'] = "";
     }
+
+    if(isset($_GET['id']))
+    {   
+        $url_id = $_GET['id'];
+        $url_id = explode(">", $url_id);
+
+        $_SESSION['id_perfil'] = $url_id[1];
+        $_SESSION['dados_usuario_perfil'] = buscarPerfil($_SESSION['id_perfil']);
+    }
 ?>
                     <h1 class="titulo_formulario">Administrar Fichas</h1>
                     
                     <div class="envelope_formulario">
-                        <h2 class="titulo_sub_formulario">João Pedro Alves de Sousa</h2>
+                        <h2 class="titulo_sub_formulario"><?php echo $_SESSION['dados_usuario_perfil'][1]." ".$_SESSION['dados_usuario_perfil'][2]; ?></h2>
 
                         <form method="POST" action="" id="formulario">
                             <div class="container" id="perfil_ficha">
                                 <br>
                                 <div class="linha_vertical">
                                     <div class="img_usuario_sistema">
-                                        <img src="imagens/perfil.png" alt="img_usario" class="centralizar_img" />
+                                        <img src="img_perfil/<?php echo $_SESSION['dados_usuario_perfil'][15]; ?>" alt="<?php echo $_SESSION['dados_usuario_perfil'][15]. $_SESSION['dados_usuario_perfil'][0]; ?>" class="centralizar_img" />
                                     </div>
 
                                     <div class="alinhar_dados_perfil">
-                                        <span class="titulo_sub_sub_formulario">Idade<small>20</small></span>
+                                        <span class="titulo_sub_sub_formulario">Idade<small><?php echo idadeUsuario($_SESSION['dados_usuario_perfil'][9]); ?></small></span>
 
-                                        <span class="titulo_sub_sub_formulario">Sexo<small>Masculino</small></span>
+                                        <span class="titulo_sub_sub_formulario">Início<small>02/02/2019</small></span>
+
+                                        <span class="titulo_sub_sub_formulario">E-mail<small><?php echo $_SESSION['dados_usuario_perfil'][5]; ?></small></span>
+
+                                        <span class="titulo_sub_sub_formulario">Situação<small><?php echo $_SESSION['dados_usuario_perfil'][13]; ?></small></span>
 
                                         <span class="titulo_sub_sub_formulario">Fichas<small>01</small></span>
                                     </div>
