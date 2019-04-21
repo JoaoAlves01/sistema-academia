@@ -18,8 +18,28 @@
         $_SESSION['tipo_aula_cadastrado'] = "";
     }
 
-    $listar_nome_panos = listarNomePlanos();
-    $listar_clientes = listarClientes();
+    if(empty($_SESSION['inicio_busca']))
+    {
+        $_SESSION['inicio_busca'] = 0;
+        $_SESSION['limite_busca'] = 25;
+        $_SESSION['pagina_atual'] = 0;
+    }
+
+    if(isset($_GET['pagina']))
+    {   
+        $pagina = $_GET['pagina'];
+        $_SESSION['inicio_busca'] = $pagina * $_SESSION['limite_busca'];
+        $_SESSION['pagina_atual'] = $pagina;
+    }
+
+    $listar_nome_panos = listarPlanos();
+    $listar_clientes = listarClientesPaginacao();
+    $total_itens = totalUsuario();
+    $total_pagina = ceil($total_itens/ $_SESSION['limite_busca']);
+
+    // $_SESSION['inicio_busca'] = 0;
+    // $_SESSION['limite_busca'] = 25;
+    // $_SESSION['pagina_atual'] = 0;
 ?>
 
                     <h1 class="titulo_formulario">Administrar Clientes</h1>
@@ -195,7 +215,7 @@
                                     <div class="lista_aniversario"><span>Aniversário</span></div>
                                     <div class="lista_valor"><span>Valor</span></div>
                                     <div class="lista_aula"><span>Aula</span></div>
-                                    <div class="lista_telefone"><span>Telefone</span></div>
+                                    <div class="lista_usuario"><span>Usuário</span></div>
                                     <div class="lista_situacao"><span>Situação</span></div>
                                 </div>
 
@@ -204,7 +224,7 @@
 
                                         <!-- linha ativo -->
                                         <div class="linha_tabela">
-                                            <a href="<?php echo 'perfilFicha.php?id='.md5($obj[1]).">".md5($obj[3]); ?>">
+                                            <a href="<?php echo 'perfilFicha.php?id='.$obj[0]; ?>">
                                                 <div class="linha_vertical">
                                                     <div class="lista_img">
                                                         <div class="container_img_tabela">
@@ -221,15 +241,15 @@
                                                     </div>
 
                                                     <div class="lista_valor">
-                                                        <span><?php echo $obj[23]; ?></span>
+                                                        <span><?php echo $obj[22]; ?></span>
                                                     </div>
 
                                                     <div class="lista_aula">
-                                                        <span><?php echo $obj[20]; ?></span>
+                                                        <span><?php echo $obj[19]; ?></span>
                                                     </div>
 
-                                                    <div class="lista_telefone">
-                                                        <span><?php echo $obj[0]; ?></span>
+                                                    <div class="lista_usuario">
+                                                        <span><?php echo $obj[3]; ?></span>
                                                     </div>
 
                                                     <div class="lista_situacao">
@@ -244,6 +264,31 @@
                                     <?php 
                                     } ?>
                                 </form>
+                            </div>
+
+                            <div class="paginacao">
+                                <?php
+                                if($total_itens > 25)
+                                {
+                                    if($_SESSION['pagina_atual'] > 0)
+                                    {   ?>
+                                         <a href="cadastrarAluno.php?pagina=<?php echo $_SESSION['pagina_atual'] - 1 ?>" class="botao_paginacao">Anterior</a>
+                                        <?php
+                                    }
+
+                                    for($i=0; $i < $total_pagina; $i++)
+                                    {   ?>
+                                        <a href="cadastrarAluno.php?pagina=<?php echo $i+1 ?>" class="botao_paginacao"><?php echo $i+1 ?></a>
+                                        <?php
+                                    }  
+
+                                    if($_SESSION['pagina_atual'] > 1)
+                                    {   ?>
+                                         <a href="cadastrarAluno.php?pagina=<?php echo $_SESSION['pagina_atual'] + 1 ?>" class="botao_paginacao">Próximo</a>
+                                        <?php
+                                    }
+                                }
+                                ?>
                             </div>
                             <?php
                         }

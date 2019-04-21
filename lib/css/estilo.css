@@ -7,7 +7,7 @@
 section
 {
     width: 100%;
-}
+} 
 
 select
 {
@@ -94,6 +94,7 @@ select
 .titulo_sub_formulario,
 .titulo_sub_sub_formulario
 {
+    position: relative;
     text-align: left;
     font-weight: 300;
     line-height: 1.5;
@@ -117,6 +118,7 @@ select
 .label_sistema,
 .span_sistema
 {
+    position: relative;
     display: block;
     color: #73879c;
     font-size: 14px;
@@ -140,6 +142,7 @@ select
     margin-bottom: 10px;
     font-size: 14px;
     outline: 0;
+    resize: none;
     transition: .3s;
 }
 
@@ -189,6 +192,13 @@ select
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.centralizar_img_contain
+{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 /*Campos lado a lado*/
@@ -272,7 +282,7 @@ select
 .botao
 {
     width: 100px;
-    height: 28px;
+    min-height: 28px;
     text-align: center;
     font-family: Roboto;
     margin: 0 auto;
@@ -383,10 +393,6 @@ select
     margin: 20px auto;
     margin-bottom: 0;
     margin-right: 10px;
-}
-
-.mostrar_modal{
-    display: block;
 }
 
 @keyframes mover_modal{
@@ -726,6 +732,54 @@ select
 
 .linha_vertical
 {align-items: center;}
+
+.container_radio,
+.container_checkbox{
+    margin-top: 10px;
+}
+
+.container_radio .label_sistema,
+.container_checkbox .label_sistema{
+    display: inline;
+    margin-right: 10px;
+}
+
+.campo_radio,
+.campo_checkbox{
+    position: relative;
+    width: 15px;
+    height: 15px;
+    top: 3px;
+    box-sizing: border-box;
+    margin-right: 5px;
+}
+
+.campo_radio:before{
+    position: absolute;
+    content: "";
+    width: 16px;
+    height: 16px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 1px solid #d4d4d4;
+    background: #fff;
+}
+
+.container_radio input:checked:before{
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 10px;
+    top: 49%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    outline: none;
+    background: #2A3F54;
+}
+
 
 /*Config do card planos*/
 .card_plano,
@@ -1295,9 +1349,30 @@ select
 
 
 /*Config Quiosque*/
+.botao_dash{
+    position: absolute;
+    right: 0;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    border: 1px solid #a2a2a2;
+    color: #234356;
+}
+
+.botao_dash i{
+    padding-right: 10px;
+    font-size: 15px;
+}
+
+.botao_dash:hover{
+    background: #ededed;
+}
+
 #container_painel{
     height: 100vh;
-    background: #234356;
+    background: #ECF0F5;
 }
 
 .cabecalho_painel{
@@ -1309,7 +1384,7 @@ select
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, .5);
     padding: 10px 0 5px 10px;
     margin-bottom: 10px;
-    background: #2A3F54;
+    background: #3C8DBC;
 }
 
 .logo_painel{
@@ -1339,6 +1414,7 @@ select
     font-size: 16px;
     font-weight: 300;
     text-align: left;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, .4);
     line-height: 1.5;
     color: #fff;
 }
@@ -1350,8 +1426,6 @@ select
 
 .container_painel{
     display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
     height: 85%;
     padding: 20px;
@@ -1370,20 +1444,77 @@ select
 }
 
 #sidebar_direita{
-    width: 23%;
+    width: 25%;
     margin-right: 0;
     padding: 5px;
     overflow: hidden;
 }
 
+/*Gamb carroseul :´( */
+#sidebar_esquerda .owl-wrapper-outer,
+#sidebar_esquerda .owl-wrapper,
+#sidebar_esquerda .owl-item,
+#sidebar_esquerda .item{
+    height: 100%;
+}
+
+.item{
+    position: relative;
+    border: 1px solid #F7F7F7;
+    margin-right: 20px;
+}
+
+.item:before,
+.cartao_evento:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    border-left: 3px solid #3C8DBC;
+    border-top: 3px solid #3C8DBC;
+}
+
+.item:after,
+.cartao_evento:after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    border-right: 3px solid #3C8DBC;
+    border-bottom: 3px solid #3C8DBC;
+}
+
+#sidebar_direita .owl-wrapper-outer{
+    min-height: 220px;
+}
+
+.capsula_evento_sidebar{
+    margin-bottom: 60px;
+}
+
 .cartao_evento{
+    position: relative;
     width: 100%;
-    max-width: 295px;
+    max-width: 310px;
     min-height: 180px;
     box-sizing: border-box;
-    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, .5);
-    margin-bottom:20px;
+    border: 1px solid #F7F7F7;
     padding: 10px 15px;
+    background: #fff;
+}
+
+.cartao_evento:before{
+    width: 70px;
+    height: 70px;
+}
+
+.cartao_evento:after{
+    width: 70px;
+    height: 70px;
 }
 
 .container_img_evento{
@@ -1403,7 +1534,7 @@ select
     line-height: 1.5;
     margin-left: 0;
     padding-bottom: 10px;
-    color: #fff;
+    color: #000;
 }
 
 .txt_container_evento {
@@ -1674,10 +1805,9 @@ select
 {
     width: 30%;
     display: inline-block;
-    margin-right: 3%;
-    /* margin: 0 auto;
-    margin-left: 0; */
+    margin-right: 2%;
     margin-top: 40px;
+    box-sizing: border-box;
     border-radius: 3px;
     border: 1px solid #d4d4d4;
 }
@@ -1723,7 +1853,6 @@ select
 {
     width: 100%;
     height: auto;
-    min-height: 140px;
     margin: 0 auto;
     margin-top: 40px;
     border-radius: 3px;
@@ -1742,9 +1871,13 @@ select
     width: 120px;
     height: 120px;
     border: 1px solid #d4d4d4;
-    margin-left: 10px;
+    margin-left: 0;
     overflow: hidden;
     object-fit: cover;
+}
+
+.box_img_evento{
+    margin-left: 15px;
 }
 
 .box_texto_depoimento,
@@ -1785,6 +1918,7 @@ select
     min-height: 120px;
     margin-right: 0;
     border-left: 1px solid #d4d4d4;
+    box-sizing: border-box;
     padding: 10px 20px;
     background: #ededed;
 }
@@ -1793,7 +1927,10 @@ select
 .box_evento{
     width: 45%;
     margin: 0 auto;
+    margin-left: 0;
     margin-top: 40px;
+    padding-top: 10px;
+    box-sizing: border-box;
 }
 
 .box_img_evento {
@@ -1808,6 +1945,7 @@ select
 
 .texto_evento{
     display: block;
+    font-size: 14px;
     min-height: 25px;
 }
 
@@ -1926,7 +2064,7 @@ select
 
 .lista_aniversario,
 .lista_aula,
-.lista_telefone,
+.lista_usuario,
 .lista_situacao{
     width: 15%;
     margin-left: 0;
@@ -1958,6 +2096,33 @@ select
 .desativo{
     border: 1px solid linear-gradient(to right, #e17979, #ac5e5e);
     background: #e17979;
+}
+
+.paginacao{
+    display: block;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    margin-top: -20px;
+    margin-right: 0;
+    padding: 8px 10px 8px 0;
+}
+
+.botao_paginacao{
+    text-decoration: none;
+    text-align: left;
+    line-height: 1.5;
+    font-weight: 300;
+    box-sizing: border-box;
+    margin: 0 auto;
+    margin-right: 0;
+    padding: 8px 10px;
+    transition: .3s;
+    color: #73879c;
+}
+
+.botao_paginacao:hover{
+    border-bottom: 1px solid #73879c;
 }
 
 .titulo_add{
@@ -2023,9 +2188,16 @@ select
     position: absolute;
     left: 0;
     width: 65px;
+    min-height: 5px;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1.5;
+    font-size: 14px;
+    padding: 3px 0;
 }
 
 .botao_add_ficha i{
+    font-size: 14px;
     padding-right: 5px;
 }
 
@@ -2109,4 +2281,148 @@ select
 #dados_ficha .titulo_sub_sub_formulario small{
     display: block;
     font-weight: 300;
+}
+
+/*Config adm novo exercicio*/
+#novo_exercicio{
+    padding: 0;
+}
+
+.container_exercicio{
+    box-sizing: border-box;
+    border: 1px solid #d4d4d4;
+    padding: 0 0 20px 0;
+    margin-top: 30px;
+}
+
+.sub_container_exercicio{
+    display: none;
+    position: relative;
+    padding: 20px 40px 10px 40px;
+    border-top: 1px solid #d4d4d4;
+}
+
+.sub_container_exercicio:nth-child(1){
+    border-top: none;
+}
+
+.sub_container_exercicio:before,
+.sub_container_exercicio:after{
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 30px;
+    top: 0;
+    left: 0;
+    border: 1px solid #d4d4d4;
+    border-bottom-right-radius: 50%;
+    background: #ededed;
+}
+
+.sub_container_exercicio:after{
+    top: 6px;
+    left: 4px;
+    width: 15px;
+    height: 15px;
+    border: none;
+    background-image: url(../../imagens/recortada/icon_exercicio.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.container_exercicio .botao{
+    margin-right: 40px;
+}
+
+.container_exercicio_escolhido{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box_exercicio{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border: 1px solid #d4d4d4;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 20px;
+    transition: .3s;
+    overflow: hidden;
+}
+
+.abrir_box{
+    height: auto !important;
+}
+
+.icon_exercicio{
+    display: inline-block;
+    vertical-align: top;
+    width: 10%;
+    max-width: 40px;
+    height: 100%;
+    padding: 5px;
+    padding-top: 10px;
+    box-sizing: border-box;
+    border-bottom-right-radius: 20px;
+    margin: 0 auto;
+    margin-left: 0;
+}
+
+.icon_exercicio img{
+    width: 25px;
+    /*display: flex;*/
+}
+
+.icon_musculacao {background: #dd4b39;}
+.icon_funcional {background: #F39C12;}
+.icon_cardio {background: #00A65A;}
+.icon_alongamento {background: #00C0EF;}
+
+.nome_exercicio{
+    display: inline-block;
+    vertical-align: top;
+    width: 90%;
+    box-sizing: border-box;
+    margin: 0 auto;
+    margin-left: 10px;
+    padding-top: 15px;
+}
+
+.nome_exercicio .titulo_box_exercicio{
+    font-weight: bold;
+    border-bottom: 1px solid #d4d4d4;
+    margin-bottom: 15px;
+}
+
+.botao_mostrar_exercicio{
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.botao_mostrar_exercicio{
+    font-size: 22px;
+}
+
+.base_exercicio{
+    float: right;
+    margin-bottom: 10px;
+}
+
+.base_exercicio .botao{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.mostrar_modal{
+    display: block;
 }

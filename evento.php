@@ -1,11 +1,16 @@
 <?php 
     include('php/menu_sistema.php');
 
-    if(empty($_SESSION['nome_depoimento']))
+    if(empty($_SESSION['nome_evento']))
     {
-        $_SESSION['nome_depoimento'] = "";
-        $_SESSION['depoimento'] = "";
+        $_SESSION['nome_evento'] = "";
+        $_SESSION['endereco_evento'] = "";
+        $_SESSION['dia_evento'] = "";
+        $_SESSION['hora_evento'] = "";
+        $_SESSION['valor_evento'] = "";
     }
+
+    $listarEvento = listarEvento();
 ?>
 
                     <h1 class="titulo_formulario">Administrar Eventos</h1>
@@ -35,18 +40,18 @@
                                         <div class="campos_tres">
                                             <div class="divisao_campo">
                                                 <label class="label_sistema" for="dia_evento">Data</label>
-                                                <input type="text" class="campo_sistema" id="dia_evento" name="dia_evento" maxlength="10" value="<?php echo $_SESSION['dia_evento']; ?>" />
+                                                <input type="text" class="campo_sistema campo_calendario" id="dia_evento" name="dia_evento" maxlength="10" value="<?php echo $_SESSION['dia_evento']; ?>" />
                                             </div>
 
                                             <div class="divisao_campo">
                                                 <label class="label_sistema" for="hora_evento">Hora</label>
-                                                <input type="text" class="campo_sistema" id="hora_evento" name="hora_evento" maxlength="5" value="<?php echo $_SESSION['hora_evento']; ?>" />
+                                                <input type="text" class="campo_sistema" id="hora_evento" name="hora_evento" maxlength="5" value="<?php echo $_SESSION['hora_evento']; ?>" onkeyup="mascaraHora(this.value, this.id); return somenteNumero(event);" />
                                             </div>
                                         </div>
 
                                         <label class="label_sistema" for="valor_evento">Valor</label>
                                         <div class="linha">
-                                            <input type="text" class="campo_sistema" id="valor_evento" name="valor_evento" value="<?php echo $_SESSION['valor_evento']; ?>" />
+                                            <input type="text" class="campo_sistema" id="valor_evento" name="valor_evento" value="<?php echo $_SESSION['valor_evento']; ?>" onkeyup="mascaraDinheiro(this.value, this.id);" onkeyup="return somenteNumero(event);" />
                                         </div>
                                         
                                         <div class="linha">
@@ -60,91 +65,47 @@
                     <br>
                     <div class="envelope_formulario">
                         <h2 class="titulo_sub_formulario">Próximos Eventos</h2>
-                        <div class="linha_vertical">
-                            <div class='box_evento'>
-                                <form method='POST' action='php/controle_sistema.php?f=configEvento'>
-                                    <div class='linha_vertical'>
-                                        <div class='box_img_evento'>
-                                            <img class='centralizar_img' src='img_evento/evento.png' />
-                                        </div>
-                                        <div class='box_texto_evento'>
-                                            <span class='texto_depoimento texto_evento'>Nome do evento: <small>Evento de biquini</small></span>
-                                            <span class='texto_depoimento texto_evento'>Endereço: <small>Rua Expedicionário Aquiles Brasil</small></span>
-                                            <span class='texto_depoimento texto_evento'>Data: <small>00/00/0000</small></span>
-                                            <span class='texto_depoimento texto_evento'>Horário: <small>00:00</small></span>
-                                            <span class='texto_depoimento texto_evento'>Valor: <small>R$ 00,00</small></span>
-                                        </div>
-                                        <div class=' linha_vertical base_box_depoimento base_evento'>
-                                            <button type='submit' class='botao editar_botao botao_amarelo' name='editar' value=''>Editar</button>
-                                            <button type='submit' class='botao excluir_botao botao_vermelho' name='excluir' value=''>Excluir</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
 
-                            <div class='box_evento'>
-                                <form method='POST' action='php/controle_sistema.php?f=configEvento'>
-                                    <div class='linha_vertical'>
-                                        <div class='box_img_evento'>
-                                            <img class='centralizar_img' src='img_evento/evento.png' />
-                                        </div>
-                                        <div class='box_texto_evento'>
-                                            <span class='texto_depoimento texto_evento'>Nome do evento: <small>Evento de biquini</small></span>
-                                            <span class='texto_depoimento texto_evento'>Endereço: <small>Rua Expedicionário Aquiles Brasil</small></span>
-                                            <span class='texto_depoimento texto_evento'>Data: <small>00/00/0000</small></span>
-                                            <span class='texto_depoimento texto_evento'>Horário: <small>00:00</small></span>
-                                            <span class='texto_depoimento texto_evento'>Valor: <small>R$ 00,00</small></span>
-                                        </div>
-                                        <div class=' linha_vertical base_box_depoimento base_evento'>
-                                            <button type='submit' class='botao editar_botao botao_amarelo' name='editar' value=''>Editar</button>
-                                            <button type='submit' class='botao excluir_botao botao_vermelho' name='excluir' value=''>Excluir</button>
-                                        </div>
+                        <?php
+                        if($listarEvento->num_rows)
+                        {   ?>
+                            <div class="linha_vertical">
+                                <?php 
+                                while($obj = $listarEvento->fetch_array(MYSQLI_NUM))
+                                {   ?>
+                                    <div class="box_evento">
+                                        <form method="POST" action="php/controle_sistema.php?f=configEvento">
+                                            <div class="linha_vertical">
+                                                <div class="box_img_evento">
+                                                    <img class="centralizar_img" src="img_evento/<?php echo $obj[6]; ?>" />
+                                                </div>
+                                                <div class="box_texto_evento">
+                                                    <span class="texto_depoimento texto_evento">Nome do evento: <small><?php echo $obj[1]; ?></small></span>
+                                                    <span class="texto_depoimento texto_evento">Endereço: <small><?php echo $obj[2]; ?></small></span>
+                                                    <span class="texto_depoimento texto_evento">Data: <small><?php echo dataBr($obj[3]); ?></small></span>
+                                                    <span class="texto_depoimento texto_evento">Horário: <small><?php echo $obj[4]; ?></small></span>
+                                                    <span class="texto_depoimento texto_evento">Valor: <small><?php echo $obj[5] == 0 ? "Free": "R$ ".$obj[5]; ?></small></span>
+                                                </div>
+                                                <div class="linha_vertical base_box_depoimento base_evento">
+                                                    <button type="submit" class="botao editar_botao botao_amarelo" name="editar" value="<?php echo $obj[0]; ?>">Editar</button>
+                                                    <button type="button" class="botao excluir_botao botao_vermelho" name="excluir" value="evento_<?php echo $obj[0]; ?>">Excluir</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                </form>
+                                <?php
+                                } 
+                                ?>
                             </div>
+                            <?php
+                        }
 
-                            <div class='box_evento'>
-                                <form method='POST' action='php/controle_sistema.php?f=configEvento'>
-                                    <div class='linha_vertical'>
-                                        <div class='box_img_evento'>
-                                            <img class='centralizar_img' src='img_evento/evento.png' />
-                                        </div>
-                                        <div class='box_texto_evento'>
-                                            <span class='texto_depoimento texto_evento'>Nome do evento: <small>Evento de biquini</small></span>
-                                            <span class='texto_depoimento texto_evento'>Endereço: <small>Rua Expedicionário Aquiles Brasil</small></span>
-                                            <span class='texto_depoimento texto_evento'>Data: <small>00/00/0000</small></span>
-                                            <span class='texto_depoimento texto_evento'>Horário: <small>00:00</small></span>
-                                            <span class='texto_depoimento texto_evento'>Valor: <small>R$ 00,00</small></span>
-                                        </div>
-                                        <div class=' linha_vertical base_box_depoimento base_evento'>
-                                            <button type='submit' class='botao editar_botao botao_amarelo' name='editar' value=''>Editar</button>
-                                            <button type='submit' class='botao excluir_botao botao_vermelho' name='excluir' value=''>Excluir</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class='box_evento'>
-                                <form method='POST' action='php/controle_sistema.php?f=configEvento'>
-                                    <div class='linha_vertical'>
-                                        <div class='box_img_evento'>
-                                            <img class='centralizar_img' src='img_evento/evento.png' />
-                                        </div>
-                                        <div class='box_texto_evento'>
-                                            <span class='texto_depoimento texto_evento'>Nome do evento: <small>Evento de biquini</small></span>
-                                            <span class='texto_depoimento texto_evento'>Endereço: <small>Rua Expedicionário Aquiles Brasil</small></span>
-                                            <span class='texto_depoimento texto_evento'>Data: <small>00/00/0000</small></span>
-                                            <span class='texto_depoimento texto_evento'>Horário: <small>00:00</small></span>
-                                            <span class='texto_depoimento texto_evento'>Valor: <small>R$ 00,00</small></span>
-                                        </div>
-                                        <div class=' linha_vertical base_box_depoimento base_evento'>
-                                            <button type='submit' class='botao editar_botao botao_amarelo' name='editar' value=''>Editar</button>
-                                            <button type='submit' class='botao excluir_botao botao_vermelho' name='excluir' value=''>Excluir</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        else
+                        {   ?>
+                            <span class="titulo_nao_existe">Você não possui nenhum evento!<i class="fa fa-frown-o" aria-hidden="true"></i></span>
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </section>

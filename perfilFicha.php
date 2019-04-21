@@ -1,6 +1,6 @@
 <?php
     include('php/menu_sistema.php');
-
+ 
     if(empty($_SESSION['nome_aula']))
     {
         $_SESSION['nome_aula'] = "";
@@ -9,9 +9,8 @@
     if(isset($_GET['id']))
     {   
         $url_id = $_GET['id'];
-        $url_id = explode(">", $url_id);
 
-        $_SESSION['id_perfil'] = $url_id[1];
+        $_SESSION['id_perfil'] = $url_id;
         $_SESSION['dados_usuario_perfil'] = buscarPerfil($_SESSION['id_perfil']);
     }
 ?>
@@ -49,7 +48,7 @@
                         <h2 class="titulo_sub_formulario">Fichas</h2>
 
                         <div class="linha_vertical pesquisar_cliente">
-                            <button type="button" class="botao botao_azul botao_add_ficha"><i class="fa fa-plus" aria-hidden="true"></i>Nova</button>
+                            <a href="<?php echo 'criarFichaIndividual.php?id=' . $_SESSION['id_perfil']; ?>" class="botao botao_azul botao_add_ficha"><i class="fa fa-plus" aria-hidden="true"></i>Nova</a>
                         </div>
 
                         <form method="POST" action="" id="formulario">

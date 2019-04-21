@@ -12,6 +12,8 @@
         $_SESSION['horario_termino'] = "";
         $_SESSION['preco'] = "";
     }
+
+    $listar_planos = listarPlanos();
 ?>
                     <h1 class="titulo_formulario">Administrar Planos</h1>
                     
@@ -101,11 +103,37 @@
                     <br>
                     <div class="envelope_formulario">
                         <h2 class="titulo_sub_formulario">Planos em destaque</h2>
-                        <div class="linha_card">
+
+                        <?php 
+                        if($listar_planos->num_rows)
+                        {   ?>
+                            <div class="linha_card">
+                                <?php
+                                while($obj = $listar_planos->fetch_array(MYSQLI_NUM)){ ?>
+                                    <div class="box_contato">
+                                        <form method="POST" action="php/controle_sistema.php?f=configPlano">
+                                            <h1><?php echo $obj[2]; ?></h1>
+                                            <div class="box_img_anuncio">
+                                                <img class="centralizar_img" src="img_planos/<?php echo $obj[1]; ?>" />
+                                            </div>
+                                            <div class="linha base_box_anuncio">
+                                                <button type="submit" class="botao editar_botao botao_amarelo" name="editar" value="<?php echo $obj[0]; ?>">Editar</button>
+                                                <button type="button" class="botao excluir_botao botao_vermelho" name="excluir" value="planos_<?php echo $obj[0]; ?>">Excluir</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+                            </div>
                             <?php
-                                listarPlanos();
-                            ?>
-                        </div>
+                        }
+
+                        else{ ?>
+                            <span class="titulo_nao_existe">Você não possui nenhum plano!<i class="fa fa-frown-o" aria-hidden="true"></i></span>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </section>

@@ -156,19 +156,6 @@ session_start();
         header("location: ../index.php");
     }
 
-    //Listar planos
-    function listarNomePlanos(){
-        $conexao = conexao();
-        $sql = "SELECT * FROM planos WHERE acao = 'ativo' ORDER BY tipo_plano ASC";
-        $resultado = $conexao->query($sql);
-
-        if($resultado)
-            return $resultado;
-
-        else
-            return "Nenhum plano cadastrado...";
-    }
-
     //Listar dias da semana
     function listarDiasSemana(){
 
@@ -222,17 +209,19 @@ session_start();
                         if($resultado_repeteco->num_rows)
                         {
                             $_SESSION['nome_img_update'] = $nome_img_update;
-                            header('location: ../quiosque.php?f=dup');
+                            $_SESSION['mensagem_alerta'] = "Nome já cadastrado, escolha outro!";
+                            header('location: ../quiosque.php?f=aten');
                         }
 
                         else
                         {
-                            $sql_insert = "INSERT INTO anuncio (nome_img, nome) VALUES ('".$novoNome."', '".$nome_img_update."')";
+                            $sql_insert = "INSERT INTO anuncio (nome_img, nome, situacao) VALUES ('".$novoNome."', '".$nome_img_update."', 'ativo')";
                             $resultado = $conexao->query($sql_insert); 
 
                             if($resultado)
                             {
                                 $_SESSION['nome_img_update'] = "";  
+                                $_SESSION['mensagem_alerta'] = "Anúncio cadastrado com sucesso!";
                                 header('location: ../quiosque.php?f=ok');
                             }
 
@@ -257,6 +246,7 @@ session_start();
         else
         {
             $_SESSION['nome_img_update'] = $nome_img_update;
+            $_SESSION['mensagem_alerta'] = "Preencha todos os campos!";
             header("location: ../quiosque.php?f=aten");
         }
     }
@@ -264,24 +254,10 @@ session_start();
     function listarAnuncio()
     {
         $conexao = conexao();
-        $sql = "SELECT * FROM anuncio ORDER BY nome ASC";
+        $sql = "SELECT * FROM anuncio WHERE situacao = 'ativo' ORDER BY nome ASC";
         $resultado = $conexao->query($sql);
 
-        if($resultado)
-        {
-            while($obj = mysqli_fetch_assoc($resultado))
-            {
-                echo    "<div class='box_contato'>
-                            <h1>".$obj['nome']."</h1>
-                            <div class='box_img_anuncio'>
-                                <img class='centralizar_img' src='img_anuncio/".$obj['nome_img']."' />
-                            </div>
-                            <div class='linha base_box_anuncio'>
-                                <button type='button' class='botao excluir_botao botao_vermelho' value='anuncio_".$obj['id']."'>Excluir</button>
-                            </div>
-                        </div>";
-            }
-        }
+        return $resultado;
     }
 
     /*Funcoes do plano*/
@@ -321,7 +297,8 @@ session_start();
                             $_SESSION['horario_termino'] = $horario_termino;
                             $_SESSION['preco'] = $preco;
 
-                            header("location: ../plano.php?f=dup");
+                            $_SESSION['mensagem_alerta'] = "Plano já cadastrado!";
+                            header("location: ../plano.php?f=aten");
                         }
 
                         else
@@ -346,6 +323,7 @@ session_start();
                                 $_SESSION['preco'] = "";
                                 $_SESSION['img_mini'] = "mini_img_anuncio.jpg";
 
+                                $_SESSION['mensagem_alerta'] = "Plano cadastrado com sucesso!";
                                 header("location: ../plano.php?f=ok");
                             }
                         }
@@ -365,35 +343,22 @@ session_start();
             $_SESSION['horario_termino'] = $horario_termino;
             $_SESSION['preco'] = $preco;
 
+            $_SESSION['mensagem_alerta'] = "Preencha todos os campos!";
             header("location: ../plano.php?f=aten");
         }
     }
 
-    function listarPlanos()
-    {
+    //Listar planos
+    function listarPlanos(){
         $conexao = conexao();
-
-        $sql = "SELECT * FROM planos ORDER BY tipo_plano ASC";
+        $sql = "SELECT * FROM planos WHERE acao = 'ativo' ORDER BY tipo_plano ASC";
         $resultado = $conexao->query($sql);
 
         if($resultado)
-        {
-            while($obj = mysqli_fetch_assoc($resultado))
-            {
-                echo    "<div class='box_contato'>
-                            <form method='POST' action='php/controle_sistema.php?f=configPlano'>
-                                <h1>".$obj['tipo_plano']."</h1>
-                                <div class='box_img_anuncio'>
-                                    <img class='centralizar_img' src='img_planos/".$obj['img_plano']."' />
-                                </div>
-                                <div class='linha base_box_anuncio'>
-                                    <button type='submit' class='botao editar_botao botao_amarelo' name='editar' value=".$obj['id'].">Editar</button>
-                                    <button type='button' class='botao excluir_botao botao_vermelho' name='excluir' value='planos_".$obj['id']."'>Excluir</button>
-                                </div>
-                            </form>
-                        </div>";
-            }
-        }
+            return $resultado;
+
+        else
+            return "Nenhum plano cadastrado...";
     }
 
     function configPlano()
@@ -435,60 +400,112 @@ session_start();
 
         else if(isset($_POST["salvar"]))
         {
-            if(isset($_FILES['anexar_arquivo']['name']) && $_FILES["anexar_arquivo"]["error"] == 0)
+            //Verificar se os campos estão preenchidos
+            if($nome_aula != "" && $inicio_dia_semana != "" && $ligacao_dia_semana != "" && $termino_dia_semana
+            && $horario_inicio != "" && $horario_ligacao != "" && $horario_termino != "" && $preco != "")
             {
-                $arquivo_tmp = $_FILES['anexar_arquivo']['tmp_name'];
-                $nome = $_FILES['anexar_arquivo']['name'];
-                $extensao = strrchr($nome, '.');
-                $extensao = strtolower($extensao);
-
-                if(strstr('.jpg;.jpeg;.gif;.png', $extensao))
+                //Verificar se adicionou img
+                if(isset($_FILES['anexar_arquivo']['name']) && $_FILES["anexar_arquivo"]["error"] == 0)
                 {
-                    $novoNome = md5(microtime()) . '.' . $extensao;
-                    $destino = '../img_planos/' . $novoNome;
+                    $arquivo_tmp = $_FILES['anexar_arquivo']['tmp_name'];
+                    $nome = $_FILES['anexar_arquivo']['name'];
+                    $extensao = strrchr($nome, '.');
+                    $extensao = strtolower($extensao);
 
-                    if(move_uploaded_file( $arquivo_tmp, $destino))
+                    if(strstr('.jpg;.jpeg;.gif;.png', $extensao))
                     {
-                        $sql_existe = "SELECT * FROM planos WHERE tipo_plano = '".$nome_aula."'";
-                        $resultado_existe = $conexao->query($sql_existe);
+                        $novoNome = md5(microtime()) . '.' . $extensao;
+                        $destino = '../img_planos/' . $novoNome;
 
-                        if($resultado_existe->num_rows)
-                            header("location: ../editar_plano.php?f=dup");
+                        if(move_uploaded_file( $arquivo_tmp, $destino))
+                        {
+                            $sql_existe = "SELECT * FROM planos WHERE tipo_plano = '".$nome_aula."'";
+                            $resultado_existe = $conexao->query($sql_existe);
+
+                            if($resultado_existe->num_rows)
+                            {
+                                $_SESSION['mensagem_alerta'] = "Plano já cadastrado!";
+                                header("location: ../editar_plano.php?f=aten");
+                            }
+
+                            else
+                            {
+                                $sql_editar = "UPDATE planos SET img_plano = '".$novoNome."', tipo_plano = '".$nome_aula."', semana = '".$inicio_dia_semana. " " .$ligacao_dia_semana. " " .$termino_dia_semana. "', horario = '".$horario_inicio. " " .$horario_ligacao. " " .$horario_termino."', preco = '".$preco."' WHERE id = '".$salvar."'";
+                                $resultado_editar = $conexao->query($sql_editar);
+
+                                if($resultado_editar)
+                                {
+                                    $_SESSION['mensagem_alerta'] = "Plano alterado com sucesso!";
+                                    $_SESSION['editar_id'] = "";
+                                    $_SESSION['editar_img_mini_plano'] = "";
+                                    $_SESSION['editar_nome_aula'] = "";
+                                    $_SESSION['editar_preco'] = "";
+                                    $_SESSION['editar_inicio_dia_semana'] = "";
+                                    $_SESSION['editar_ligacao_dia_semana'] = "";
+                                    $_SESSION['editar_termino_dia_semana'] = "";
+                                    $_SESSION['editar_horario_inicio'] = "";
+                                    $_SESSION['editar_horario_ligacao'] = "";
+                                    $_SESSION['editar_horario_termino'] = "";
+                                    header("location: ../plano.php?f=ok");
+                                }
+
+                                else
+                                {
+                                    $_SESSION['mensagem_alerta'] = "Erro!";
+                                    header("location: ../plano.php?f=erro");
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Se não adicionou
+                else
+                {
+                    $sql_existe = "SELECT * FROM planos WHERE tipo_plano = '".$nome_aula."'";
+                    $resultado_existe = $conexao->query($sql_existe);
+
+                    if($resultado_existe->num_rows)
+                    {
+                        $_SESSION['mensagem_alerta'] = "Plano já cadastrado!";
+                        header("location: ../editar_plano.php?f=aten");
+                    }
+
+                    else
+                    {
+                        $sql_editar = "UPDATE planos SET tipo_plano = '".$nome_aula."', semana = '".$inicio_dia_semana. " " .$ligacao_dia_semana. " " .$termino_dia_semana. "', horario = '".$horario_inicio. " " .$horario_ligacao. " " .$horario_termino."', preco = '".$preco."' WHERE id = '".$salvar."'";
+                        $resultado_editar = $conexao->query($sql_editar);
+
+                        if($resultado_editar)
+                        {
+                            $_SESSION['editar_id'] = "";
+                            $_SESSION['editar_img_mini_plano'] = "";
+                            $_SESSION['editar_nome_aula'] = "";
+                            $_SESSION['editar_preco'] = "";
+                            $_SESSION['editar_inicio_dia_semana'] = "";
+                            $_SESSION['editar_ligacao_dia_semana'] = "";
+                            $_SESSION['editar_termino_dia_semana'] = "";
+                            $_SESSION['editar_horario_inicio'] = "";
+                            $_SESSION['editar_horario_ligacao'] = "";
+                            $_SESSION['editar_horario_termino'] = "";
+
+                            $_SESSION['mensagem_alerta'] = "Plano alterado com sucesso!";
+                            header("location: ../plano.php?f=ok");
+                        }
 
                         else
                         {
-                            $sql_editar = "UPDATE planos SET img_plano = '".$novoNome."', tipo_plano = '".$nome_aula."', semana = '".$inicio_dia_semana. " " .$ligacao_dia_semana. " " .$termino_dia_semana. "', horario = '".$horario_inicio. " " .$horario_ligacao. " " .$horario_termino."', preco = '".$preco."' WHERE id = '".$salvar."'";
-                            $resultado_editar = $conexao->query($sql_editar);
-
-                            if($resultado_editar)
-                                header("location: ../plano.php?f=alt");
-
-                            else
+                            $_SESSION['mensagem_alerta'] = "Erro!";
                             header("location: ../plano.php?f=erro");
                         }
                     }
                 }
-            }
-
+            }  
+            
             else
             {
-                $sql_existe = "SELECT * FROM planos WHERE tipo_plano = '".$nome_aula."'";
-                $resultado_existe = $conexao->query($sql_existe);
-
-                if($resultado_existe->num_rows)
-                    header("location: ../editar_plano.php?f=dup");
-
-                else
-                {
-                    $sql_editar = "UPDATE planos SET tipo_plano = '".$nome_aula."', semana = '".$inicio_dia_semana. " " .$ligacao_dia_semana. " " .$termino_dia_semana. "', horario = '".$horario_inicio. " " .$horario_ligacao. " " .$horario_termino."', preco = '".$preco."' WHERE id = '".$salvar."'";
-                    $resultado_editar = $conexao->query($sql_editar);
-
-                    if($resultado_editar)
-                        header("location: ../plano.php?f=alt");
-
-                    else
-                    header("location: ../plano.php?f=erro");
-                }
+                $_SESSION['mensagem_alerta'] = "Preencha todos os campos!";
+                header("location: ../editar_plano.php?f=aten");
             }
         }
     }
@@ -523,7 +540,8 @@ session_start();
                             $_SESSION['img_mini'] = "mini_img_anuncio.jpg";
                             $_SESSION['nome_depoimento'] = "";
                             $_SESSION['depoimento'] = "";
-
+                            
+                            $_SESSION['mensagem_alerta'] = "Depoimento cadastrado com sucesso!";
                             header("location: ../depoimento.php?f=ok");
                         }
 
@@ -531,7 +549,7 @@ session_start();
                         {
                             $_SESSION['nome_depoimento'] = $nome_depoimento;
                             $_SESSION['depoimento'] = $depoimento;
-
+                            $_SESSION['mensagem_alerta'] = "Erro!";
                             header("location: ../depoimento.php?f=erro");
                         }
                     }
@@ -543,6 +561,7 @@ session_start();
         {
             $_SESSION['nome_depoimento'] = $nome_depoimento;
             $_SESSION['depoimento'] = $depoimento;
+            $_SESSION['mensagem_alerta'] = "Depoimento cadastrado com sucesso!";
             header("location: ../depoimento.php?f=aten");
         }
     }
@@ -668,14 +687,19 @@ session_start();
             
         if($resultado_excluir)
         {
+            $_SESSION['mensagem_alerta'] = "Item excluido com sucesso!";
+
             if($tabela == "anuncio")
-                header("location: ../quiosque.php?f=exc");
+                header("location: ../quiosque.php?f=ok");
 
             else if($tabela == "planos")
-                header("location: ../plano.php?f=exc");
+                header("location: ../plano.php?f=ok");
 
             else if($tabela == "depoimento")
-                header("location: ../depoimento.php?f=exc");
+                header("location: ../depoimento.php?f=ok");
+
+            else if($tabela == "evento")
+                header("location: ../evento.php?f=ok");
         }
     }
 
@@ -777,10 +801,10 @@ session_start();
                                     $rg_bd = removerMascaraRG($rg_cadastrado);
 
                                     $sql_cadastrar = "INSERT INTO usuario (primeiro_nome, sobrenome, usuario, senha, email, cpf, rg, sexo, nascimento, tipo_aula, 
-                                    telefone, endereco, situacao, tipo_usuario, img_usuario, id_crip) VALUE('".$primeiro_nome_cadastrado."', '".$sobrenome_cadastrado."', 
+                                    telefone, endereco, situacao, tipo_usuario, img_usuario) VALUES('".$primeiro_nome_cadastrado."', '".$sobrenome_cadastrado."', 
                                     '".$usuario_cadastrado."', '".$senha_cadastrado."', '".$email_cadastrado."', '".$cpf_bd."', '".$rg_bd."', '".$sexo_cadastrado."', 
                                     '".$data."', ".$tipo_aula_cadastrado.", '".$telefone_bd."', '".$endereco_bd."', '".$situacao_cadastrado."', '".$permissao_cadastrado."', 
-                                    '".$novo_nome."', '".md5($usuario_cadastrado)."')";
+                                    '".$novo_nome."')";
                                     $resultado_cadastrar = $conexao->query($sql_cadastrar);
 
                                     //Adicionou no bd
@@ -861,15 +885,241 @@ session_start();
         return $resultado;
     }
 
+    //Listar clientes - Paginacao
+    function listarClientesPaginacao(){
+
+        $inicio_busca = "LIMIT " . $_SESSION['inicio_busca'];
+        $filtrar_pagina = $inicio_busca . ", " . $_SESSION['limite_busca'];
+
+        $conexao = conexao();
+        $sql = "SELECT usuario.*, plano.* FROM usuario AS usuario INNER JOIN planos AS plano ON plano.id = usuario.tipo_aula ORDER BY usuario.primeiro_nome ASC $filtrar_pagina";
+        $resultado = $conexao->query($sql);
+        return $resultado;
+    }
+
+    //Pegar total usuario
+    function totalUsuario(){
+        $conexao = conexao();
+        $sql = "SELECT * FROM usuario ORDER BY primeiro_nome ASC";
+        $resultado = $conexao->query($sql);
+
+        return $resultado->num_rows;
+    }
+
     //Buscar perfil
     function buscarPerfil($id){
         
         $conexao = conexao();
-        $sql = "SELECT * FROM usuario WHERE id_crip = '".$id."'";
+        $sql = "SELECT * FROM usuario WHERE id = '".$id."'";
         $resultado = $conexao->query($sql);
         $resultado_busca = $resultado->fetch_array(MYSQLI_NUM);
 
         return $resultado_busca;
     }
     
+    //Cadastrar Evento
+    function cadastrarEvento(){
+
+        extract($_POST);
+        $conexao = conexao();
+
+        $_SESSION['nome_evento'] = $nome_evento;
+        $_SESSION['endereco_evento'] = $endereco_evento;
+        $_SESSION['dia_evento'] = $dia_evento;
+        $_SESSION['hora_evento'] = $hora_evento;
+        $_SESSION['valor_evento'] = $valor_evento;
+
+        if($nome_evento != "" && $endereco_evento != "" && $dia_evento != "" && $hora_evento != "")
+        {
+            $arquivo_tmp = $_FILES['anexar_arquivo']['tmp_name'];
+            $nome = $_FILES['anexar_arquivo']['name'];
+            $extensao = strrchr($nome, '.');
+            $extensao = strtolower($extensao);
+
+            if($nome == "" || strstr('.jpg;.jpeg;.gif;.png', $extensao))
+            {
+                if($nome == "")
+                    $novo_nome = "perfil.png";
+
+                else
+                    $novo_nome = md5(microtime()) . '.' . $extensao;
+
+                    
+                $destino = '../img_evento/'.$novo_nome;
+
+                if(move_uploaded_file($arquivo_tmp, $destino) || $novo_nome == "perfil.png")
+                {
+                    $dataBanco = dataBd($dia_evento);
+
+                    $sql = "SELECT * FROM evento WHERE data = '".$dataBanco."'";
+                    $resultado = $conexao->query($sql);
+
+                    if($resultado->num_rows)
+                    {
+                        $_SESSION['mensagem_alerta'] = "Já existe um evento nessa data!";
+                        header("location: ../evento.php?f=aten");
+                    }
+
+                    else
+                    {
+                        $sql = "INSERT INTO evento (nome_evento, endereco, data, hora, valor, img_evento) VALUES('".$nome_evento."', '".$endereco_evento."',
+                        '".$dataBanco."', '".$hora_evento."', '".$valor_evento."', '".$novo_nome."')";
+                        $resultado = $conexao->query($sql);
+
+                        if($resultado)
+                        {
+                            $_SESSION['nome_evento'] = "";
+                            $_SESSION['endereco_evento'] = "";
+                            $_SESSION['dia_evento'] = "";
+                            $_SESSION['hora_evento'] = "";
+                            $_SESSION['valor_evento'] = "";
+
+                            $_SESSION['mensagem_alerta'] = "Evento cadastrado com sucesso!";
+                            header("location: ../evento.php?f=ok");
+                        }
+
+                        else
+                        {
+                            $_SESSION['mensagem_alerta'] = "Erro!";
+                            header("location: ../evento.php?f=erro");
+                        }
+                    }
+                }
+            }
+        }
+
+        else
+        {
+            $_SESSION['mensagem_alerta'] = "Preencha todos os campos!";
+            header("location: ../evento.php?f=aten");
+        }
+    }
+
+    //Listar eventos
+    function listarEvento(){
+
+        $conexao = conexao();
+        $sql = "SELECT * FROM evento ORDER BY nome_evento DESC";
+        $resultado = $conexao->query($sql);
+
+        return $resultado;
+    }
+
+    //Listar grupo muscular
+    function grupoMuscular(){
+        $conexao = conexao();
+        $sql = "SELECT * FROM grupo_muscular ORDER BY nome ASC";
+        $resultado = $conexao->query($sql);
+
+        return $resultado;
+    }
+
+    //Salvar exercicio
+    function cadastrarExercicio(){
+
+        extract($_POST);
+        $conexao = conexao();
+
+        $_SESSION['tipo_exercicio'] = $tipo_exercicio;
+        $_SESSION['nome'] = $nome;
+        $_SESSION['descricao'] = $descricao;
+        $_SESSION['grupo_muscular'] = $grupo;
+        $_SESSION['numero_aparelho'] = $number_aparelho;
+        $_SESSION['dica'] = $dica;
+        $_SESSION['situacao'] = $situacao;
+
+        if($tipo_exercicio != "" && $nome != "" && $grupo != "" && $number_aparelho != "")
+        {
+
+            $sql = "SELECT * FROM exercicios WHERE nome = '".$nome."' AND
+                    id_grupo = '".$grupo."'";
+            $resultado = $conexao->query($sql);
+
+            if($resultado->num_rows)
+            {
+                $_SESSION['mensagem_alerta'] = "Esse exercício já está cadastrado!";
+                header("location: ../novoExercicio.php?f=aten");
+            }
+
+            else
+            {
+                $sql = "INSERT INTO exercicios (tipo, nome, descricao, id_grupo,
+                    numero_aparelho, dica, situacao) VALUES('".$tipo_exercicio."', '".$nome."', 
+                    '".$descricao."', '".$grupo."', '".$number_aparelho."', '".$dica."', '".$situacao."')";
+                $resultado = $conexao->query($sql);
+
+                if($resultado)
+                {
+                    $_SESSION['tipo_exercicio'] = "musculacao";
+                    $_SESSION['nome'] = "";
+                    $_SESSION['descricao'] = "";
+                    $_SESSION['grupo_muscular'] = "";
+                    $_SESSION['numero_aparelho'] = "";
+                    $_SESSION['dica'] = "";
+                    $_SESSION['situacao'] = '1';
+
+                    $_SESSION['mensagem_alerta'] = "Exercício cadastrado com sucesso!";
+                    header("location: ../novoExercicio.php?f=ok");
+                }
+
+                else
+                {
+                    $_SESSION['mensagem_alerta'] = "Erro de conexao com banco!";
+                    header("location: ../novoExercicio.php?f=erro");
+                }
+            }
+        }
+
+        else
+        {
+            $_SESSION['mensagem_alerta'] = "Preencha todos os campos!";
+            header("location: ../novoExercicio.php?f=aten");
+        }
+    }
+
+    //listar grupo_muscular somente se estiver sendo usado
+    function listarGrupoMuscularUsado(){
+
+        $conexao = conexao();
+        $sql = "SELECT muscular.*, exercicio.* FROM grupo_muscular AS muscular LEFT JOIN exercicios AS 
+                exercicio ON exercicio.id_grupo = muscular.id WHERE exercicio.situacao = '1' GROUP BY exercicio.id_grupo ORDER BY muscular.nome ASC";
+        $resultado = $conexao->query($sql);
+
+        return $resultado;
+    }
+
+    //Listar os exercicios
+    function listarExercicio(){
+
+        $conexao = conexao();
+        extract($_POST);
+
+        $id_grupo = $_POST['grupo_muscular'];
+        $action = $acao;
+
+        $retorno = array();
+
+        if($action == "listar_exercicio")
+        {   
+            $sql = "SELECT * FROM exercicios WHERE id_grupo = '".$id_grupo."' ORDER BY tipo ASC";
+            $resultado = $conexao->query($sql);
+
+            if($resultado)
+            {
+                $retorno['total'] = $resultado->num_rows;
+                $contator = 0;
+
+                while($obj = $resultado->fetch_array(MYSQLI_NUM))
+                {
+                    $retorno['id'][$contator] = $obj[0];
+                    $retorno['tipo'][$contator] = $obj[1];
+                    $retorno['nome'][$contator] = $obj[2];
+
+                    $contator++;
+                }
+            }
+
+            die(json_encode($retorno));
+        }
+    }
 ?>

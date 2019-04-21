@@ -92,13 +92,12 @@ if(empty($_SESSION['mensagem_alerta'])){
 
                     <nav id="menu_sistema">
                         <ul>
-                            <li><i class="fa fa-eye" aria-hidden="true"><a href="serie.php">Visualizar Serie</a></i></li>
-                            <li><i class="fa fa-book" aria-hidden="true"><a href="historico.php">Histórico</a></i></li>
-                            <li><i class="fa fa-user-plus" aria-hidden="true"><a href="cadastrarAluno.php">Cadastrar Cliente</a></i></li>
-                            <li><i class="fa fa-pencil-square-o" aria-hidden="true"><a href="criarFicha.php">Criar Ficha</a></i></li>
-                            <li><i class="fa fa-desktop" aria-hidden="true"><a href="quiosque.php">Quiosque</a></i></li>
-                            <li><i class="fa fa-clone" aria-hidden="true"><a href="plano.php">Planos</a></i></li>
-                            <li><i class="fa fa-calendar" aria-hidden="true"><a href="evento.php">Eventos</a></i></li>
+                            <li><i class="fa fa-user-plus" aria-hidden="true"><a href="cadastrarAluno.php">Cadastrar cliente</a></i></li>
+                            <li><i class="fa fa-pencil-square-o" aria-hidden="true"><a href="criarFicha.php">Criar ficha</a></i></li>
+                            <li><i class="fa fa-paw" aria-hidden="true"><a href="novoExercicio.php">Novo exercício</a></i></li>
+                            <li><i class="fa fa-tachometer" aria-hidden="true"><a href="quiosque.php">Dashboard</a></i></li>
+                            <li><i class="fa fa-clone" aria-hidden="true"><a href="plano.php">Criar planos</a></i></li>
+                            <li><i class="fa fa-calendar" aria-hidden="true"><a href="evento.php">Cadastrar eventos</a></i></li>
                             <li><i class="fa fa-quote-right" aria-hidden="true"><a href="depoimento.php">Depoimentos</a></i></li>
                         </ul>
                     </nav>
