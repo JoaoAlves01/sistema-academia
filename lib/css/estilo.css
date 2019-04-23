@@ -780,6 +780,15 @@ select
     background: #2A3F54;
 }
 
+#ficha_individual .label_sistema{
+    display: inline-block;
+    width: 150px;
+    margin-left: 0;
+}
+
+.container_escondido{
+    margin-top: 10px;
+}
 
 /*Config do card planos*/
 .card_plano,
@@ -2146,7 +2155,7 @@ select
     top: -30px;
     right: 0;
     width: 20px;
-    height: 20px;
+    min-height: 20px;
     font-size: 10px;
     border-radius: 50%;
 }

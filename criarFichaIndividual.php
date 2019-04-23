@@ -10,6 +10,8 @@
     }
 
     $grupo_muscular = listarGrupoMuscularUsado();
+    $listarDiasSemana = listarDiasSemana();
+    $listarUsuario = listarUsuario('Professor');
 ?>
                     <h1 class="titulo_formulario">Administrar Fichas</h1>
                     
@@ -41,136 +43,198 @@
                     </div>
                     <br>
 
-                    <div class="envelope_formulario">
-                        <h2 class="titulo_sub_formulario">Treino A</h2>
+                    <form method="POST" action="php/controle_sistema.php?f=criarFicha">
+                        <div class="container_envelope_treino">
+                            <div class="envelope_formulario">
+                                <h2 class="titulo_sub_formulario">Treino A</h2>
 
-                        <form method="POST" action="php/controle.php?f=criarFicha">
-                            <div class="conter_campos_formulario">
-                                <div class="campos_tres">
-                                    <div class="divisao_campo">
-                                        <label class="label_sistema">Treino predefinido</label>
-                                        <select class="campo_sistema" name="inicio_dia_semana">
-                                                
-                                        </select>
-                                    </div>
+                                <div class="conter_campos_formulario">
+                                    <div class="campos_tres">
+                                        <div class="divisao_campo">
+                                            <label class="label_sistema">Treino predefinido</label>
+                                            <select class="campo_sistema" name="treino_predefinido">
+                                                        
+                                            </select>
+                                        </div>
 
-                                    <div class="divisao_campo">
-                                        <label class="label_sistema">Dia da semana</label>
-                                        <select class="campo_sistema" name="inicio_dia_semana">
-                                            <option value="Domingo" <?php echo $_SESSION['inicio_dia_semana'] == 'Domingo'?'selected':'';?>>Domingo</option>
-                                            <option value="Segunda" <?php echo $_SESSION['inicio_dia_semana'] == 'Segunda'?'selected':'';?>>Segunda</option>
-                                            <option value="Terça" <?php echo $_SESSION['inicio_dia_semana'] == 'Terça'?'selected':'';?>>Terça</option>
-                                            <option value="Quarta" <?php echo $_SESSION['inicio_dia_semana'] == 'Quarta'?'selected':'';?>>Quarta</option>
-                                            <option value="Quinta" <?php echo $_SESSION['inicio_dia_semana'] == 'Quinta'?'selected':'';?>>Quinta</option>
-                                            <option value="Sexta" <?php echo $_SESSION['inicio_dia_semana'] == 'Sexta'?'selected':'';?>>Sexta</option>
-                                            <option value="Sábado" <?php echo $_SESSION['inicio_dia_semana'] == 'Sábado'?'selected':'';?>>Sábado</option>  
-                                        </select>
-                                    </div>
-
-                                    <div class="divisao_campo">
-                                        <label class="label_sistema">Descrição</label>
-                                        <input type="text" class="campo_sistema" name="descricao" id="descricao" maxlength="40">
-                                    </div>
-                                </div>
-
-
-                                <div class="container_exercicio">
-                                    
-                                    <div class="sub_container_exercicio mostrar_modal">
-                                        <div class="campos_tres">
-                                            <div class="divisao_campo">
-                                                <label class="label_sistema" for="grupo_muscular">Grupo muscular</label>
-                                                <div class="linha">
-                                                    <select class="campo_sistema select_grupo_muscular" name="grupo_muscular" id="grupo_muscular">
+                                        <div class="divisao_campo">
+                                            <label class="label_sistema">Dia da semana</label>
+                                            <select class="campo_sistema" name="dia_semana">
+                                                <?php 
+                                                    while($obj = $listarDiasSemana->fetch_array(MYSQL_NUM))
+                                                    {   ?>
+                                                        <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1]; ?></option>
                                                         <?php
-                                                        if($grupo_muscular->num_rows)
-                                                        {   ?>
-                                                            <option value="">Selecione</option>
-                                                            <?php
-                                                            while($obj = $grupo_muscular->fetch_array(MYSQL_NUM))
-                                                            {   ?>
-                                                                <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1]; ?></option> 
-                                                                <?php   
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="divisao_campo">
-                                                <label class="label_sistema" for="exercicio">Exercício</label>
-                                                <div class="linha">
-                                                    <select class="campo_sistema select_exercicio" name="exercicio" id="exercicio"> </select>
-                                                </div>
-                                            </div>
+                                                    }
+                                                ?>
+                                            </select>
                                         </div>
 
-                                        <div class="container_checkbox">
-                                            <label class="label_sistema"><input type="checkbox" name="conjucado" value="conjucado_a" class="campo_checkbox">Bi-set</label>
-                                        </div>
-                                    </div>
-                                    <!-- Bi-set -->
-                                    <div class="sub_container_exercicio">
-                                        <div class="campos_tres">
-                                            <div class="divisao_campo">
-                                                <label class="label_sistema" for="grupo_muscular">Grupo muscular</label>
-                                                <div class="linha">
-                                                    <select class="campo_sistema" name="grupo_muscular" id="grupo_muscular">
-                                                        <option value=""></option>    
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="divisao_campo">
-                                                <label class="label_sistema" for="exercicio">Exercício</label>
-                                                <div class="linha">
-                                                    <select class="campo_sistema" name="exercicio" id="exercicio">
-                                                        <option value=""></option>    
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="container_checkbox">
-                                            <label class="label_sistema"><input type="checkbox" name="conjucado" value="conjucado_a" class="campo_checkbox">Tri-set</label>
-                                        </div>
-                                    </div>
-                                    <!-- Tri-set -->
-                                    <div class="sub_container_exercicio">
-                                        <div class="campos_tres">
-                                            <div class="divisao_campo">
-                                                <label class="label_sistema" for="grupo_muscular">Grupo muscular</label>
-                                                <div class="linha">
-                                                    <select class="campo_sistema" name="grupo_muscular" id="grupo_muscular">
-                                                        <option value=""></option>    
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="divisao_campo">
-                                                <label class="label_sistema" for="exercicio">Exercício</label>
-                                                <div class="linha">
-                                                    <select class="campo_sistema" name="exercicio" id="exercicio">
-                                                        <option value=""></option>    
-                                                    </select>
-                                                </div>
-                                            </div>
+                                        <div class="divisao_campo">
+                                            <label class="label_sistema">Descrição</label>
+                                            <input type="text" class="campo_sistema" name="descricao" id="descricao" maxlength="40">
                                         </div>
                                     </div>
 
-                                    <div class="linha">
-                                        <button type="button" class="botao botao_azul adicionar_exercicio" name="adicionar">Adicionar</button>
-                                    </div>
-                                </div>
-                                
-                                <!-- Gerar exercicios -->
-                                <div class="container_exercicio_escolhido">
 
+                                    <div class="container_exercicio">
+                                            
+                                        <div class="sub_container_exercicio mostrar_modal">
+                                                <div class="campos_tres">
+                                                    <div class="divisao_campo">
+                                                        <label class="label_sistema" for="grupo_muscular">Grupo muscular</label>
+                                                        <div class="linha">
+                                                            <select class="campo_sistema select_grupo_muscular" name="grupo_muscular" id="grupo_muscular">
+                                                                <?php
+                                                                if($grupo_muscular->num_rows)
+                                                                {   ?>
+                                                                    <option value="">Selecione</option>
+                                                                    <?php
+                                                                    while($obj = $grupo_muscular->fetch_array(MYSQL_NUM))
+                                                                    {   ?>
+                                                                        <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1]; ?></option> 
+                                                                        <?php   
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="divisao_campo">
+                                                        <label class="label_sistema" for="exercicio">Exercício</label>
+                                                        <div class="linha">
+                                                            <select class="campo_sistema select_exercicio" name="exercicio" id="exercicio"> </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="container_checkbox">
+                                                    <label class="label_sistema"><input type="checkbox" name="conjucado" value="conjucado_a" class="campo_checkbox">Bi-set</label>
+                                                </div>
+                                        </div>
+                                        <!-- Bi-set -->
+                                        <div class="sub_container_exercicio">
+                                                <div class="campos_tres">
+                                                    <div class="divisao_campo">
+                                                        <label class="label_sistema" for="grupo_muscular">Grupo muscular</label>
+                                                        <div class="linha">
+                                                            <select class="campo_sistema" name="grupo_muscular" id="grupo_muscular">
+                                                                <option value=""></option>    
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="divisao_campo">
+                                                        <label class="label_sistema" for="exercicio">Exercício</label>
+                                                        <div class="linha">
+                                                            <select class="campo_sistema" name="exercicio" id="exercicio">
+                                                                <option value=""></option>    
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="container_checkbox">
+                                                    <label class="label_sistema"><input type="checkbox" name="conjucado" value="conjucado_a" class="campo_checkbox">Tri-set</label>
+                                                </div>
+                                        </div>
+                                        <!-- Tri-set -->
+                                        <div class="sub_container_exercicio">
+                                                <div class="campos_tres">
+                                                    <div class="divisao_campo">
+                                                        <label class="label_sistema" for="grupo_muscular">Grupo muscular</label>
+                                                        <div class="linha">
+                                                            <select class="campo_sistema" name="grupo_muscular" id="grupo_muscular">
+                                                                <option value=""></option>    
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="divisao_campo">
+                                                        <label class="label_sistema" for="exercicio">Exercício</label>
+                                                        <div class="linha">
+                                                            <select class="campo_sistema" name="exercicio" id="exercicio">
+                                                                <option value=""></option>    
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+
+                                        <div class="linha">
+                                            <button type="button" class="botao botao_azul adicionar_exercicio" name="adicionar">Adicionar</button>
+                                        </div>
+                                    </div>
+                                        
+                                    <!-- Gerar exercicios -->
+                                    <div class="container_exercicio_escolhido">
+                                        <input type="hidden" name="quantidade_exercicio" id="quantidade_exercicio">
+                                    </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <br>
+                            
+                            <div class="envelope_formulario">
+                                <div class="">
+                                    <label class="label_sistema">Instrutor</label>
+                                    <select class="campo_sistema" name="instrutor" id="instrutor">
+                                        <?php
+                                        if($listarUsuario->num_rows)
+                                        {   
+                                            while($obj = $listarUsuario->fetch_array(MYSQL_NUM))
+                                            {
+                                                ?>
+                                                <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1] . " " . $obj[2]; ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+
+                                    <div class="campos_tres">
+                                        <div class="divisao_campo">
+                                            <label class="label_sistema">Observações</label>
+                                            <textarea rows="3" class="campo_sistema" name="observacao" id="observacao"></textarea>
+                                        </div>
+
+                                        <div class="divisao_campo">
+                                            <label class="label_sistema">Patologia</label>
+                                            <textarea rows="3" class="campo_sistema" name="patologia" id="patologia"></textarea>
+                                        </div>
+                                    </div>
+                                                    
+                                    <label class="label_sistema">Objetivos</label>
+                                    <div class="container_checkbox" id="ficha_individual">
+                                        <label class="label_sistema"><input type="checkbox" name="objetivo[]" value="Cond. Físico" class="campo_checkbox">Cond. Físico</label>
+                                        <label class="label_sistema"><input type="checkbox" name="objetivo[]" value="Fortalec. Muscular" class="campo_checkbox">Fortalec. Muscular</label>
+                                        <label class="label_sistema"><input type="checkbox" name="objetivo[]" value="Hipertrofia" class="campo_checkbox">Hipertrofia</label>
+                                        <br>
+                                        <label class="label_sistema"><input type="checkbox" name="objetivo[]" value="Enrijec. Muscular" class="campo_checkbox">Enrijec. Muscular</label>
+                                        <label class="label_sistema"><input type="checkbox" name="objetivo[]" value="Red. Gordura" class="campo_checkbox">Red. Gordura</label>
+                                        <label class="label_sistema"><input type="checkbox" name="objetivo[]" value="Saúde" class="campo_checkbox">Saúde</label>
+                                        <br>
+                                        <label class="label_sistema"><input type="checkbox" name="outro" value="outro" class="campo_checkbox">Outros</label>
+                                        <br>
+                                        <div class="container_escondido">
+                                            <label class="label_sistema">Outros objetivos</label>
+                                            <input type="text" class="campo_sistema" name="info_outro" id="info_outro">
+                                        </div>
+                                    </div>
+
+                                    <label class="label_sistema">Situação</label>
+                                    <div class="container_radio">
+                                        <label class="label_sistema"><input type="radio" name="situacao" value="1" class="campo_radio">Ativado</label>
+                                        <label class="label_sistema"><input type="radio" name="situacao" value="0" class="campo_radio">Desativado</label>
+                                    </div>
+                                </div>
+
+                                <div class="linha">
+                                    <button type="submit" class="botao botao_azul" name="salvar">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </section>
         </div>

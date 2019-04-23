@@ -25,6 +25,17 @@ session_start();
         return $data;
     }
 
+    //Listar dias da semana
+    function listarDiasSemana(){
+
+        $conexao = conexao();
+        $sql = "SELECT * FROM dias_semana ORDER BY semana ASC";
+        $resultado = $conexao->query($sql);
+
+        if($resultado)
+            return $resultado;
+    }
+
     /*Funcao mascara de cpf*/
     function removerMascaraCPF($cpf) {
        
@@ -154,17 +165,6 @@ session_start();
     {
         session_destroy();
         header("location: ../index.php");
-    }
-
-    //Listar dias da semana
-    function listarDiasSemana(){
-
-        $conexao = conexao();
-        $sql = "SELECT * FROM dias_semana ORDER BY semana ASC";
-        $resultado = $conexao->query($sql);
-
-        if($resultado)
-            return $resultado;
     }
 
     /*Funcoes do quiosque*/
@@ -885,6 +885,14 @@ session_start();
         return $resultado;
     }
 
+    // listar usuario
+    function listarUsuario($permissao){
+        $conexao = conexao();
+        $sql = "SELECT * FROM usuario WHERE tipo_usuario = '".$permissao."' AND situacao = 'Ativo' ORDER BY primeiro_nome ASC";
+        $resultado = $conexao->query($sql);
+        return $resultado;
+    }
+
     //Listar clientes - Paginacao
     function listarClientesPaginacao(){
 
@@ -1114,6 +1122,7 @@ session_start();
                     $retorno['id'][$contator] = $obj[0];
                     $retorno['tipo'][$contator] = $obj[1];
                     $retorno['nome'][$contator] = $obj[2];
+                    $retorno['id_grupo'][$contator] = $obj[4];
 
                     $contator++;
                 }
@@ -1121,5 +1130,54 @@ session_start();
 
             die(json_encode($retorno));
         }
+    }
+
+    function criarFicha(){
+
+        $conexao = conexao();
+        extract($_POST);
+        $conj_checkedbox = array();
+        $objetivo_check;
+
+        //Verificar se os checks do objetivo estao marcado
+        if(isset($objetivo))
+        {
+            foreach($objetivo as $valor)
+            {
+                $conj_checkedbox[] = $valor;
+            }
+        }
+
+        //  Cadastro de ficha
+        $sql = "INSERT INTO fichas(id_aluno, qtd_treino, situacao, instrutor, observacao, patologia, 
+        objetivo, outros) VALUES('".$_SESSION['id_perfil']."', '".$quantidade_exercicio."', '".$situacao."',
+        '".$instrutor."', '".$observacao."', '".$patologia."', '".serialize($conj_checkedbox)."', '".$info_outro."')";
+        $resultado = $conexao->query($sql);
+
+        $_SESSION['id_ficha'] = mysqli_insert_id($conexao);
+
+        //Cadastro dos treino
+        for($i=1; $i <= $quantidade_exercicio; $i++)
+        {
+            // Musucalacao ou Cardiovascular
+            if($tipo[$i] == "musculacao" || $tipo[$i] == "cardio")
+            {
+                $sql_treino = "INSERT INTO treinos(id_ficha, dia_semana, descricao, grupo_muscular, exercicio, tempo, velocidade, carga) VALUES('".$_SESSION['id_ficha']."', '".$dia_semana."', '".$descricao."', '".$grupo_muscular[$i]."', '".$exercicio[$i]."', '".$tempo[$i]."', '".$velocidade[$i]."', '".$carga[$i]."')";
+            }
+            // Funcional
+            else if($tipo[$i] == "funcional")
+            {
+                $sql_treino = "INSERT INTO treinos(id_ficha, dia_semana, descricao, grupo_muscular, exercicio, serie, repeticao, carga, descanso) VALUES('".$_SESSION['id_ficha']."', '".$dia_semana."', '".$descricao."', '".$grupo_muscular[$i]."', '".$exercicio[$i]."', '".$serie[$i]."', '".$repeticao[$i]."', '".$cargar[$i]."', '".$descanso[$i]."')";
+            }
+            // Cardio
+            else
+            {
+                $sql_treino = "INSERT INTO treinos(id_ficha, dia_semana, descricao, grupo_muscular, exercicio) VALUES('".$_SESSION['id_ficha']."', '".$dia_semana."', '".$descricao."', '".$grupo_muscular[$i]."', '".$exercicio[$i]."')";
+            }
+
+            $resultado = $conexao->query($sql_treino);
+        }
+
+        header("location: ../perfilFicha.php?id=".$_SESSION['id_perfil']);
     }
 ?>
